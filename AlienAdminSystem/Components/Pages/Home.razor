@@ -1,0 +1,33 @@
+﻿<link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+<link rel="stylesheet" href="css/app.css" />
+<link rel="stylesheet" href="AlienAdminSystem.styles.css" />
+
+@page "/"
+
+<h1>Galactic Alien Administration System</h1>
+<p>Welcome to your new planet</p>
+
+@foreach (var alien in Aliens)
+{
+	<div class="row align-items-center">
+		<div class="col-4 d-flex justify-content-center">
+			<img src="@alien.Image" class="img-fluid" style="max-width: 150px; height: auto;" alt="@alien.Name" />
+		</div>
+		<div class="col-8">
+			<h4>Name: @alien.Name</h4>
+			<p>Age: @alien.Age</p>
+			<p>Planet: @alien.Planet</p>
+		</div>
+	</div>
+}
+
+@code {
+	private List<Alien> Aliens = new();
+
+	protected override void OnInitialized()
+	{
+		Aliens.Add(new Alien { Name = "Zog", Age = 234, Image = "images/alien1.jpg", Planet = "Mars" });
+		Aliens.Add(new Alien { Name = "Teak", Age = 144, Image = "images/alien2.jpg", Planet = "Saturn" });
+		Aliens.Add(new Alien { Name = "Wobo", Age = 314, Image = "images/alien3.jpg", Planet = "Neptune" });
+	}
+}

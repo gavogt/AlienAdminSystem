@@ -1,0 +1,55 @@
+﻿
+
+@page "/registeralien"
+
+@using System.ComponentModel.DataAnnotations;
+
+<h3>Alien Registration Page</h3>
+
+<div>
+	<label>Enter Alien name: </label>
+	<input @bind="AlienName" />
+</div>
+
+<div>
+	<label>Enter Alien age: </label>
+	<input type="number" @bind="AlienAge" />
+</div>
+
+<div>
+	<label>Enter Alien planet: </label>
+	<input @bind="AlienPlanet" />
+</div>
+
+<button @onclick="RegisterTheAlien">Register Alien</button>
+
+@if (registeredAlien != null)
+{
+	<p>Alien registered successfully!
+		<br />
+		Alien name: @registeredAlien.Name
+		<br />
+		Alien age: @registeredAlien.Age
+		<br />
+		Alien planet: @registeredAlien.Planet
+	</p>
+}
+
+@code {
+
+	private string AlienName = String.Empty;
+	private string AlienPlanet = String.Empty;
+	private int AlienAge;
+
+	private Alien registeredAlien;
+
+	private void RegisterTheAlien()
+	{
+		if (string.IsNullOrWhiteSpace(AlienName) || string.IsNullOrWhiteSpace(AlienPlanet) || AlienAge == 0)
+		{
+			return;
+		}
+
+		registeredAlien = new Alien(AlienName, AlienPlanet, AlienAge);
+	}
+}

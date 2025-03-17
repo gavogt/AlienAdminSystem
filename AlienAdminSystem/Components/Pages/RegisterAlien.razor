@@ -1,55 +1,50 @@
-﻿
-
-@page "/registeralien"
+﻿@page "/registeralien"
 
 @using System.ComponentModel.DataAnnotations;
+@using System.Collections.Generic;
+@using Microsoft.Data.SqlClient;
+@using Microsoft.Extensions.Configuration;
+@using System.Threading.Tasks;
+@inject AlienDatabaseService AlienDatabaseService;
 
 <h3>Alien Registration Page</h3>
 
 <div>
 	<label>Enter Alien name: </label>
-	<input @bind="AlienName" />
+	<input @bind="AlienDatabaseService.AlienName" />
 </div>
 
 <div>
 	<label>Enter Alien age: </label>
-	<input type="number" @bind="AlienAge" />
+	<input type="number" @bind="AlienDatabaseService.AlienAge" />
 </div>
 
 <div>
 	<label>Enter Alien planet: </label>
-	<input @bind="AlienPlanet" />
+	<input @bind="AlienDatabaseService.AlienPlanet" />
 </div>
 
-<button @onclick="RegisterTheAlien">Register Alien</button>
+<button @onclick="RegisterMyAlien">Register Alien</button>
 
 @if (registeredAlien != null)
 {
-	<p>Alien registered successfully!
+	<p>
+		Alien registered successfully!
 		<br />
-		Alien name: @registeredAlien.Name
+		Alien name: @AlienDatabaseService.AlienName
 		<br />
-		Alien age: @registeredAlien.Age
-		<br />
-		Alien planet: @registeredAlien.Planet
+		Alien age: @AlienDatabaseService.AlienAge
 	</p>
 }
 
 @code {
 
-	private string AlienName = String.Empty;
-	private string AlienPlanet = String.Empty;
-	private int AlienAge;
-
 	private Alien registeredAlien;
 
-	private void RegisterTheAlien()
+	private async Task RegisterMyAlien()
 	{
-		if (string.IsNullOrWhiteSpace(AlienName) || string.IsNullOrWhiteSpace(AlienPlanet) || AlienAge == 0)
-		{
-			return;
-		}
 
-		registeredAlien = new Alien(AlienName, AlienPlanet, AlienAge);
+		registeredAlien = await AlienDatabaseService.RegisterTheAlien();
+
 	}
 }

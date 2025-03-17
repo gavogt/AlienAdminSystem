@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using AlienAdminSystem.Components.Pages;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 /*
  * 
@@ -114,6 +116,14 @@ namespace AlienAdminSystem
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 });
+
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(AppContext.BaseDirectory)
+                .AddJsonFile("appsettings.json", optional: true)
+                .Build();
+
+            builder.Services.AddSingleton<IConfiguration>(configuration);
+            builder.Services.AddSingleton<AlienDatabaseService>();
 
             builder.Services.AddMauiBlazorWebView();
 

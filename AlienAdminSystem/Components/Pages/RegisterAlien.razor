@@ -1,4 +1,4 @@
-﻿@page "/registeralien"
+﻿@page "/registeraliens"
 
 @using System.ComponentModel.DataAnnotations;
 @using System.Collections.Generic;
@@ -7,44 +7,73 @@
 @using System.Threading.Tasks;
 @inject AlienDatabaseService AlienDatabaseService;
 
-<h3>Alien Registration Page</h3>
-
-<div>
-	<label>Enter Alien name: </label>
-	<input @bind="AlienDatabaseService.AlienName" />
-</div>
-
-<div>
-	<label>Enter Alien age: </label>
-	<input type="number" @bind="AlienDatabaseService.AlienAge" />
-</div>
-
-<div>
-	<label>Enter Alien planet: </label>
-	<input @bind="AlienDatabaseService.AlienPlanet" />
-</div>
+<h1>Alien Registration Page</h1>
+<form>
+	<div class="row mb-3">
+		<div class="col-md-6">
+			<div>
+				<label class="form-label">Enter Alien First name: </label>
+				<input type="text" class="form-control" @bind="firstName" />
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div>
+				<label class="form-label">Enter Alien Last name: </label>
+				<input type="text" class="form-control" @bind="lastName" />
+			</div>
+		</div>
+	</div>
+	<div>
+		<label class="form-label">Enter Alien age: </label>
+		<input type="number" class="form-control" @bind="age" />
+	</div>
+	<div class="row mb-3">
+		<div class="col-md-6">
+			<div>
+				<label class="form-label">Enter Alien species: </label>
+				<input type="text" class="form-control" @bind="species" />
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div>
+				<label class="form-label">Enter Alien planet: </label>
+				<input type="text" class="form-control" @bind="planet" />
+			</div>
+		</div>
+	</div>
+	<div>
+		<label class="form-label">Enter email: </label>
+		<input type="email" class="form-control" @bind="email" />
+	</div>
+</form>
 
 <button @onclick="RegisterMyAlien">Register Alien</button>
 
 @if (registeredAlien != null)
 {
-	<p>
-		Alien registered successfully!
-		<br />
-		Alien name: @AlienDatabaseService.AlienName
-		<br />
-		Alien age: @AlienDatabaseService.AlienAge
-	</p>
+		<p>
+			Alien registered successfully!
+			<br />
+			Alien name: @registeredAlien.FirstName;
+			<br />
+			Alien age: @registeredAlien.Age;
+		</p>
 }
 
 @code {
 
-	private Alien registeredAlien;
+	private string firstName = String.Empty;
+	private string lastName = String.Empty;
+	private int age = 0;
+	private string species = String.Empty;
+	private string planet = String.Empty;
+	private string email = String.Empty;
+
+	Alien registeredAlien;
 
 	private async Task RegisterMyAlien()
 	{
-
-		registeredAlien = await AlienDatabaseService.RegisterTheAlien();
+		registeredAlien = await AlienDatabaseService.RegisterTheAlien(firstName, lastName, planet, species, email, age);
 
 	}
 }

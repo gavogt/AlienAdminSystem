@@ -14,11 +14,6 @@ namespace AlienAdminSystem
 
         private readonly string _connectionString;
 
-        public string AlienName = String.Empty;
-        public string AlienPlanet = String.Empty;
-
-        public int AlienAge;
-
         public string errorMessage = String.Empty;
 
         public AlienDatabaseService(IConfiguration configuration)
@@ -27,17 +22,15 @@ namespace AlienAdminSystem
                 ?? throw new ArgumentNullException("Connection string 'AlienConnection' is missing in appsettings.json.");
         }
 
-
         public async Task InsertAlien()
         {
             try
             {
-
                 using var connection = new SqlConnection(_connectionString);
 
                 await connection.OpenAsync();
 
-                string sql = $"INSERT INTO AlienDatabase.dbo.RegisterAlienTable ([name], age) VALUES ('{AlienName}', {AlienAge});";
+                string sql = $"INSERT INTO AlienRegister (FirstName, LastName, Planet, Species, Email, Age) VALUES ('{registeredAlien.FirstName}', '{registeredAlien.LastName}', '{registeredAlien.Planet}', '{registeredAlien.Species}', '{registeredAlien.Email}', {registeredAlien.Age});";
 
                 using var command = new SqlCommand(sql, connection);
 
@@ -47,17 +40,16 @@ namespace AlienAdminSystem
             catch (Exception ex)
             {
                 errorMessage = $"Database insert error: {ex.Message}";
+
             }
-
         }
-        public async Task<Alien> RegisterTheAlien()
-        {
 
-            registeredAlien = new Alien(AlienName, AlienPlanet, AlienAge);
+        public async Task<Alien> RegisterTheAlien(string firstName, string lastName, string planet, string species, string email, int age)
+        {
+            registeredAlien = new Alien(firstName, lastName, planet, species, email, age);
             await InsertAlien();
             return registeredAlien;
 
         }
-
     }
 }

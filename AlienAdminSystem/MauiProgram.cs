@@ -14,7 +14,7 @@ Alien Visitors (individual beings)
 Alien Groups/Delegations (multiple beings traveling together)
 Planetary Facilities (Embassies, Research Centers, Quarantine Zones)
 Arrival & Temporary Settlement processes
-Your system should handle accommodation requests, facility usage, alien profile management, scheduling, and special requirements (such as anti-gravity chambers or radiation shielding). The solution must be developed in .NET 8.0 and should follow object-oriented principles and design patterns as introduced in Head First Design Patterns.
+Your system should handle accommodation requests, facility usage, alien profile management, scheduling, and special requirements (such as anti-gravity chambers or radiation shielding). The solution must be developed in .NET 9.0 and should follow object-oriented principles and design patterns as introduced in Head First Design Patterns.
 
 Head First OOP Design Principles
 Your design should explicitly demonstrate the following principles:
@@ -124,6 +124,7 @@ namespace AlienAdminSystem
 
             builder.Services.AddSingleton<IConfiguration>(configuration);
             builder.Services.AddSingleton<AlienDatabaseService>();
+            builder.Services.AddSingleton<Alien>();
 
             builder.Services.AddMauiBlazorWebView();
 

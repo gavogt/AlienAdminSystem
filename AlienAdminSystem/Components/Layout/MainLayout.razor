@@ -1,15 +1,14 @@
 ﻿@inherits LayoutComponentBase
+<link href="css/footer.css" rel="stylesheet" />
+<link href="css/main.css" rel="stylesheet" />
+<link href="css/carouselBanner.css" rel="stylesheet" />
 
 <div class="page">
 	<div class="sidebar">
 		<NavMenu />
 	</div>
 	<main>
-		<div class="top-row px-4">
-			<a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
-		</div>
 		<header class="app-header">
-			<link href="css/carouselStyle.css" rel="stylesheet" />
 			<div id="headerCarousel" class="carousel slide" data-bs-ride="carousel">
 				<div class="carousel-inner">
 					<div class="carousel-item active">
@@ -32,11 +31,27 @@
 				</button>
 			</div>
 		</header>
-		<article class="content px-4">
+
+		<article class="content">
 			@Body
 		</article>
 		<footer class="app-footer">
-			<p>A Galatic Alien Administration company. All rights reserved.</p>
+			<div class="footer-content">
+
+
+				<p>© 2025 A Galatic Alien Administration company. All rights reserved.</p>
+
+				<p>
+					<a href="terms-of-service">
+						Terms of Service
+					</a> |
+					<a href="privacy">
+						Privacy
+					</a>
+					Version 1.0.0
+				</p>
+
+			</div>
 		</footer>
 	</main>
 </div>

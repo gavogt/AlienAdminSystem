@@ -1,0 +1,13 @@
+﻿.app-footer{
+    height: 120px;
+    background-color: #4b145b;
+    color: #000000;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.footer-content{
+    max-width:800px;
+}

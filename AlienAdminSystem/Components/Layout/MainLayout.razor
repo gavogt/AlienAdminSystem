@@ -1,17 +1,43 @@
 ﻿@inherits LayoutComponentBase
 
 <div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
-
-    <main>
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
-        </div>
-
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
+	<div class="sidebar">
+		<NavMenu />
+	</div>
+	<main>
+		<div class="top-row px-4">
+			<a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
+		</div>
+		<header class="app-header">
+			<link href="css/carouselStyle.css" rel="stylesheet" />
+			<div id="headerCarousel" class="carousel slide" data-bs-ride="carousel">
+				<div class="carousel-inner">
+					<div class="carousel-item active">
+						<img src="images//carousel/aliencarousel1.png" class="d-block w-100" alt="Slide 1">
+					</div>
+					<div class="carousel-item">
+						<img src="images/carousel/aliencarousel2.png" class="d-block w-100" alt="Slide 2">
+					</div>
+					<div class="carousel-item">
+						<img src="images/carousel/aliencarousel4.png" class="d-block w-100" alt="Slide 3">
+					</div>
+				</div>
+				<button class="carousel-control-prev" type="button" data-bs-target="#headerCarousel" data-bs-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Previous</span>
+				</button>
+				<button class="carousel-control-next" type="button" data-bs-target="#headerCarousel" data-bs-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Next</span>
+				</button>
+			</div>
+		</header>
+		<article class="content px-4">
+			@Body
+		</article>
+		<footer class="app-footer">
+			<p>A Galatic Alien Administration company. All rights reserved.</p>
+		</footer>
+	</main>
 </div>
+

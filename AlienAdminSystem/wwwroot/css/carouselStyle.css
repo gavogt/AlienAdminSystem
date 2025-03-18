@@ -1,0 +1,12 @@
+﻿
+.app-header {
+    height:300px;
+    overflow: hidden;
+}
+
+.carousel-item img{
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+

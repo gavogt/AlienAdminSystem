@@ -6,12 +6,16 @@ using System.Threading.Tasks;
 
 namespace AlienAdminSystem
 {
-    internal class Booking
+    public class Booking
     {
-        int bookingID { get; set; }
-        int facilityID { get; set; }
-        int alienID { get; set; }
-        int visitDuration { get; set; }
+        public int BookingID { get; set; }
+        public int FacilityID { get; set; }
+        public int AlienID { get; set; }
+        public int VisitDuration { get; set; }
+        public int NumberOfVisitors { get; set; }
+        public DateTime Date { get; set; } = DateTime.Now;
+        public DateTime StartTime { get; set; } = DateTime.Now;
+        public DateTime EndTime { get; set; } = DateTime.Now.AddHours(1);
 
     }
 }

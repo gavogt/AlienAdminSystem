@@ -1,0 +1,25 @@
+﻿@page "/booking"
+
+<h3>Booking</h3>
+<div class="container">
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <div>
+                <label class="form-label" for="startTime">Start Time: </label>
+                <input type="time" @bind="BookingRequest.StartTime" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div>
+                <label class="form-label" for="endTime">End Time: </label>
+                <input type="time" @bind="BookingRequest.EndTime" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    public Booking BookingRequest { get; set; } = new Booking();
+
+
+}

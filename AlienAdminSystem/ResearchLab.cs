@@ -9,11 +9,11 @@ namespace AlienAdminSystem
 {
     internal class ResearchLab : IFacility
     {
-        public int FacilityID { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string FacilityName { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string FacilityStatus { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public int FacilityCapacity { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public EnvironmentSettings EnvironmentControls { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int FacilityID { get; set; }
+        public string FacilityName { get; set; }
+        public string FacilityStatus { get; set; }
+        public int FacilityCapacity { get; set; }
+        public EnvironmentSettings EnvironmentControls { get; set; }
 
         public ResearchLab(string facilityName, int capacity, decimal radiationLevel, decimal lightingLevel)
         {

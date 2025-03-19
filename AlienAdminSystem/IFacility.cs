@@ -11,7 +11,7 @@ namespace AlienAdminSystem.Platforms.Tizen
         public int FacilityID { get; set; }
         public string FacilityName { get; set; }
 
-        public string FacilityStatus { get; set; }
+        public int FacilityStatus { get; set; }
 
         public int FacilityCapacity { get; set; }
 

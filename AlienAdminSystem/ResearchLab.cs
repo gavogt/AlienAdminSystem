@@ -11,11 +11,11 @@ namespace AlienAdminSystem
     {
         public int FacilityID { get; set; }
         public string FacilityName { get; set; }
-        public string FacilityStatus { get; set; }
+        public int FacilityStatus { get; set; }
         public int FacilityCapacity { get; set; }
         public EnvironmentSettings EnvironmentControls { get; set; }
 
-        public ResearchLab(string facilityName, int capacity, decimal radiationLevel, decimal lightingLevel)
+        public ResearchLab(string facilityName, int facilityStatus, int capacity, decimal radiationLevel, decimal lightingLevel)
         {
             FacilityName = facilityName;
             FacilityCapacity = capacity;

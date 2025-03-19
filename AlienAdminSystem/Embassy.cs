@@ -11,7 +11,7 @@ namespace AlienAdminSystem
     {
         public int FacilityID { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public string FacilityName { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string FacilityStatus { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int FacilityStatus { get; set; }
         public int FacilityCapacity { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public EnvironmentSettings EnvironmentControls { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }

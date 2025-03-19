@@ -124,7 +124,6 @@ namespace AlienAdminSystem
 
             builder.Services.AddSingleton<IConfiguration>(configuration);
             builder.Services.AddSingleton<AlienDatabaseService>();
-            builder.Services.AddSingleton<Alien>();
 
             builder.Services.AddMauiBlazorWebView();
 

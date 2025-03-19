@@ -18,15 +18,14 @@ CREATE TABLE AlienRegisterTable (
     Age INT NOT NULL,
     AlienGroupID INT NOT NULL,
     AtmosphereTypeID INT NOT NULL,
+    VisitDurationMonths INT NOT NULL, 
+    SpecialRequirements NVARCHAR(2000) NULL, 
     DateCreated DATETIME NOT NULL DEFAULT GETDATE(),
     CONSTRAINT FK_AlienRegisterTable_AlienGroups 
         FOREIGN KEY (AlienGroupID) REFERENCES AlienGroups(GroupID),
     CONSTRAINT FK_AlienRegisterTable_AtmosphereTypes 
         FOREIGN KEY (AtmosphereTypeID) REFERENCES AtmosphereTypes(AtmosphereTypeID)
 );
-
-ALTER TABLE AlienRegisterTable
-ADD SpecialRequirements NVARCHAR(4000) NULL;
 
 SET IDENTITY_INSERT AlienGroups ON;
 

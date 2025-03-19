@@ -36,9 +36,11 @@ namespace AlienAdminSystem
         [Required(ErrorMessage = "Alien Special Requirements is required.")]
         public string SpecialRequirements { get; set; } = string.Empty;
 
+        [Required(ErrorMessage = "Alien Visit Months is required.")]
+        public int VisitDurationMonths { get; set; } = 0;
 
 
-        public Alien(string firstName, string lastName, string planet, string species, string email, int age, int selectedGroupID, int atmosphereType, string specialRequirements)
+        public Alien(string firstName, string lastName, string planet, string species, string email, int age, int selectedGroupID, int atmosphereType, string specialRequirements, int visitDurationMonths)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -49,6 +51,8 @@ namespace AlienAdminSystem
             SelectedGroupID = selectedGroupID;
             AtmosphereType = atmosphereType;
             SpecialRequirements = specialRequirements;
+            VisitDurationMonths = visitDurationMonths;
+
 
         }
     }

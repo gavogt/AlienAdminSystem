@@ -60,8 +60,8 @@ Admin Filtering: Earth Admins can quickly find unassigned alien groups or underu
 6. Reports & Monitoring (Optional Extension)
 Analytics: Admins may want facility occupancy reports, usage statistics, or species-specific trends.
 Scalability: The system design should make it straightforward to add analytics or monitoring features later.
-Design & Implementation Requirements in .NET 8.0
-Your solution (prototype or full implementation) must be built in .NET 8.0 with a focus on:
+Design & Implementation Requirements in .NET 9.0
+Your solution (prototype or full implementation) must be built in .NET 9.0 with a focus on:
 
 Modern C# features (pattern matching, record types, nullable references).
 Integration of 5 or 6 design patterns that solve real problems in this scenario.

@@ -30,8 +30,12 @@ namespace AlienAdminSystem
         [Required(ErrorMessage = "Alien Age is required.")]
         public int SelectedGroupID { get; set; } = 0;
 
+        [Required(ErrorMessage = "Alien Age is required.")]
+        public int AtmosphereType { get; set; } = 0;
 
-        public Alien(string firstName, string lastName, string planet, string species, string email, int age, int selectedGroupID)
+
+
+        public Alien(string firstName, string lastName, string planet, string species, string email, int age, int selectedGroupID, int atmosphereType)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -40,6 +44,7 @@ namespace AlienAdminSystem
             Email = email;
             Age = age;
             SelectedGroupID = selectedGroupID;
+            AtmosphereType = atmosphereType;
 
         }
     }

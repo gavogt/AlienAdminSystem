@@ -1,4 +1,14 @@
-﻿CREATE TABLE AlienRegisterTable (
+﻿CREATE TABLE AtmosphereTypes (
+    AtmosphereTypeID INT IDENTITY(1,1) PRIMARY KEY,
+    Name NVARCHAR(50) NOT NULL
+);
+
+CREATE TABLE AlienGroups (
+    GroupID INT IDENTITY(1,1) PRIMARY KEY,
+    GroupName NVARCHAR(100) NOT NULL
+);
+
+CREATE TABLE AlienRegisterTable (
     AlienID INT IDENTITY(1,1) PRIMARY KEY,
     FirstName NVARCHAR(50) NOT NULL,
     LastName NVARCHAR(50) NOT NULL,
@@ -7,14 +17,12 @@
     Email NVARCHAR(100) NOT NULL,
     Age INT NOT NULL,
     AlienGroupID INT NOT NULL,
+    AtmosphereTypeID INT NOT NULL,
     DateCreated DATETIME NOT NULL DEFAULT GETDATE(),
     CONSTRAINT FK_AlienRegisterTable_AlienGroups 
-        FOREIGN KEY (AlienGroupID) REFERENCES AlienGroups(GroupID)
-);
-
-CREATE TABLE AlienGroups (
-    GroupID INT IDENTITY(1,1) PRIMARY KEY,
-    GroupName NVARCHAR(100) NOT NULL
+        FOREIGN KEY (AlienGroupID) REFERENCES AlienGroups(GroupID),
+    CONSTRAINT FK_AlienRegisterTable_AtmosphereTypes 
+        FOREIGN KEY (AtmosphereTypeID) REFERENCES AtmosphereTypes(AtmosphereTypeID)
 );
 
 SET IDENTITY_INSERT AlienGroups ON;
@@ -30,3 +38,8 @@ INSERT INTO AlienGroups (GroupID, GroupName) VALUES (8, 'Venusians');
 INSERT INTO AlienGroups (GroupID, GroupName) VALUES (9, 'Interstellar Research Alliance');
 
 SET IDENTITY_INSERT AlienGroups OFF;
+
+INSERT INTO AtmosphereTypes (Name) VALUES ('Oxygen-rich');
+INSERT INTO AtmosphereTypes (Name) VALUES ('Nitrogen-rich');
+INSERT INTO AtmosphereTypes (Name) VALUES ('Carbon Dioxide-rich');
+

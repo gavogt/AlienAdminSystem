@@ -30,7 +30,11 @@ namespace AlienAdminSystem
 
                 await connection.OpenAsync();
 
-                string sql = $"INSERT INTO AlienRegisterTable (FirstName, LastName, Planet, Species, Email, Age, AlienGroupID) VALUES ('{registeredAlien.FirstName}', '{registeredAlien.LastName}', '{registeredAlien.Planet}', '{registeredAlien.Species}', '{registeredAlien.Email}', {registeredAlien.Age}, {registeredAlien.SelectedGroupID});";
+                string sql = $"INSERT INTO AlienRegisterTable (FirstName, LastName, Planet, Species, Email, Age, AlienGroupID, AtmosphereTypeID) " +
+                             $"VALUES ('{registeredAlien.FirstName}', '{registeredAlien.LastName}', '{registeredAlien.Planet}', " +
+                             $"'{registeredAlien.Species}', '{registeredAlien.Email}', {registeredAlien.Age}, " +
+                             $"{registeredAlien.SelectedGroupID}, {registeredAlien.AtmosphereType})";
+
                 using var command = new SqlCommand(sql, connection);
 
                 int rowsAffected = await command.ExecuteNonQueryAsync();
@@ -43,9 +47,9 @@ namespace AlienAdminSystem
             }
         }
 
-        public async Task<Alien> RegisterTheAlien(string firstName, string lastName, string planet, string species, string email, int age, int selectedGroupID)
+        public async Task<Alien> RegisterTheAlien(string firstName, string lastName, string planet, string species, string email, int age, int selectedGroupID, int atmosphereType)
         {
-            registeredAlien = new Alien(firstName, lastName, planet, species, email, age, selectedGroupID);
+            registeredAlien = new Alien(firstName, lastName, planet, species, email, age, selectedGroupID, atmosphereType);
             await InsertAlien();
             return registeredAlien;
 

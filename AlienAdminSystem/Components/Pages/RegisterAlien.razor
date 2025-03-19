@@ -46,14 +46,21 @@
 			<label for="aliengroup" class="form-label">Select Alien Group</label>
 			<select class="form-select" id="aliengroup" @bind="selectedGroupID">
 				<option value="">Select the option</option>
-				@foreach(var group in alienGroups)
+				@foreach (var group in alienGroups)
 				{
 					<option value="@group.alienGroupID">@group.alienGroupName</option>
 				}
 
 			</select>
-
-
+		</div>
+		<div class="col-md-6">
+			<label for="atmosphereType" class="form-label">Select Atmosphere:</label>
+			<InputSelect id="atmosphereType" class="form-select" @bind-Value="selectedAtmosphere">
+				<option value="">-- Select an Atmosphere --</option>
+				<option value="1">Oxygen-rich	</option>
+				<option value="2">Nitrogen-rich</option>
+				<option value="3">Carbon Dioxide-rich</option>
+			</InputSelect>
 		</div>
 	</div>
 	<div>
@@ -84,16 +91,17 @@
 	private string planet = String.Empty;
 	private string email = String.Empty;
 	private int selectedGroupID = 0;
+	private int selectedAtmosphere = 0;
 
 	List<AlienGroup> alienGroups = AlienGroupsRepository.ListAllGroups();
 
-	
+
 
 	Alien registeredAlien;
 
 	private async Task RegisterMyAlien()
 	{
-		registeredAlien = await AlienDatabaseService.RegisterTheAlien(firstName, lastName, planet, species, email, age, selectedGroupID);
+		registeredAlien = await AlienDatabaseService.RegisterTheAlien(firstName, lastName, planet, species, email, age, selectedGroupID, selectedAtmosphere);
 
 	}
 }

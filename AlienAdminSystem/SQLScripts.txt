@@ -25,6 +25,9 @@ CREATE TABLE AlienRegisterTable (
         FOREIGN KEY (AtmosphereTypeID) REFERENCES AtmosphereTypes(AtmosphereTypeID)
 );
 
+ALTER TABLE AlienRegisterTable
+ADD SpecialRequirements NVARCHAR(4000) NULL;
+
 SET IDENTITY_INSERT AlienGroups ON;
 
 INSERT INTO AlienGroups (GroupID, GroupName) VALUES (1, 'Zorgons');

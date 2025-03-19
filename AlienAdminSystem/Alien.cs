@@ -27,15 +27,18 @@ namespace AlienAdminSystem
         [Required(ErrorMessage = "Alien Age is required.")]
         public int Age { get; set; } = 0;
 
-        [Required(ErrorMessage = "Alien Age is required.")]
+        [Required(ErrorMessage = "Alien Group ID is required.")]
         public int SelectedGroupID { get; set; } = 0;
 
-        [Required(ErrorMessage = "Alien Age is required.")]
+        [Required(ErrorMessage = "Alien Atmosphere Type is required.")]
         public int AtmosphereType { get; set; } = 0;
 
+        [Required(ErrorMessage = "Alien Special Requirements is required.")]
+        public string SpecialRequirements { get; set; } = string.Empty;
 
 
-        public Alien(string firstName, string lastName, string planet, string species, string email, int age, int selectedGroupID, int atmosphereType)
+
+        public Alien(string firstName, string lastName, string planet, string species, string email, int age, int selectedGroupID, int atmosphereType, string specialRequirements)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -45,6 +48,7 @@ namespace AlienAdminSystem
             Age = age;
             SelectedGroupID = selectedGroupID;
             AtmosphereType = atmosphereType;
+            SpecialRequirements = specialRequirements;
 
         }
     }

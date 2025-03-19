@@ -30,12 +30,20 @@ namespace AlienAdminSystem
 
                 await connection.OpenAsync();
 
-                string sql = $"INSERT INTO AlienRegisterTable (FirstName, LastName, Planet, Species, Email, Age, AlienGroupID, AtmosphereTypeID) " +
-                             $"VALUES ('{registeredAlien.FirstName}', '{registeredAlien.LastName}', '{registeredAlien.Planet}', " +
-                             $"'{registeredAlien.Species}', '{registeredAlien.Email}', {registeredAlien.Age}, " +
-                             $"{registeredAlien.SelectedGroupID}, {registeredAlien.AtmosphereType})";
+                string sql = "INSERT INTO AlienRegisterTable (FirstName, LastName, Planet, Species, Email, Age, AlienGroupID, AtmosphereTypeID, SpecialRequirements) " +
+             "VALUES (@FirstName, @LastName, @Planet, @Species, @Email, @Age, @AlienGroupID, @AtmosphereTypeID, @SpecialRequirements)";
 
                 using var command = new SqlCommand(sql, connection);
+
+                command.Parameters.AddWithValue("@FirstName", registeredAlien.FirstName);
+                command.Parameters.AddWithValue("@LastName", registeredAlien.LastName);
+                command.Parameters.AddWithValue("@Planet", registeredAlien.Planet);
+                command.Parameters.AddWithValue("@Species", registeredAlien.Species);
+                command.Parameters.AddWithValue("@Email", registeredAlien.Email);
+                command.Parameters.AddWithValue("@Age", registeredAlien.Age);
+                command.Parameters.AddWithValue("@AlienGroupID", registeredAlien.SelectedGroupID);
+                command.Parameters.AddWithValue("@AtmosphereTypeID", registeredAlien.AtmosphereType);
+                command.Parameters.AddWithValue("@SpecialRequirements", registeredAlien.SpecialRequirements);
 
                 int rowsAffected = await command.ExecuteNonQueryAsync();
 
@@ -47,9 +55,9 @@ namespace AlienAdminSystem
             }
         }
 
-        public async Task<Alien> RegisterTheAlien(string firstName, string lastName, string planet, string species, string email, int age, int selectedGroupID, int atmosphereType)
+        public async Task<Alien> RegisterTheAlien(string firstName, string lastName, string planet, string species, string email, int age, int selectedGroupID, int atmosphereType, string specialRequirements)
         {
-            registeredAlien = new Alien(firstName, lastName, planet, species, email, age, selectedGroupID, atmosphereType);
+            registeredAlien = new Alien(firstName, lastName, planet, species, email, age, selectedGroupID, atmosphereType, specialRequirements);
             await InsertAlien();
             return registeredAlien;
 

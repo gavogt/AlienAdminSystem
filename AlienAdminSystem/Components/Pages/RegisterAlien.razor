@@ -12,31 +12,33 @@
 	<div class="row mb-3">
 		<div class="col-md-6">
 			<div>
-				<label class="form-label">Enter Alien First name: </label>
+				<label class="form-label">Enter first name: </label>
 				<input type="text" class="form-control" @bind="firstName" />
 			</div>
 		</div>
 		<div class="col-md-6">
 			<div>
-				<label class="form-label">Enter Alien Last name: </label>
+				<label class="form-label">Enter last name: </label>
 				<input type="text" class="form-control" @bind="lastName" />
 			</div>
 		</div>
 	</div>
-	<div>
-		<label class="form-label">Enter Alien age: </label>
-		<input type="number" class="form-control" @bind="age" />
+	<div class="row mb-3">
+		<div class="col-md-6">
+			<label class="form-label">Enter age: </label>
+			<input type="number" class="form-control" @bind="age" />
+		</div>
 	</div>
 	<div class="row mb-3">
 		<div class="col-md-6">
 			<div>
-				<label class="form-label">Enter Alien species: </label>
+				<label class="form-label">Enter species: </label>
 				<input type="text" class="form-control" @bind="species" />
 			</div>
 		</div>
 		<div class="col-md-6">
 			<div>
-				<label class="form-label">Enter Alien planet: </label>
+				<label class="form-label">Enter planet: </label>
 				<input type="text" class="form-control" @bind="planet" />
 			</div>
 		</div>
@@ -62,6 +64,10 @@
 				<option value="3">Carbon Dioxide-rich</option>
 			</InputSelect>
 		</div>
+	</div>
+	<div class="mb-3">
+		<label for="specialRequirements" class="form-label">Special Requirements</label>
+		<textarea id="specialRequirements" class="form-control" rows="4" @bind="specialRequirements"></textarea>
 	</div>
 	<div>
 		<label class="form-label">Enter email: </label>
@@ -92,6 +98,7 @@
 	private string email = String.Empty;
 	private int selectedGroupID = 0;
 	private int selectedAtmosphere = 0;
+	private string specialRequirements = String.Empty;
 
 	List<AlienGroup> alienGroups = AlienGroupsRepository.ListAllGroups();
 
@@ -101,7 +108,7 @@
 
 	private async Task RegisterMyAlien()
 	{
-		registeredAlien = await AlienDatabaseService.RegisterTheAlien(firstName, lastName, planet, species, email, age, selectedGroupID, selectedAtmosphere);
+		registeredAlien = await AlienDatabaseService.RegisterTheAlien(firstName, lastName, planet, species, email, age, selectedGroupID, selectedAtmosphere, specialRequirements);
 
 	}
 }

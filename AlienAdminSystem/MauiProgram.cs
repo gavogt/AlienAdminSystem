@@ -72,8 +72,8 @@ While you may choose any patterns that fit, consider these commonly useful ones:
 
 Singleton
 Could be used to manage global configurations like universal visitation rules, cosmic event schedules, or logging.
-Factory / Abstract Factory
 
+Factory / Abstract Factory
 A Factory pattern can help instantiate various facility types (e.g., Embassies, Research Labs, Quarantine Zones) or different alien species objects.
 
 Strategy

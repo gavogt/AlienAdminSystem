@@ -27,7 +27,11 @@ namespace AlienAdminSystem
         [Required(ErrorMessage = "Alien Age is required.")]
         public int Age { get; set; } = 0;
 
-        public Alien(string firstName, string lastName, string planet, string species, string email, int age)
+        [Required(ErrorMessage = "Alien Age is required.")]
+        public int SelectedGroupID { get; set; } = 0;
+
+
+        public Alien(string firstName, string lastName, string planet, string species, string email, int age, int selectedGroupID)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -35,6 +39,7 @@ namespace AlienAdminSystem
             Species = species;
             Email = email;
             Age = age;
+            SelectedGroupID = selectedGroupID;
 
         }
     }

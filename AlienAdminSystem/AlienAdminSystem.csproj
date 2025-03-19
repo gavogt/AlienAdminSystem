@@ -61,6 +61,10 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Content Include="SQLScripts.txt" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.1" />
         <PackageReference Include="Microsoft.Maui.Controls" Version="9.0.50" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="9.0.50" />

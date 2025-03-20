@@ -1,5 +1,6 @@
 ﻿@page "/signup"
 @using System.ComponentModel.DataAnnotations
+@inject UserDatabaseService UserDatabaseService
 
 <EditForm Model="@SignUpModel" OnValidSubmit="HandleSubmit">
 	<DataAnnotationsValidator />
@@ -41,9 +42,23 @@
 @code {
 
 	private SignUpModel SignUpModel = new SignUpModel();
+	private string HashedPassword;
+	private bool isValid;
+	private User user = new User();
 
 	private async Task HandleSubmit()
 	{
+
+		if (SignUpModel.Password == SignUpModel.ConfirmPassword)
+		{
+			HashedPassword = PasswordHelper.HashPassword(SignUpModel.Password);
+			isValid = PasswordHelper.VerifyPassword(SignUpModel.Password, HashedPassword);
+			if (isValid){
+				user = new User(SignUpModel.Username, HashedPassword);
+				await UserDatabaseService.InsertUserAsync(user);
+			}
+		
+		}
 
 	}
 

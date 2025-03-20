@@ -17,5 +17,16 @@ namespace AlienAdminSystem
         [Required(ErrorMessage = "Confirm Password is required.")]
         public string ConfirmPassword { get; set; } = String.Empty;
 
+        public SignUpModel()
+        {
+            
+        }
+
+        public SignUpModel(string username, string password, string confirmPassword)
+        {
+            Username = username;
+            Password = password;
+            ConfirmPassword = confirmPassword;
+        }
     }
 }

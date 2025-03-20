@@ -27,6 +27,11 @@ CREATE TABLE AlienRegisterTable (
         FOREIGN KEY (AtmosphereTypeID) REFERENCES AtmosphereTypes(AtmosphereTypeID)
 );
 
+CREATE TABLE dbo.Users (
+    ID INT IDENTITY(1,1) PRIMARY KEY,
+    Username NVARCHAR(100) NOT NULL,
+    HashedPassword NVARCHAR(255) NOT NULL
+);
 
 SET IDENTITY_INSERT AlienGroups ON;
 
@@ -45,4 +50,6 @@ SET IDENTITY_INSERT AlienGroups OFF;
 INSERT INTO AtmosphereTypes (Name) VALUES ('Oxygen-rich');
 INSERT INTO AtmosphereTypes (Name) VALUES ('Nitrogen-rich');
 INSERT INTO AtmosphereTypes (Name) VALUES ('Carbon Dioxide-rich');
+
+
 

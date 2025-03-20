@@ -1,6 +1,8 @@
 ﻿using AlienAdminSystem.Components.Pages;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore.SqlServer;
+using Microsoft.EntityFrameworkCore; // Add this using directive
 
 /*
  * 
@@ -117,6 +119,8 @@ namespace AlienAdminSystem
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 });
 
+            builder.Configuration.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(AppContext.BaseDirectory)
                 .AddJsonFile("appsettings.json", optional: true)
@@ -124,6 +128,10 @@ namespace AlienAdminSystem
 
             builder.Services.AddSingleton<IConfiguration>(configuration);
             builder.Services.AddSingleton<AlienDatabaseService>();
+            builder.Services.AddScoped<UserDatabaseService>();
+
+            builder.Services.AddDbContext<UserDBContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("AlienConnection")));
 
             builder.Services.AddMauiBlazorWebView();
 

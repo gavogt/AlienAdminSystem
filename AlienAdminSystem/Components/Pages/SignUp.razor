@@ -1,28 +1,50 @@
 ﻿@page "/signup"
+@using System.ComponentModel.DataAnnotations
 
-<div class="container mt-5">
-	<div class="row justify-content-center">
-		<div class="col-md-6">
-			<form>
+<EditForm Model="@SignUpModel" OnValidSubmit="HandleSubmit">
+	<DataAnnotationsValidator />
+	<ValidationSummary />
+	<div class="container mt-5">
+		<div class="row justify-content-center">
+			<div class="col-md-6">
 				<h3>Alien Sign Up Page</h3>
 				<div class="mb-3">
 					<label for="username" class="form-label">Enter username: </label>
-					<input id="username" type="text" class="form-control" @bind="username" />
+					<InputText id="username" type="text" class="form-control" @bind-Value="SignUpModel.Username" />
+					<ValidationMessage For="@(() => SignUpModel.Username)" />
 				</div>
 
 				<div class="mb-3">
 					<label for="password" class="form-label">Enter password: </label>
-					<input id="password" type="password" class="form-control" @bind="password" />
+					<InputText id="password" type="password" class="form-control" @bind-Value="SignUpModel.Password" />
+					<ValidationMessage For="@(() => SignUpModel.Password)" />
 				</div>
-				<button type="submit" class="btn btn-primary">Login</button>
-			</form>
+
+				<div class="mb-3">
+					<label for="confirmPassword" class="form-label">Confirm password: </label>
+					<InputText id="confirmPassword" type="password" class="form-control" @bind-Value="SignUpModel.ConfirmPassword" />
+					<ValidationMessage For="@(() => SignUpModel.ConfirmPassword)" />
+				</div>
+				<button type="submit" class="btn btn-primary">Sign Up</button>
+				@if (SignUpModel.ConfirmPassword == SignUpModel.Password && !string.IsNullOrEmpty(SignUpModel.Password))
+				{
+					<p>
+						Password matches!
+					</p>
+				}
+
+			</div>
 		</div>
 	</div>
-</div>
+</EditForm>
 
 @code {
 
-	private string username = String.Empty;
-	private string password = String.Empty;
+	private SignUpModel SignUpModel = new SignUpModel();
+
+	private async Task HandleSubmit()
+	{
+
+	}
 
 }

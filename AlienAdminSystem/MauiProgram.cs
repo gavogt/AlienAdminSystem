@@ -133,6 +133,9 @@ namespace AlienAdminSystem
             builder.Services.AddDbContext<UserDBContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("AlienConnection")));
 
+            builder.Services.AddDbContext<AlienDBContext>(options =>
+    options.UseSqlServer(configuration.GetConnectionString("AlienConnection")));
+
             builder.Services.AddMauiBlazorWebView();
 
 #if DEBUG

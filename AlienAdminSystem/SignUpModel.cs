@@ -16,5 +16,6 @@ namespace AlienAdminSystem
         public string Password { get; set; } = String.Empty;
         [Required(ErrorMessage = "Confirm Password is required.")]
         public string ConfirmPassword { get; set; } = String.Empty;
+
     }
 }

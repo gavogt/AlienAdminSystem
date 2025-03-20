@@ -1,28 +1,74 @@
-﻿@page "/login"
+﻿@using Microsoft.EntityFrameworkCore;
 
-<div class="container mt-5">
-	<div class="row justify-content-center">
-		<div class="col-md-6">
-			<form>
+@page "/login"
+@inject UserDBContext dbContext
+
+<EditForm model="@LoginModel" OnSubmit="HandleSubmit">
+	<DataAnnotationsValidator />
+	<ValidationSummary />
+	<div class="container mt-5">
+		<div class="row justify-content-center">
+			<div class="col-md-6">
 				<h3>Alien Login Page</h3>
 				<div class="mb-3">
 					<label for="username" class="form-label">Enter username: </label>
-					<input id="username" type="text" class="form-control" @bind="username" />
+					<InputText id="username" type="text" class="form-control" @bind-value="LoginModel.Username" />
+					<ValidationMessage For="@(() => LoginModel.Username)" />
 				</div>
 
 				<div class="mb-3">
 					<label for="password" class="form-label">Enter password: </label>
-					<input id="password" type="password" class="form-control" @bind="password" />
+					<InputText id="password" type="password" class="form-control" @bind-value="LoginModel.Password" />
+					<ValidationMessage For="@(() => LoginModel.Password)" />
 				</div>
 				<button type="submit" class="btn btn-primary">Login</button>
-			</form>
+			</div>
 		</div>
+		@if (!string.IsNullOrEmpty(loginError))
+		{
+			<div class="alert alert-danger mt-3">
+				@loginError
+			</div>
+		}
 	</div>
-</div>
-
+</EditForm>
 @code {
 
-	private string username = String.Empty;
-	private string password = String.Empty;
+	LoginModel LoginModel = new LoginModel();
+	private string loginError = String.Empty;
 
+
+	private async void HandleSubmit()
+	{
+		var users = await dbContext.Users
+			.FirstOrDefaultAsync(u => u.Username == LoginModel.Username);
+
+		var hashedPassword = await dbContext.Users
+			.Where(u => u.Username == LoginModel.Username)
+			.Select(u => u.HashedPassword)
+			.FirstOrDefaultAsync();
+
+		if (users == null)
+		{
+			loginError = "Invalid username or password.";
+			return;
+		}
+
+
+		bool isValid = BCrypt.Net.BCrypt.Verify(LoginModel.Password, hashedPassword);
+
+		if (isValid)
+		{
+			// Redirect
+			loginError = "Login successful!";
+			return;
+		}
+
+
+		if (!isValid)
+		{
+			loginError = "Invalid username or password.";
+			return;
+		}
+	}
 }

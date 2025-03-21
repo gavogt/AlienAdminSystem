@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore.SqlServer;
-using Microsoft.EntityFrameworkCore; // Add this using directive
+using Microsoft.EntityFrameworkCore;
 
 /*
  * 
@@ -130,12 +130,16 @@ namespace AlienAdminSystem
             builder.Services.AddSingleton<AlienDatabaseService>();
             builder.Services.AddScoped<UserDatabaseService>();
             builder.Services.AddSingleton<SessionState>();
+            builder.Services.AddSingleton<BookingDatabaseService>();
 
             builder.Services.AddDbContext<UserDBContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("AlienConnection")));
 
             builder.Services.AddDbContext<AlienDBContext>(options =>
     options.UseSqlServer(configuration.GetConnectionString("AlienConnection")));
+
+            builder.Services.AddDbContext<BookingDBContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("AlienConnection")));
 
             builder.Services.AddMauiBlazorWebView();
 

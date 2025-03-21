@@ -33,6 +33,18 @@ CREATE TABLE dbo.Users (
     HashedPassword NVARCHAR(255) NOT NULL
 );
 
+CREATE TABLE dbo.Booking (
+    BookingID INT IDENTITY(1,1) PRIMARY KEY,
+    FacilityID INT NOT NULL,       
+    AlienID INT NOT NULL,         
+    NumberOfVisitors INT NOT NULL CHECK(NumberOfVisitors BETWEEN 0 AND 10),
+    Date DATETIME NOT NULL DEFAULT GETDATE(),
+    StartTime DATETIME NOT NULL,
+    EndTime DATETIME NOT NULL,
+    CONSTRAINT FK_Booking_Users FOREIGN KEY (AlienID) REFERENCES dbo.Users(ID)
+
+);
+
 SET IDENTITY_INSERT AlienGroups ON;
 
 INSERT INTO AlienGroups (GroupID, GroupName) VALUES (1, 'Zorgons');

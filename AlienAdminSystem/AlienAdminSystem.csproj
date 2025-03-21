@@ -61,7 +61,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="SQLScripts.txt" />
+      <Content Include="SQLScripts.sql" />
     </ItemGroup>
 
     <ItemGroup>

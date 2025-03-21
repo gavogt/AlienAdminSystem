@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace AlienAdminSystem
 {
-    internal class EnvironmentSettings
+    internal class Facility
     {
-        public decimal RadiationLevel { get; set; }
-        public decimal LightingLevel { get; set; }
+        public int FacilityID { get; set; }
+        public string FacilityName { get; set; } = String.Empty;
+
     }
 }

@@ -1,5 +1,4 @@
-﻿using AlienAdminSystem.Platforms.Tizen;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,15 +8,16 @@ namespace AlienAdminSystem
 {
     internal class FacilityRepository
     {
-        public List<IFacility> GetFacilities()
+            public static List<Facility> ListAllFacilities() => new List<Facility>
         {
-            return new List<IFacility>
-            {
-                new ResearchLab("Galactic Sciences Division – Earth Sector", 1,100, 500.0m, 400.0m),
-                new ResearchLab("Quantum Tech & Energy Research Facility",1, 200, 600.0m, 500.0m),
-                new ResearchLab("Cosmic Terraforming & Environmental Adaptation Center", 0, 300, 700.0m, 600.0m),
-
-            };
-        }
+            new Facility { FacilityID = 1, FacilityName = "Galactic Infirmary Quarantine Zone" },
+            new Facility { FacilityID = 2, FacilityName = "Celestial Containment Facility" },
+            new Facility { FacilityID = 3, FacilityName = "Interplanetary Peace Center" },
+            new Facility { FacilityID = 4, FacilityName = "Stellar Harmony Embassy" },
+            new Facility { FacilityID = 5, FacilityName = "Cosmic Unity Consulate" },
+            new Facility { FacilityID = 6, FacilityName = "Galactic Sciences Division – Earth Sector" },
+            new Facility { FacilityID = 7, FacilityName = "Quantum Tech & Energy Research Facility" },
+            new Facility { FacilityID = 8, FacilityName = "Cosmic Terraforming & Environmental Adaptation Center" }
+        };
     }
 }

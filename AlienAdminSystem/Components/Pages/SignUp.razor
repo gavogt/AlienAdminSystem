@@ -56,10 +56,8 @@
 			if (isValid){
 				user = new User(SignUpModel.Username, HashedPassword);
 				await UserDatabaseService.InsertUserAsync(user);
-			}
-		
+			}	
+
 		}
-
 	}
-
 }

@@ -1,14 +1,16 @@
 ﻿@inherits LayoutComponentBase
+@inject SessionState SessionState
 <link href="css/footer.css" rel="stylesheet" />
 <link href="css/main.css" rel="stylesheet" />
 <link href="css/carouselBanner.css" rel="stylesheet" />
+
+<CascadingValue Value="SessionState" IsFixed="false">
 
 <div class="page">
 	<div class="sidebar">
 		<NavMenu />
 	</div>
 	<main>
-
 		<header class="app-header">
 			<div id="headerCarousel" class="carousel slide" data-bs-ride="carousel">
 				<div class="carousel-inner">
@@ -57,3 +59,4 @@
 	</main>
 </div>
 
+</CascadingValue>

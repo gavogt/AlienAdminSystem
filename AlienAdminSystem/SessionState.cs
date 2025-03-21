@@ -8,6 +8,6 @@ namespace AlienAdminSystem
 {
     internal class SessionState
     {
-        public User LoggedInUser { get; set; }
+        public User? LoggedInUser { get; set; }
     }
 }

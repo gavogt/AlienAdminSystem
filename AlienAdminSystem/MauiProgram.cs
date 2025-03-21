@@ -129,7 +129,7 @@ namespace AlienAdminSystem
             builder.Services.AddSingleton<IConfiguration>(configuration);
             builder.Services.AddSingleton<AlienDatabaseService>();
             builder.Services.AddScoped<UserDatabaseService>();
-            builder.Services.AddScoped<SessionState>();
+            builder.Services.AddSingleton<SessionState>();
 
             builder.Services.AddDbContext<UserDBContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("AlienConnection")));

@@ -1,4 +1,6 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿@inject NavigationManager Navigation
+
+<div class="top-row ps-3 navbar navbar-dark">
 	<div class="container-fluid">
 		<a class="navbar-brand" href="">AlienAdminSystem</a>
 	</div>
@@ -19,11 +21,22 @@
 			</NavLink>
 		</div>
 
-		<div class="nav-item px-3">
-			<NavLink class="nav-link" href="login">
-				<span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Login
-			</NavLink>
-		</div>
+		@if (SessionState?.LoggedInUser == null)
+		{
+			<div class="nav-item px-3">
+				<NavLink class="nav-link" href="login">
+					<span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Login
+				</NavLink>
+			</div>
+		}
+		else
+		{
+			<div class="nav-item px-3">
+				<a class="nav-link" href="#" @onclick="Logout">
+					<span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Logout
+				</a>
+			</div>
+		}
 
 		<div class="nav-item px-3">
 			<NavLink class="nav-link" href="researchlab">
@@ -56,3 +69,16 @@
 		</div>
 	</nav>
 </div>
+
+@code {
+	[CascadingParameter]
+	internal SessionState? SessionState { get; set; }
+
+	private async Task Logout()
+	{
+		if(SessionState != null)
+			SessionState.LoggedInUser = null;
+		Navigation.NavigateTo("/login");
+	}
+
+}

@@ -19,3 +19,11 @@ main {
     flex: 1;
     padding: 1rem;
 }
+
+.nav-scrollable .dropdown-item {
+    background-color: #8f12c1;
+    color: #000000 !important;
+}
+.dropdown-menu{
+    background-color: #1246c1;
+}

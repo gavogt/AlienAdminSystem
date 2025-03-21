@@ -8,7 +8,7 @@
 
 <input type="checkbox" title="Navigation menu" class="navbar-toggler" />
 
-<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
+<div class="nav-scrollable" >
 	<nav class="flex-column">
 		<div class="nav-item px-3">
 			<NavLink class="nav-link" href="" Match="NavLinkMatch.All">
@@ -21,64 +21,77 @@
 			</NavLink>
 		</div>
 
+		<!-- If there is no session display Login -->
 		@if (SessionState?.LoggedInUser == null)
 		{
-			<div class="nav-item px-3">
-				<NavLink class="nav-link" href="login">
-					<span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Login
-				</NavLink>
-			</div>
+				<div class="nav-item px-3">
+					<NavLink class="nav-link" href="login">
+						<span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Login
+					</NavLink>
+				</div>
 		}
 		else
 		{
-			<div class="nav-item px-3">
-				<a class="nav-link" href="#" @onclick="Logout">
-					<span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Logout
-				</a>
-			</div>
+				<div class="nav-item px-3">
+					<a class="nav-link" href="#" @onclick="Logout">
+						<span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Logout
+					</a>
+				</div>
 		}
 
-		<div class="nav-item px-3">
-			<NavLink class="nav-link" href="researchlab">
-				<span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Research Labs
-			</NavLink>
-		</div>
-
-		<div class="nav-item px-3">
-			<NavLink class="nav-link" href="embassy">
-				<span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Embassies
-			</NavLink>
-		</div>
-
-		<div class="nav-item px-3">
-			<NavLink class="nav-link" href="quarantinezone">
-				<span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Quarantine Zones
-			</NavLink>
-		</div>
-
-		<div class="nav-item px-3">
-			<NavLink class="nav-link" href="booking">
-				<span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Schedule Booking
-			</NavLink>
-		</div>
 
 		<div class="nav-item px-3">
 			<NavLink class="nav-link" href="signup">
 				<span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Sign Up
 			</NavLink>
 		</div>
+
+		<!-- Display Booking if logged in -->
+		@if (SessionState?.LoggedInUser != null)
+		{
+				<div class="nav-item px-3">
+					<NavLink class="nav-link" href="booking">
+						<span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Schedule Booking
+					</NavLink>
+				</div>
+		}
+
+		<!-- Facilities Drop Down -->
+		<div class="nav-item dropdown px-3">
+			<a class="nav-link dropdown-toggle" href="#" id="facilitiesDropdown" role="button"
+			   data-bs-toggle="dropdown" aria-expanded="false">
+				<span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Facilities
+			</a>
+			<ul class="dropdown-menu" aria-labelledby="facilitiesDropdown">
+				<li>
+					<NavLink class="dropdown-item" href="researchlab">
+						Research Labs
+					</NavLink>
+				</li>
+				<li>
+					<NavLink class="dropdown-item" href="embassy">
+						Embassies
+					</NavLink>
+				</li>
+				<li>
+					<NavLink class="dropdown-item" href="quarantinezone">
+						Quarantine Zones
+					</NavLink>
+				</li>
+			</ul>
+		</div>
 	</nav>
 </div>
+
 
 @code {
 	[CascadingParameter]
 	internal SessionState? SessionState { get; set; }
 
-	private async Task Logout()
+	private void Logout()
 	{
-		if(SessionState != null)
+		if (SessionState != null)
 			SessionState.LoggedInUser = null;
 		Navigation.NavigateTo("/login");
 	}
-
 }

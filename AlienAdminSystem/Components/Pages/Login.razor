@@ -1,7 +1,9 @@
 ﻿@using Microsoft.EntityFrameworkCore;
+@inject NavigationManager Navigation
+@inject UserDBContext dbContext
+@inject SessionState SessionState
 
 @page "/login"
-@inject UserDBContext dbContext
 
 <EditForm model="@LoginModel" OnSubmit="HandleSubmit">
 	<DataAnnotationsValidator />
@@ -38,37 +40,49 @@
 	private string LoginMessage = String.Empty;
 
 
-	private async void HandleSubmit()
+	private async Task HandleSubmit()
 	{
-		var users = await dbContext.Users
-			.FirstOrDefaultAsync(u => u.Username == LoginModel.Username);
-
-		var hashedPassword = await dbContext.Users
-			.Where(u => u.Username == LoginModel.Username)
-			.Select(u => u.HashedPassword)
-			.FirstOrDefaultAsync();
-
-		if (users == null)
+		try
 		{
-			LoginMessage = "Invalid username or password.";
-			return;
+			// Check if the user exists
+			var users = await dbContext.Users
+				.FirstOrDefaultAsync(u => u.Username == LoginModel.Username);
+
+			// Retrieve the hashed password
+			var hashedPassword = await dbContext.Users
+				.Where(u => u.Username == LoginModel.Username)
+				.Select(u => u.HashedPassword)
+				.FirstOrDefaultAsync();
+
+			if (users == null)
+			{
+				LoginMessage = "Invalid username or password.";
+				return;
+			}
+
+			// Verify the password
+			bool isValid = BCrypt.Net.BCrypt.Verify(LoginModel.Password, hashedPassword);
+
+			if (isValid)
+			{
+				// Assign the logged-in user to the session state
+				SessionState.LoggedInUser = users;
+
+				// Redirect
+				LoginMessage = "Login successful!";
+				Navigation.NavigateTo("/dashboard");
+				return;
+			}
+			else
+			{
+				LoginMessage = "Invalid username or password.";
+				return;
+			}
 		}
-
-
-		bool isValid = BCrypt.Net.BCrypt.Verify(LoginModel.Password, hashedPassword);
-
-		if (isValid)
+		catch (Exception e)
 		{
-			// Redirect
-			LoginMessage = "Login successful!";
-			return;
-		}
-
-
-		if (!isValid)
-		{
-			LoginMessage = "Invalid username or password.";
-			return;
+			// Android breaks due to connection string on local and android
+			LoginMessage = $"An error occurred during login.\n {e.Message}";
 		}
 	}
 }

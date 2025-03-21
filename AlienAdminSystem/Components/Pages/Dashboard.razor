@@ -1,0 +1,10 @@
+﻿@page "/dashboard"
+@inject SessionState SessionState
+<h3>Dashboard</h3>
+<p>
+	Welcome @SessionState.LoggedInUser?.Username ! This is your dashboard.
+	</p>
+
+@code {
+
+}

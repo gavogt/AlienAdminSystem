@@ -45,28 +45,22 @@
 		try
 		{
 			// Check if the user exists
-			var users = await dbContext.Users
+			var user = await dbContext.Users
 				.FirstOrDefaultAsync(u => u.Username == LoginModel.Username);
 
-			// Retrieve the hashed password
-			var hashedPassword = await dbContext.Users
-				.Where(u => u.Username == LoginModel.Username)
-				.Select(u => u.HashedPassword)
-				.FirstOrDefaultAsync();
-
-			if (users == null)
+			if (user == null)
 			{
 				LoginMessage = "Invalid username or password.";
 				return;
 			}
 
 			// Verify the password
-			bool isValid = BCrypt.Net.BCrypt.Verify(LoginModel.Password, hashedPassword);
+			bool isValid = BCrypt.Net.BCrypt.Verify(LoginModel.Password, user.HashedPassword);
 
 			if (isValid)
 			{
 				// Assign the logged-in user to the session state
-				SessionState.LoggedInUser = users;
+				SessionState.LoggedInUser = user;
 
 				// Redirect
 				LoginMessage = "Login successful!";

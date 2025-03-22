@@ -19,11 +19,8 @@ namespace AlienAdminSystem
 
         public DateTime Date { get; set; } = DateTime.Now;
 
-
-        [Required(ErrorMessage = "Start time is required.")]
         public DateTime StartTime { get; set; }
 
-        [Required(ErrorMessage = "End time is required.")]
         public DateTime EndTime { get; set; }
 
     }

@@ -131,6 +131,7 @@ namespace AlienAdminSystem
             builder.Services.AddScoped<UserDatabaseService>();
             builder.Services.AddSingleton<SessionState>();
             builder.Services.AddSingleton<BookingDatabaseService>();
+            builder.Services.AddScoped<FacilityDatabaseService>();
 
             builder.Services.AddDbContext<UserDBContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("AlienConnection")));
@@ -139,6 +140,9 @@ namespace AlienAdminSystem
     options.UseSqlServer(configuration.GetConnectionString("AlienConnection")));
 
             builder.Services.AddDbContext<BookingDBContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("AlienConnection")));
+
+            builder.Services.AddDbContext<FacilityDBContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("AlienConnection")));
 
             builder.Services.AddMauiBlazorWebView();

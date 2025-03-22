@@ -10,14 +10,14 @@ namespace AlienAdminSystem
     {
             public static List<Facility> ListAllFacilities() => new List<Facility>
         {
-            new Facility { FacilityID = 1, FacilityName = "Galactic Infirmary Quarantine Zone" },
-            new Facility { FacilityID = 2, FacilityName = "Celestial Containment Facility" },
-            new Facility { FacilityID = 3, FacilityName = "Interplanetary Peace Center" },
-            new Facility { FacilityID = 4, FacilityName = "Stellar Harmony Embassy" },
-            new Facility { FacilityID = 5, FacilityName = "Cosmic Unity Consulate" },
-            new Facility { FacilityID = 6, FacilityName = "Galactic Sciences Division – Earth Sector" },
-            new Facility { FacilityID = 7, FacilityName = "Quantum Tech & Energy Research Facility" },
-            new Facility { FacilityID = 8, FacilityName = "Cosmic Terraforming & Environmental Adaptation Center" }
+            new Facility { ID = 1, Name = "Galactic Infirmary Quarantine Zone" },
+            new Facility { ID = 2, Name = "Celestial Containment Facility" },
+            new Facility { ID = 3, Name = "Interplanetary Peace Center" },
+            new Facility { ID = 4, Name = "Stellar Harmony Embassy" },
+            new Facility { ID = 5, Name = "Cosmic Unity Consulate" },
+            new Facility { ID = 6, Name = "Galactic Sciences Division – Earth Sector" },
+            new Facility { ID = 7, Name = "Quantum Tech & Energy Research Facility" },
+            new Facility { ID = 8, Name = "Cosmic Terraforming & Environmental Adaptation Center" }
         };
     }
 }

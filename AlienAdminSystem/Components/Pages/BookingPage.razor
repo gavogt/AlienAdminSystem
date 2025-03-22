@@ -17,14 +17,14 @@
 			</div>
 			<div class="col-md-6">
 				<label for="facilities" class="form-label">Select Facility: </label>
-				<InputSelect class="form-select" @bind-Value="BookingRequest.FacilityID">
+				<InputSelect class="form-select" @bind-Value="BookingRequest.BookingID">
 					<option value="0">Select the option</option>
 					@foreach (var facilit in Facilities)
 					{
-						<option value="@facilit.FacilityID">@facilit.FacilityName</option>
+						<option value="@facilit.ID">@facilit.Name</option>
 					}
 				</InputSelect>
-				<ValidationMessage For="@(() => BookingRequest.FacilityID)" />
+				<ValidationMessage For="@(() => BookingRequest.BookingID)" />
 			</div>
 		</div>
 		
@@ -74,26 +74,6 @@
 
 	public async Task SubmitBooking()
 	{
-		/*
-		try
-		{
-
-			if (!TimeSpan.TryParse(StartTimeString, out TimeSpan startTime) || !TimeSpan.TryParse(EndTimeString, out TimeSpan endTime))
-			{
-				ErrorMessage = "Invalid time format.";
-				return;
-			}
-		}
-		catch (Exception ex)
-		{
-			ErrorMessage = $"Error in TimeSpan: {ex.Message}";
-			return;
-		}
-		*/
-
-		//BookingRequest.StartTime = BookingDate.Date.Add(startTime);
-		//BookingRequest.EndTime = BookingDate.Date.Add(endTime);
-
 
 		if (SessionState != null && SessionState.LoggedInUser != null)
 		{

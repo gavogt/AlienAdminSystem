@@ -45,6 +45,11 @@ CREATE TABLE dbo.Booking (
 
 );
 
+CREATE TABLE dbo.FacilityType (
+    ID INT IDENTITY(1,1) PRIMARY KEY,
+    Type NVARCHAR(100) NOT NULL
+);
+
 SET IDENTITY_INSERT AlienGroups ON;
 
 INSERT INTO AlienGroups (GroupID, GroupName) VALUES (1, 'Zorgons');
@@ -62,6 +67,10 @@ SET IDENTITY_INSERT AlienGroups OFF;
 INSERT INTO AtmosphereTypes (Name) VALUES ('Oxygen-rich');
 INSERT INTO AtmosphereTypes (Name) VALUES ('Nitrogen-rich');
 INSERT INTO AtmosphereTypes (Name) VALUES ('Carbon Dioxide-rich');
+
+INSERT INTO FacilityType (Type) VALUES ('Embassy');
+INSERT INTO FacilityType (Type) VALUES ('Research Lab');
+INSERT INTO FacilityType (Type) VALUES ('Quarantine Zone');
 
 
 

@@ -12,7 +12,7 @@ namespace AlienAdminSystem
 
         private readonly BookingDBContext _context;
 
-       public BookingDatabaseService(BookingDBContext context)
+        public BookingDatabaseService(BookingDBContext context)
         {
             _context = context;
         }
@@ -20,9 +20,17 @@ namespace AlienAdminSystem
         public async Task InsertBookingAsync(Booking booking)
         {
             _context.Booking.Add(booking);
-            
+
             await _context.SaveChangesAsync();
         }
 
+        public async Task<Booking?> GetBookingWithAlienAsync()
+        {
+            var bookings = await _context.Booking.Include(b => b.Alien)
+                .FirstOrDefaultAsync(b => b.Alien != null);
+
+            return bookings;
+
+        }
     }
 }

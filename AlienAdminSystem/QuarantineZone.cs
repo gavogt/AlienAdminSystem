@@ -6,7 +6,16 @@ using System.Threading.Tasks;
 
 namespace AlienAdminSystem
 {
-    internal class QuarantineZone
+    internal class QuarantineZone : Facility
     {
+        public bool IsAccessible { get; set; } = false;
+
+        public override bool ValidateBooking(Booking booking)
+        {
+            if (!IsAccessible)
+                return false;
+
+            return true;
+        }
     }
 }

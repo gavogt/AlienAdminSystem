@@ -33,88 +33,94 @@ namespace AlienAdminSystem
 
             // Seed the database with Facilities
             modelBuilder.Entity<Facility>().HasData(
-                new Facility
+                new
                 {
-                    ID = 1,
+                    FacilityID = 1,
                     Name = "Galactic Infirmary Quarantine Zone",
                     Capacity = 200,
                     Status = "Available",
                     FacilityTypeID = 3,       // Quarantine Zone
-                    AtmosphereTypeID = 1,       // Example Oxygen
-                    Description = "Designed to safely contain and treat extraterrestrial visitors, the Galactic Infirmary Quarantine Zone is equipped with advanced sterilization chambers, specialized atmospheric controls, and robust security protocols. Key Features: Multi-species medical labs, reinforced isolation wards, and automated drone monitoring for continuous safety checks."
+                    AtmosphereTypeID = 1,     // e.g., Oxygen
+                    Description = "Designed to safely contain and treat extraterrestrial visitors, the Galactic Infirmary Quarantine Zone is equipped with advanced sterilization chambers, specialized atmospheric controls, and robust security protocols. Key Features: Multi-species medical labs, reinforced isolation wards, and automated drone monitoring for continuous safety checks.",
+                    Discriminator = nameof(QuarantineZone)
                 },
-                new Facility
+                new
                 {
-                    ID = 2,
+                    FacilityID = 2,
                     Name = "Celestial Containment Facility",
                     Capacity = 150,
                     Status = "Available",
                     FacilityTypeID = 3,       // Quarantine Zone
                     AtmosphereTypeID = 1,
-                    Description = "The Celestial Containment Facility offers cutting-edge solutions for alien quarantine and observation. Utilizing energy barriers, bio-shield walls, and a fully automated check-in system, it ensures minimal contact while maximizing scientific collaboration and safety. Essential Elements: Adaptable bio-secure enclosures, intelligent alert systems, and holographic diagnostic interfaces."
+                    Description = "The Celestial Containment Facility offers cutting-edge solutions for alien quarantine and observation. Utilizing energy barriers, bio-shield walls, and a fully automated check-in system, it ensures minimal contact while maximizing scientific collaboration and safety. Essential Elements: Adaptable bio-secure enclosures, intelligent alert systems, and holographic diagnostic interfaces.",
+                    Discriminator = nameof(QuarantineZone)
                 },
-                new Facility
+                new
                 {
-                    ID = 3,
+                    FacilityID = 3,
                     Name = "Interplanetary Peace Center",
                     Capacity = 250,
                     Status = "Available",
                     FacilityTypeID = 1,       // Embassy type
                     AtmosphereTypeID = 1,
-                    Description = "Welcome to the Interplanetary Peace Center, a diplomatic haven where alien delegates and Earth’s representatives collaborate on universal policies. Equipped with advanced translation devices and serene meeting chambers, it fosters cultural exchange and alliance building."
+                    Description = "Welcome to the Interplanetary Peace Center, a diplomatic haven where alien delegates and Earth’s representatives collaborate on universal policies. Equipped with advanced translation devices and serene meeting chambers, it fosters cultural exchange and alliance building.",
+                    Discriminator = nameof(Embassy)
                 },
-                new Facility
+                new
                 {
-                    ID = 4,
+                    FacilityID = 4,
                     Name = "Stellar Harmony Embassy",
                     Capacity = 180,
                     Status = "Available",
                     FacilityTypeID = 1,       // Embassy
-                    AtmosphereTypeID = 2,    
-                    Description = "The Stellar Harmony Embassy stands as a beacon of intergalactic cooperation. Its grand halls and luminous architecture create a welcoming atmosphere for extraterrestrial envoys, with advanced diplomatic technologies and secure data vaults ensuring confidentiality."
+                    AtmosphereTypeID = 2,
+                    Description = "The Stellar Harmony Embassy stands as a beacon of intergalactic cooperation. Its grand halls and luminous architecture create a welcoming atmosphere for extraterrestrial envoys, with advanced diplomatic technologies and secure data vaults ensuring confidentiality.",
+                    Discriminator = nameof(Embassy)
                 },
-                new Facility
+                new
                 {
-                    ID = 5,
+                    FacilityID = 5,
                     Name = "Cosmic Unity Consulate",
                     Capacity = 160,
                     Status = "Available",
                     FacilityTypeID = 1,       // Embassy
-                    AtmosphereTypeID = 3,    
-                    Description = "The Cosmic Unity Consulate fosters unity and cooperation across intergalactic borders. It features modern communication hubs, state-of-the-art security systems, and streamlined processes to resolve interstellar disputes while promoting cultural exchange."
+                    AtmosphereTypeID = 3,
+                    Description = "The Cosmic Unity Consulate fosters unity and cooperation across intergalactic borders. It features modern communication hubs, state-of-the-art security systems, and streamlined processes to resolve interstellar disputes while promoting cultural exchange.",
+                    Discriminator = nameof(Embassy)
                 },
-                new Facility
+                new
                 {
-                    ID = 6,
+                    FacilityID = 6,
                     Name = "Galactic Sciences Division – Earth Sector",
                     Capacity = 300,
                     Status = "Available",
                     FacilityTypeID = 2,       // Research Lab
                     AtmosphereTypeID = 1,
-                    Description = "Welcome to the Advanced Xenobiology Research Lab, where cutting-edge discoveries shape interspecies cooperation. Dedicated to studying and enhancing biological adaptation, this facility offers zero-gravity biospheres, holographic genome mapping, and secure intergalactic specimen storage."
+                    Description = "Welcome to the Advanced Xenobiology Research Lab, where cutting-edge discoveries shape interspecies cooperation. Dedicated to studying and enhancing biological adaptation, this facility offers zero-gravity biospheres, holographic genome mapping, and secure intergalactic specimen storage.",
+                    Discriminator = nameof(ResearchLab)
                 },
-                new Facility
+                new
                 {
-                    ID = 7,
+                    FacilityID = 7,
                     Name = "Quantum Tech & Energy Research Facility",
                     Capacity = 220,
                     Status = "Available",
                     FacilityTypeID = 2,       // Research Lab
                     AtmosphereTypeID = 1,
-                    Description = "Unlock the potential of quantum mechanics and sustainable cosmic energy at the Quantum Tech & Energy Research Facility! Specializing in dark matter energy, zero-point propulsion, and multidimensional computational models, it is a hub for groundbreaking experiments and technological innovation."
+                    Description = "Unlock the potential of quantum mechanics and sustainable cosmic energy at the Quantum Tech & Energy Research Facility! Specializing in dark matter energy, zero-point propulsion, and multidimensional computational models, it is a hub for groundbreaking experiments and technological innovation.",
+                    Discriminator = nameof(ResearchLab)
                 },
-                new Facility
+                new
                 {
-                    ID = 8,
+                    FacilityID = 8,
                     Name = "Cosmic Terraforming & Environmental Adaptation Center",
                     Capacity = 280,
                     Status = "Available",
                     FacilityTypeID = 2,       // Research Lab
                     AtmosphereTypeID = 1,
-                    Description = "At the Cosmic Terraforming & Environmental Adaptation Center, pioneering techniques are applied to re-engineer planetary environments. Focused on sustainable biosphere regeneration and advanced atmospheric modifications, this facility is key to adapting Earth-like conditions for alien habitation."
-                }
-
-                );
+                    Description = "At the Cosmic Terraforming & Environmental Adaptation Center, pioneering techniques are applied to re-engineer planetary environments. Focused on sustainable biosphere regeneration and advanced atmospheric modifications, this facility is key to adapting Earth-like conditions for alien habitation.",
+                    Discriminator = nameof(ResearchLab)
+                });
         }
     }
 }

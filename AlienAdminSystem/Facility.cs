@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AlienAdminSystem
 {
-    internal class Facility : IFacility
+    internal abstract class Facility : IFacility
     {
         [Key]
         public int ID { get; set; }
@@ -24,6 +24,9 @@ namespace AlienAdminSystem
         public int FacilityTypeID { get; set; } = 0;
         // Foreign Key
         public int AtmosphereTypeID { get; set; } = 0;
+
+        // Abstract method to be implemented by derived classes (Embassy, Research Lab, etc.)
+        public abstract bool ValidateBooking(Booking booking);
 
     }
 }

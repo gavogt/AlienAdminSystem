@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AlienAdminSystem
 {
-    public class Booking
+    internal class Booking
     {
         [Key]
         public int BookingID { get; set; }
@@ -22,6 +22,8 @@ namespace AlienAdminSystem
         public DateTime StartTime { get; set; }
 
         public DateTime EndTime { get; set; }
+
+        public Alien? Alien { get; set; }
 
     }
 }

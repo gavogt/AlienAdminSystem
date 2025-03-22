@@ -15,9 +15,9 @@ namespace AlienAdminSystem
 
         // Common Properties
         public string Description { get; set; } 
-        public EnvironmentalControlSettings EnvironmentalControls { get; set; } 
+        //public EnvironmentalControlSettings EnvironmentalControls { get; set; } 
         public int Capacity { get; set; }
-        public string SpecialRequirements { get; set; }
+        public string? SpecialRequirements { get; set; }
         public string Status { get; set; }
 
 

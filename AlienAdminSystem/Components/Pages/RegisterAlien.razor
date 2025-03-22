@@ -105,7 +105,7 @@
 @code {
     private Alien alien = new Alien();
     private List<AlienGroup> alienGroups = AlienGroupsRepository.ListAllGroups();
-    private Alien registeredAlien;
+    private Alien registeredAlien = new();
 
     private async Task RegisterMyAlien()
     {

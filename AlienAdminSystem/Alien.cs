@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace AlienAdminSystem
 {
     [Table("AlienRegisterTable")]
-    internal class Alien
+    public class Alien
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -56,7 +56,6 @@ namespace AlienAdminSystem
             AtmosphereTypeID = atmosphereType;
             VisitDurationMonths = visitDurationMonths;
             SpecialRequirements = specialRequirements;
-
 
         }
     }

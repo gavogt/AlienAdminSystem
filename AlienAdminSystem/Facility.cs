@@ -15,9 +15,9 @@ namespace AlienAdminSystem
 
         // Common Properties
         public string Description { get; set; } = string.Empty;
-        public EnvironmentalControlSettings EnvironmentalControls { get; set; } = new EnvironmentalControlSettings();
+        //public EnvironmentalControlSettings EnvironmentalControls { get; set; } = new EnvironmentalControlSettings();
         public int Capacity { get; set; } = 0;
-        public string SpecialRequirements { get; set; } = string.Empty;
+        public string? SpecialRequirements { get; set; } = string.Empty;
         public string Status { get; set; } = string.Empty;
 
         // Foreign Key

@@ -1,4 +1,6 @@
 ﻿@inject BookingDatabaseService BookingDatabaseService
+@inject AlienDBContext AlienDBContext
+@using Microsoft.EntityFrameworkCore;
 
 @page "/booking"
 
@@ -27,7 +29,7 @@
 				<ValidationMessage For="@(() => BookingRequest.BookingID)" />
 			</div>
 		</div>
-		
+
 		<div class="row mb-3">
 			<div class="col-md-6">
 				<div>
@@ -42,7 +44,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<button type="submit" class="btn btn-primary mt-3">Register Alien</button>
 		<div class="row">
 			<p>
@@ -62,15 +64,20 @@
 	// Cascading parameters are used to pass data down the component tree
 	[CascadingParameter]
 	internal SessionState? SessionState { get; set; }
-	List<Facility> Facilities { get; set; } = FacilityRepository.ListAllFacilities();
+
+	List<Facility> Facilities { get; set; } = new();
 
 	public Booking BookingRequest { get; set; } = new Booking();
 
 	public DateTime BookingDate { get; set; } = DateTime.Today;
-	public DateTime StartTimeString { get; set; }
-	public string EndTimeString { get; set; } = "19:00";
 
 	public string ErrorMessage = String.Empty;
+
+	protected override async Task OnInitializedAsync()
+	{
+		// Fetch the list of facilities from the database
+		Facilities = await AlienDBContext.Facilities.ToListAsync();
+	}
 
 	public async Task SubmitBooking()
 	{

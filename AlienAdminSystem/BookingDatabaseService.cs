@@ -10,9 +10,9 @@ namespace AlienAdminSystem
     internal class BookingDatabaseService
     {
 
-        private readonly BookingDBContext _context;
+        private readonly AlienDBContext _context;
 
-        public BookingDatabaseService(BookingDBContext context)
+        public BookingDatabaseService(AlienDBContext context)
         {
             _context = context;
         }

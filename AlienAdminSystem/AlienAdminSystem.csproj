@@ -61,6 +61,21 @@
     </ItemGroup>
 
     <ItemGroup>
+      <AndroidResource Remove="Migrations\**" />
+      <AndroidResource Remove="NewFolder\**" />
+      <Compile Remove="Migrations\**" />
+      <Compile Remove="NewFolder\**" />
+      <Content Remove="Migrations\**" />
+      <Content Remove="NewFolder\**" />
+      <EmbeddedResource Remove="Migrations\**" />
+      <EmbeddedResource Remove="NewFolder\**" />
+      <MauiXaml Remove="Migrations\**" />
+      <MauiXaml Remove="NewFolder\**" />
+      <None Remove="Migrations\**" />
+      <None Remove="NewFolder\**" />
+    </ItemGroup>
+
+    <ItemGroup>
       <Content Include="SQLScripts.sql" />
     </ItemGroup>
 
@@ -73,6 +88,10 @@
           <PrivateAssets>all</PrivateAssets>
         </PackageReference>
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.3" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.3">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
         <PackageReference Include="Microsoft.Maui.Controls" Version="9.0.50" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="9.0.50" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.3" />

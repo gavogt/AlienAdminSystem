@@ -1,2 +1,3 @@
 ﻿# Ignore appsettings.json
 appsettings.json
+AlienDBContextFactory.cs

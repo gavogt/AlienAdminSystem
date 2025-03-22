@@ -9,9 +9,9 @@ namespace AlienAdminSystem
 {
     internal class UserDatabaseService
     {
-        private readonly UserDBContext _context;
+        private readonly AlienDBContext _context;
 
-        public UserDatabaseService(UserDBContext context)
+        public UserDatabaseService(AlienDBContext context)
         {
             _context = context;
         }

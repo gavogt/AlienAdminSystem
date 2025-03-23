@@ -1,6 +1,95 @@
 ﻿@page "/facilitystatusmanagement"
-<h3>FacilityStatusManagement</h3>
+
+@using Microsoft.EntityFrameworkCore
+
+@inject AlienDBContext dbContext
+@inject FacilityDatabaseService FacilityService
+
+<EditForm model="SelectedFacility" OnSubmit="SubmitFacilityChange">
+	<DataAnnotationsValidator />
+	<ValidationSummary />
+	<div class="container mt-4">
+		<h3>Facility Status Management</h3>
+		<div class="row mb-3">
+			<div class="col-md-6">
+				<label for="facilities" class="form-label">Select Facility: </label>
+				<InputSelect class="form-select" @bind-Value="SelectedFacilityID">
+					<option value="0">Select the option</option>
+					@foreach (var facility in Facilities)
+					{
+						<option value="@facility.ID">@facility.Name - Status: @facility.Status</option>
+					}
+				</InputSelect>
+				<ValidationMessage For="@(() => SelectedFacilityID)" />
+			</div>
+			<div class="col-md-6">
+				<label for="status" class="form-label">Change Status: </label>
+				@if (SelectedFacility != null)
+				{
+					<InputSelect class="form-select" @bind-Value="SelectedFacility.Status">
+						<option value="0">Select the option</option>
+						@foreach (var status in Enum.GetValues(typeof(Status)))
+						{
+							<option value="@status">@status</option>
+						}
+					</InputSelect>
+					<ValidationMessage For="@(() => SelectedFacility.Status)" />
+				}
+			</div>
+			@if (ErrorMessage != String.Empty)
+			{
+				<div class="alert alert-danger mt-3">
+					@ErrorMessage
+				</div>
+			}
+		</div>
+		<button type="submit" class="btn btn-primary">Update Status</button>
+	</div>
+</EditForm>
 
 @code {
+	List<Facility> Facilities { get; set; } = new();
+	private Facility? SelectedFacility { get; set; } = new Embassy();
 
+	private string ErrorMessage = String.Empty;
+
+	// Holds the selected facility ID
+	private int _SelectedFacilityID;
+
+	private int SelectedFacilityID
+	{
+		get => _SelectedFacilityID;
+
+		// When the selected facility ID value changes, find the corresponding facility
+		set
+		{
+			if (_SelectedFacilityID != value)
+			{
+				_SelectedFacilityID = value;
+				SelectedFacility = Facilities.FirstOrDefault(f => f.ID == _SelectedFacilityID);
+			}
+		}
+	}
+
+	protected override async Task OnInitializedAsync()
+	{
+		Facilities = await FacilityService.GetFacilitiesASync();
+	}
+
+	private async Task SubmitFacilityChange()
+	{
+		if(SelectedFacility == null)
+		{
+			return;
+		}
+
+		try
+		{
+			await FacilityService.UpdateFacilityStatusAsync(SelectedFacilityID, SelectedFacility.Status);
+		}
+		catch
+		{
+			ErrorMessage = "Error updating facility status.";
+		}
+	}
 }

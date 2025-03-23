@@ -61,17 +61,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <AndroidResource Remove="Migrations\**" />
       <AndroidResource Remove="NewFolder\**" />
-      <Compile Remove="Migrations\**" />
       <Compile Remove="NewFolder\**" />
-      <Content Remove="Migrations\**" />
       <Content Remove="NewFolder\**" />
-      <EmbeddedResource Remove="Migrations\**" />
       <EmbeddedResource Remove="NewFolder\**" />
-      <MauiXaml Remove="Migrations\**" />
       <MauiXaml Remove="NewFolder\**" />
-      <None Remove="Migrations\**" />
       <None Remove="NewFolder\**" />
     </ItemGroup>
 

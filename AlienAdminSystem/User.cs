@@ -15,6 +15,8 @@ namespace AlienAdminSystem
         public int ID { get; set; }
         public string Username { get; set; } = String.Empty;
         public string HashedPassword { get; set; } = String.Empty;
+        public bool IsAdmin { get; set; } = false;
+
 
         public User()
         {

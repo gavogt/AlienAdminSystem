@@ -66,12 +66,22 @@
 				if (SessionState != null)
 					SessionState.LoggedInUser = user;
 
-
 				LoginMessage = "Login successful!";
 
-				// Redirect
-				Navigation.NavigateTo("/dashboard");
-				return;
+				if (SessionState?.LoggedInUser?.IsAdmin == false && SessionState.LoggedInUser != null)
+				{
+					// Redirect to the dashboard page
+					Navigation.NavigateTo("/dashboard");
+
+					return;
+				}
+				else if (SessionState?.LoggedInUser?.IsAdmin == true)
+				{
+					// Redirect to the admin page
+					Navigation.NavigateTo("/adminDashboard");
+					return;
+				}
+
 			}
 			else
 			{

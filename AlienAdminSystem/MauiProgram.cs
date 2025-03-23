@@ -140,11 +140,24 @@ namespace AlienAdminSystem
             builder.Services.AddMauiBlazorWebView();
 
 #if DEBUG
-    		builder.Services.AddBlazorWebViewDeveloperTools();
-    		builder.Logging.AddDebug();
+            builder.Services.AddBlazorWebViewDeveloperTools();
+            builder.Logging.AddDebug();
 #endif
 
-            return builder.Build();
+            var app = builder.Build();
+
+            using(var scope = app.Services.CreateScope())
+            {
+                // Retrieve Services
+                var dbContext = scope.ServiceProvider.GetRequiredService<AlienDBContext>();
+                var config = scope.ServiceProvider.GetRequiredService<IConfiguration>();
+
+                dbContext.Database.Migrate();
+                
+                DbSeeder.SeedAdmin(dbContext, config);
+            }
+
+            return app;
         }
     }
 }

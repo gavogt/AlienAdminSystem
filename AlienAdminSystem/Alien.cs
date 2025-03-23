@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace AlienAdminSystem
 {
     [Table("AlienRegisterTable")]
-    public class Alien
+    public abstract class Alien
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -22,7 +22,7 @@ namespace AlienAdminSystem
         [Required(ErrorMessage = "Planet is required.")]
         public string Planet { get; set; } = string.Empty;
         [Required(ErrorMessage = "Species is required.")]
-        public string Species { get; set; } = string.Empty;
+        public Species Species { get; set; }
         [Required(ErrorMessage = "Email is required.")]
         public string Email { get; set; } = string.Empty;
         [Range(0, 1000, ErrorMessage = "Age must be between 0 and 1000.")]
@@ -44,7 +44,7 @@ namespace AlienAdminSystem
 
         }
 
-        public Alien(string firstName, string lastName, string planet, string species, string email, int age, int selectedGroupID, int atmosphereType, int visitDurationMonths, string specialRequirements)
+        public Alien(string firstName, string lastName, string planet, Species species, string email, int age, int selectedGroupID, int atmosphereType, int visitDurationMonths, string specialRequirements)
         {
             FirstName = firstName;
             LastName = lastName;

@@ -37,6 +37,11 @@ namespace AlienAdminSystem.Migrations
                         .HasColumnType("int")
                         .HasColumnName("AlienGroupID");
 
+                    b.Property<string>("AlienType")
+                        .IsRequired()
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
+
                     b.Property<int>("AtmosphereTypeID")
                         .HasColumnType("int")
                         .HasColumnName("AtmosphereTypeID");
@@ -61,9 +66,8 @@ namespace AlienAdminSystem.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Species")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Species")
+                        .HasColumnType("int");
 
                     b.Property<int>("VisitDurationMonths")
                         .HasColumnType("int");
@@ -71,6 +75,10 @@ namespace AlienAdminSystem.Migrations
                     b.HasKey("AlienID");
 
                     b.ToTable("AlienRegisterTable");
+
+                    b.HasDiscriminator<string>("AlienType").HasValue("Alien");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("AlienAdminSystem.Booking", b =>
@@ -160,6 +168,9 @@ namespace AlienAdminSystem.Migrations
                     b.Property<bool>("IsAdmin")
                         .HasColumnType("bit");
 
+                    b.Property<int>("Species")
+                        .HasColumnType("int");
+
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -167,6 +178,42 @@ namespace AlienAdminSystem.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("AlienAdminSystem.Grey", b =>
+                {
+                    b.HasBaseType("AlienAdminSystem.Alien");
+
+                    b.ToTable("AlienRegisterTable");
+
+                    b.HasDiscriminator().HasValue("Grey");
+                });
+
+            modelBuilder.Entity("AlienAdminSystem.Hybrid", b =>
+                {
+                    b.HasBaseType("AlienAdminSystem.Alien");
+
+                    b.ToTable("AlienRegisterTable");
+
+                    b.HasDiscriminator().HasValue("Hybrid");
+                });
+
+            modelBuilder.Entity("AlienAdminSystem.Reptilian", b =>
+                {
+                    b.HasBaseType("AlienAdminSystem.Alien");
+
+                    b.ToTable("AlienRegisterTable");
+
+                    b.HasDiscriminator().HasValue("Reptilian:");
+                });
+
+            modelBuilder.Entity("AlienAdminSystem.TimeTraveler", b =>
+                {
+                    b.HasBaseType("AlienAdminSystem.Alien");
+
+                    b.ToTable("AlienRegisterTable");
+
+                    b.HasDiscriminator().HasValue("TimeTraveler");
                 });
 
             modelBuilder.Entity("AlienAdminSystem.Embassy", b =>

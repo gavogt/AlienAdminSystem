@@ -16,17 +16,18 @@ namespace AlienAdminSystem
         public string Username { get; set; } = String.Empty;
         public string HashedPassword { get; set; } = String.Empty;
         public bool IsAdmin { get; set; } = false;
-
+        public Species Species { get; set; }
 
         public User()
         {
             
         }
 
-        public User(string username, string hashedPassword)
+        public User(string username, string hashedPassword, Species species)
         {
             Username = username;
             HashedPassword = hashedPassword;
+            Species = species;
 
         }
     }

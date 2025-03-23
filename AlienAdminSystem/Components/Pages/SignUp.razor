@@ -26,6 +26,20 @@
 					<InputText id="confirmPassword" type="password" class="form-control" @bind-Value="SignUpModel.ConfirmPassword" />
 					<ValidationMessage For="@(() => SignUpModel.ConfirmPassword)" />
 				</div>
+
+				<div class="col-md-6">
+					<div>
+						<label class="form-label">Enter species: </label>
+						<InputSelect class="form-select" @bind-Value="SignUpModel.Species">
+							@foreach (var species in Enum.GetValues(typeof(Species)))
+							{
+								<option value="@species">@species</option>
+							}
+						</InputSelect>
+
+						<ValidationMessage For="@(() => SignUpModel.Species)" />
+					</div>
+				</div>
 				<button type="submit" class="btn btn-primary">Sign Up</button>
 				@if (SignUpModel.ConfirmPassword == SignUpModel.Password && !string.IsNullOrEmpty(SignUpModel.Password))
 				{
@@ -54,7 +68,7 @@
 			HashedPassword = PasswordHelper.HashPassword(SignUpModel.Password);
 			isValid = PasswordHelper.VerifyPassword(SignUpModel.Password, HashedPassword);
 			if (isValid){
-				user = new User(SignUpModel.Username, HashedPassword);
+				user = new User(SignUpModel.Username, HashedPassword, SignUpModel.Species);
 				await UserDatabaseService.InsertUserAsync(user);
 			}	
 

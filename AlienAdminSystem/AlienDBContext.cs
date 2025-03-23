@@ -36,6 +36,18 @@ namespace AlienAdminSystem
             modelBuilder.Entity<ResearchLab>().ToTable("ResearchLabs");
             modelBuilder.Entity<QuarantineZone>().ToTable("QuarantineZones");
 
+            // Configure TPH inheritance for Alien
+            modelBuilder.Entity<Alien>()
+                .HasDiscriminator<string>("AlienType")
+                .HasValue<TimeTraveler>("TimeTraveler")
+                .HasValue<Reptilian>("Reptilian:")
+                .HasValue<Grey>("Grey")
+                .HasValue<Hybrid>("Hybrid");
+
+            modelBuilder.Entity<Alien>()
+                .Property(a => a.Species)
+                .HasConversion<int>();
+
             // QuarantineZone (IDs 1 & 2)
             modelBuilder.Entity<QuarantineZone>().HasData(
                 new

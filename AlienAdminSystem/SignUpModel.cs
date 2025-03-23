@@ -15,14 +15,17 @@ namespace AlienAdminSystem
         [Required(ErrorMessage = "Password is required.")]
         public string Password { get; set; } = String.Empty;
         [Required(ErrorMessage = "Confirm Password is required.")]
+
+        public Species Species { get; set; }
+
         public string ConfirmPassword { get; set; } = String.Empty;
 
         public SignUpModel()
         {
-            
+
         }
 
-        public SignUpModel(string username, string password, string confirmPassword)
+        public SignUpModel(string username, string password, Species species, string confirmPassword)
         {
             Username = username;
             Password = password;

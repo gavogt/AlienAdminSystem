@@ -68,11 +68,30 @@
 
 				LoginMessage = "Login successful!";
 
-				if (SessionState?.LoggedInUser?.IsAdmin == false && SessionState.LoggedInUser != null)
+				if (SessionState?.LoggedInUser?.IsAdmin == false)
 				{
 					// Redirect to the dashboard page
-					Navigation.NavigateTo("/dashboard");
+					if (SessionState?.LoggedInUser.Species == Species.Reptilian)
+					{
+						Navigation.NavigateTo("/reptilianDashboard");
+					}
+					else if(SessionState?.LoggedInUser?.Species == Species.TimeTraveler){
+						Navigation.NavigateTo("/timetravelerDashboard");
+					}
+					else if (SessionState?.LoggedInUser?.Species == Species.Grey)
+					{
+						Navigation.NavigateTo("/greyDashboard");
+					}
+					else if (SessionState?.LoggedInUser?.Species == Species.Hybrid)
+					{
+						Navigation.NavigateTo("/hybridDashboard");
+					}
+					else
+					{
+						Navigation.NavigateTo("/dashboard");
+					}
 
+					
 					return;
 				}
 				else if (SessionState?.LoggedInUser?.IsAdmin == true)

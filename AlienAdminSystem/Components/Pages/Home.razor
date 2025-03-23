@@ -1,6 +1,22 @@
 ﻿@page "/"
-<h1>Galactic Alien Administration System</h1>
-<p>Welcome to your new planet</p>
+<div class="hero d-flex align-items-center justify-content-center text-center"
+     style="height: 60vh; background: url('images/galaxy.png') center no-repeat; position: relative;">
+    <div class="overlay"
+         style="position:absolute; top:0; right:0; bottom:0; left:0; background: rgba(0,0,0,0.1);"></div>
+
+    <div class="container position-relative">
+        <img src="images/logo.png"
+             alt="Galactic Alien Administration Logo"
+             style="max-height: 120px;"
+             class="img-fluid mb-3" />
+        <h1 class="text-white">Welcome to the Official Galactic Alien Administration Portal</h1>
+        <p class="lead text-white">
+            Your comprehensive platform for strategic management of extraterrestrial entities and data.
+        </p>
+        <a href="signup" class="btn btn-primary mx-2">Sign Up</a>
+        <a href="login" class="btn btn-outline-light mx-2">Login</a>
+    </div>
+</div>
 
 @code {
 

@@ -7,11 +7,12 @@
 @using System.Threading.Tasks
 @inject AlienDatabaseService AlienDatabaseService
 
-<h1>Alien Registration Page</h1>
+
 <EditForm Model="@alienInput" OnValidSubmit="RegisterMyAlien">
 	<DataAnnotationsValidator />
 	<ValidationSummary />
 	<div class="row mb-3">
+		<h1>Alien Registration Page</h1>
 		<div class="col-md-6">
 			<div>
 				<label class="form-label">Enter first name: </label>
@@ -83,17 +84,18 @@
 			</InputSelect>
 			<ValidationMessage For="@(() => alienInput.AtmosphereTypeID)" />
 		</div>
+		<div class="mb-3">
+			<label for="specialRequirements" class="form-label">Special Requirements: </label>
+			<textarea id="specialRequirements" class="form-control" rows="4" @bind="alienInput.SpecialRequirements"></textarea>
+			<ValidationMessage For="@(() => alienInput.SpecialRequirements)" />
+		</div>
+		<div>
+			<label class="form-label">Enter email: </label>
+			<InputText type="email" class="form-control" @bind-Value="alienInput.Email" />
+			<ValidationMessage For="@(() => alienInput.Email)" />
+		</div>
 	</div>
-	<div class="mb-3">
-		<label for="specialRequirements" class="form-label">Special Requirements: </label>
-		<textarea id="specialRequirements" class="form-control" rows="4" @bind="alienInput.SpecialRequirements"></textarea>
-		<ValidationMessage For="@(() => alienInput.SpecialRequirements)" />
-	</div>
-	<div>
-		<label class="form-label">Enter email: </label>
-		<InputText type="email" class="form-control" @bind-Value="alienInput.Email" />
-		<ValidationMessage For="@(() => alienInput.Email)" />
-	</div>
+
 	<button type="submit" class="btn btn-primary mt-3">Register Alien</button>
 </EditForm>
 

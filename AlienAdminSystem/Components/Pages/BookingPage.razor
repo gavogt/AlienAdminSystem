@@ -4,12 +4,13 @@
 
 @page "/booking"
 
-<h3>Booking</h3>
+
 <EditForm Model="@BookingRequest" OnValidSubmit="SubmitBooking">
 	<DataAnnotationsValidator />
 	<ValidationSummary />
 	<div class="container">
 		<div class="top-row mb-3">
+			<h3>Booking</h3>
 			<div class="col-md-6">
 				<div class="col-md-6">
 					<label class="form-label">Enter Visitors: </label>

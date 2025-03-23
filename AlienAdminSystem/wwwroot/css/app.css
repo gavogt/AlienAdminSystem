@@ -86,3 +86,7 @@ h1:focus {
         padding-left: env(safe-area-inset-left);
     }
 }
+
+.navbar a {
+    color: #ffffff !important;
+}

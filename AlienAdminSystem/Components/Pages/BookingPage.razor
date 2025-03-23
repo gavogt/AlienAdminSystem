@@ -23,7 +23,7 @@
 					<option value="0">Select the option</option>
 					@foreach (var facilit in Facilities)
 					{
-						<option value="@facilit.ID">@facilit.Name</option>
+						<option value="@facilit.ID">@facilit.Name - Status: @facilit.Status</option>
 					}
 				</InputSelect>
 				<ValidationMessage For="@(() => BookingRequest.BookingID)" />

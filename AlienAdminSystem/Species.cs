@@ -10,6 +10,7 @@ namespace AlienAdminSystem
     public enum Species
     {
         Reptilian,
+        [Display(Name = "Time Traveler")]
         TimeTraveler,
         Grey,
         Hybrid,

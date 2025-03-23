@@ -234,7 +234,7 @@ namespace AlienAdminSystem.Migrations
                             Description = "Welcome to the Interplanetary Peace Center, a diplomatic haven where alien delegates and Earth’s representatives collaborate on universal policies.",
                             FacilityTypeID = 1,
                             Name = "Interplanetary Peace Center",
-                            Status = "Available",
+                            Status = "Open",
                             RequiredAtmosphereTypeID = 1
                         },
                         new
@@ -245,7 +245,7 @@ namespace AlienAdminSystem.Migrations
                             Description = "The Stellar Harmony Embassy stands as a beacon of intergalactic cooperation. Its grand halls and luminous architecture create a welcoming atmosphere for extraterrestrial envoys.",
                             FacilityTypeID = 1,
                             Name = "Stellar Harmony Embassy",
-                            Status = "Available",
+                            Status = "Open",
                             RequiredAtmosphereTypeID = 2
                         },
                         new
@@ -256,7 +256,7 @@ namespace AlienAdminSystem.Migrations
                             Description = "The Cosmic Unity Consulate fosters unity and cooperation across intergalactic borders. It features modern communication hubs and advanced security systems.",
                             FacilityTypeID = 1,
                             Name = "Cosmic Unity Consulate",
-                            Status = "Available",
+                            Status = "Open",
                             RequiredAtmosphereTypeID = 1
                         });
                 });
@@ -279,7 +279,7 @@ namespace AlienAdminSystem.Migrations
                             Description = "Designed to safely contain and treat extraterrestrial visitors, the Galactic Infirmary Quarantine Zone is equipped with advanced sterilization chambers, specialized atmospheric controls, and robust security protocols.",
                             FacilityTypeID = 3,
                             Name = "Galactic Infirmary Quarantine Zone",
-                            Status = "Available",
+                            Status = "Open",
                             IsAccessible = true
                         },
                         new
@@ -290,7 +290,7 @@ namespace AlienAdminSystem.Migrations
                             Description = "The Celestial Containment Facility offers cutting-edge solutions for alien quarantine and observation. Utilizing energy barriers, bio-shield walls, and a fully automated check-in system, it ensures minimal contact while maximizing scientific collaboration.",
                             FacilityTypeID = 3,
                             Name = "Celestial Containment Facility",
-                            Status = "Available",
+                            Status = "UnderMaintenance",
                             IsAccessible = false
                         });
                 });
@@ -313,7 +313,7 @@ namespace AlienAdminSystem.Migrations
                             Description = "Welcome to the Advanced Xenobiology Research Lab, where cutting-edge discoveries shape interspecies cooperation. Dedicated to studying and enhancing biological adaptation.",
                             FacilityTypeID = 2,
                             Name = "Galactic Sciences Division – Earth Sector",
-                            Status = "Available",
+                            Status = "UnderMaintenance",
                             LabEquipmentCount = 200
                         },
                         new
@@ -324,7 +324,7 @@ namespace AlienAdminSystem.Migrations
                             Description = "Unlock the potential of quantum mechanics and sustainable cosmic energy at the Quantum Tech & Energy Research Facility!",
                             FacilityTypeID = 2,
                             Name = "Quantum Tech & Energy Research Facility",
-                            Status = "Available",
+                            Status = "Open",
                             LabEquipmentCount = 63
                         },
                         new
@@ -335,7 +335,7 @@ namespace AlienAdminSystem.Migrations
                             Description = "At the Cosmic Terraforming & Environmental Adaptation Center, pioneering techniques are applied to re-engineer planetary environments for alien habitation.",
                             FacilityTypeID = 2,
                             Name = "Cosmic Terraforming & Environmental Adaptation Center",
-                            Status = "Available",
+                            Status = "Open",
                             LabEquipmentCount = 16
                         });
                 });

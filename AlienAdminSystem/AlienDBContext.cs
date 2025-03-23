@@ -44,9 +44,15 @@ namespace AlienAdminSystem
                 .HasValue<Grey>("Grey")
                 .HasValue<Hybrid>("Hybrid");
 
+            // Convert Species enum to int for database storage
             modelBuilder.Entity<Alien>()
                 .Property(a => a.Species)
                 .HasConversion<int>();
+
+            // Convert Status to string for database storage
+            modelBuilder.Entity<Facility>()
+                .Property(f => f.Status)
+                .HasConversion<string>();
 
             // QuarantineZone (IDs 1 & 2)
             modelBuilder.Entity<QuarantineZone>().HasData(
@@ -56,7 +62,7 @@ namespace AlienAdminSystem
                     // Base Facility fields:
                     Name = "Galactic Infirmary Quarantine Zone",
                     Capacity = 200,
-                    Status = "Available",
+                    Status = Status.Open,
                     FacilityTypeID = 3, // Quarantine Zone
                     AtmosphereTypeID = 1, // Oxygen
                     Description = "Designed to safely contain and treat extraterrestrial visitors, " +
@@ -70,7 +76,7 @@ namespace AlienAdminSystem
                     ID = 2,
                     Name = "Celestial Containment Facility",
                     Capacity = 150,
-                    Status = "Available",
+                    Status = Status.UnderMaintenance,
                     FacilityTypeID = 3, // Quarantine Zone
                     AtmosphereTypeID = 2,
                     Description = "The Celestial Containment Facility offers cutting-edge solutions for alien quarantine " +
@@ -88,7 +94,7 @@ namespace AlienAdminSystem
                     // Base Facility fields:
                     Name = "Interplanetary Peace Center",
                     Capacity = 250,
-                    Status = "Available",
+                    Status = Status.Open,
                     FacilityTypeID = 1, // Embassy
                     AtmosphereTypeID = 3,
                     Description = "Welcome to the Interplanetary Peace Center, a diplomatic haven where alien delegates " +
@@ -101,7 +107,7 @@ namespace AlienAdminSystem
                     ID = 4,
                     Name = "Stellar Harmony Embassy",
                     Capacity = 180,
-                    Status = "Available",
+                    Status = Status.Open,
                     FacilityTypeID = 1, // Embassy
                     AtmosphereTypeID = 2,
                     Description = "The Stellar Harmony Embassy stands as a beacon of intergalactic cooperation. " +
@@ -113,7 +119,7 @@ namespace AlienAdminSystem
                     ID = 5,
                     Name = "Cosmic Unity Consulate",
                     Capacity = 160,
-                    Status = "Available",
+                    Status = Status.Open,
                     FacilityTypeID = 1, // Embassy
                     AtmosphereTypeID = 3,
                     Description = "The Cosmic Unity Consulate fosters unity and cooperation across intergalactic borders. " +
@@ -130,7 +136,7 @@ namespace AlienAdminSystem
                     // Base Facility fields:
                     Name = "Galactic Sciences Division – Earth Sector",
                     Capacity = 300,
-                    Status = "Available",
+                    Status = Status.UnderMaintenance,
                     FacilityTypeID = 2, // Research Lab
                     AtmosphereTypeID = 1,
                     Description = "Welcome to the Advanced Xenobiology Research Lab, where cutting-edge discoveries " +
@@ -143,7 +149,7 @@ namespace AlienAdminSystem
                     ID = 7,
                     Name = "Quantum Tech & Energy Research Facility",
                     Capacity = 220,
-                    Status = "Available",
+                    Status = Status.Open,
                     FacilityTypeID = 2, // Research Lab
                     AtmosphereTypeID = 1,
                     Description = "Unlock the potential of quantum mechanics and sustainable cosmic energy " +
@@ -155,7 +161,7 @@ namespace AlienAdminSystem
                     ID = 8,
                     Name = "Cosmic Terraforming & Environmental Adaptation Center",
                     Capacity = 280,
-                    Status = "Available",
+                    Status = Status.Open,
                     FacilityTypeID = 2, // Research Lab
                     AtmosphereTypeID = 1,
                     Description = "At the Cosmic Terraforming & Environmental Adaptation Center, pioneering techniques " +

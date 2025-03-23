@@ -18,7 +18,7 @@ namespace AlienAdminSystem
         //public EnvironmentalControlSettings EnvironmentalControls { get; set; } 
         public int Capacity { get; set; }
         public string? SpecialRequirements { get; set; }
-        public string Status { get; set; }
+        public Status Status { get; set; }
 
 
         // Foreign Key

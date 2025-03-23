@@ -18,7 +18,7 @@ namespace AlienAdminSystem
         //public EnvironmentalControlSettings EnvironmentalControls { get; set; } = new EnvironmentalControlSettings();
         public int Capacity { get; set; } = 0;
         public string? SpecialRequirements { get; set; } = string.Empty;
-        public string Status { get; set; } = string.Empty;
+        public Status Status { get; set; }
 
         // Foreign Key
         public int FacilityTypeID { get; set; } = 0;

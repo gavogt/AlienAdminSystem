@@ -130,7 +130,7 @@ namespace AlienAdminSystem
             builder.Services.AddSingleton<AlienDatabaseService>();
             builder.Services.AddScoped<UserDatabaseService>();
             builder.Services.AddSingleton<SessionState>();
-            builder.Services.AddSingleton<BookingDatabaseService>();
+            builder.Services.AddScoped<BookingDatabaseService>();
             builder.Services.AddScoped<FacilityDatabaseService>();
 
             builder.Services.AddDbContext<AlienDBContext>(options =>

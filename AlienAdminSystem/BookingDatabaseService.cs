@@ -19,7 +19,6 @@ namespace AlienAdminSystem
 
         public async Task InsertBookingAsync(Booking booking)
         {
-            booking.ID = 0;
 
             var facilityExists = await _context.Facilities.AnyAsync(f => f.ID == booking.FacilityID);
             if (!facilityExists)
@@ -27,23 +26,39 @@ namespace AlienAdminSystem
                 throw new InvalidOperationException("Facility does not exist in table.");
             }
 
-
-            var alienExists = await _context.Aliens.AnyAsync(a => a.ID == booking.AlienID);
-            if (!alienExists)
+            if(booking.Aliens != null)
+            foreach(var alien in booking.Aliens)
             {
-                
-                throw new InvalidOperationException("Alien does not exist in table.");
+                bool exists = await _context.Aliens.AnyAsync(a => a.ID == alien.ID);
+                if (!exists)
+                {
+                    throw new InvalidOperationException($"Alien with ID {alien.ID} does not exist in table.");
+                }
             }
 
-            _context.Booking.Add(booking);
+            try
+            {
+                _context.Booking.Add(booking);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
 
-            await _context.SaveChangesAsync();
+            try
+            {
+                await _context.SaveChangesAsync();
+            }  catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
 
+        
         public async Task<Booking?> GetBookingWithAlienAsync()
         {
-            var bookings = await _context.Booking.Include(b => b.Alien)
-                .FirstOrDefaultAsync(b => b.Alien != null);
+            var bookings = await _context.Booking.Include(b => b.Aliens)
+                .FirstOrDefaultAsync(b => b.Aliens != null);
 
             return bookings;
 

@@ -39,6 +39,8 @@ namespace AlienAdminSystem
         [Range(0, 12, ErrorMessage = "Visit duration must be between 0 and 12 months.")]
         public int VisitDurationMonths { get; set; } = 0;
 
+        public List<Booking> Bookings { get; set; } = new List<Booking>();
+
         public Alien()
         {
 

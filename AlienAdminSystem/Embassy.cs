@@ -13,7 +13,11 @@ namespace AlienAdminSystem
         public override bool ValidateBooking(Booking booking)
         {
             // If booking Atmosphere Type is Oxygen return true;
-            return booking?.Alien?.AtmosphereTypeID == RequiredAtmosphereTypeID;
+            if(booking.Aliens == null)
+            {
+                return false; // No aliens to validate
+            }
+            return booking.Aliens.All(alien => alien.AtmosphereTypeID == RequiredAtmosphereTypeID); 
 
         }
     }

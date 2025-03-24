@@ -37,11 +37,6 @@ namespace AlienAdminSystem.Migrations
                         .HasColumnType("int")
                         .HasColumnName("AlienGroupID");
 
-                    b.Property<string>("AlienType")
-                        .IsRequired()
-                        .HasMaxLength(13)
-                        .HasColumnType("nvarchar(13)");
-
                     b.Property<int>("AtmosphereTypeID")
                         .HasColumnType("int")
                         .HasColumnName("AtmosphereTypeID");
@@ -76,7 +71,7 @@ namespace AlienAdminSystem.Migrations
 
                     b.ToTable("AlienRegisterTable");
 
-                    b.HasDiscriminator<string>("AlienType").HasValue("Alien");
+                    b.HasDiscriminator<int>("Species");
 
                     b.UseTphMappingStrategy();
                 });
@@ -88,9 +83,6 @@ namespace AlienAdminSystem.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
-
-                    b.Property<int>("AlienID")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -107,9 +99,12 @@ namespace AlienAdminSystem.Migrations
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("UserID")
+                        .HasColumnType("int");
+
                     b.HasKey("ID");
 
-                    b.HasIndex("AlienID");
+                    b.HasIndex("UserID");
 
                     b.ToTable("Booking");
                 });
@@ -180,13 +175,28 @@ namespace AlienAdminSystem.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("AlienBooking", b =>
+                {
+                    b.Property<int>("AlienID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BookingID")
+                        .HasColumnType("int");
+
+                    b.HasKey("AlienID", "BookingID");
+
+                    b.HasIndex("BookingID");
+
+                    b.ToTable("AlienBooking");
+                });
+
             modelBuilder.Entity("AlienAdminSystem.Grey", b =>
                 {
                     b.HasBaseType("AlienAdminSystem.Alien");
 
                     b.ToTable("AlienRegisterTable");
 
-                    b.HasDiscriminator().HasValue("Grey");
+                    b.HasDiscriminator().HasValue(2);
                 });
 
             modelBuilder.Entity("AlienAdminSystem.Hybrid", b =>
@@ -195,7 +205,7 @@ namespace AlienAdminSystem.Migrations
 
                     b.ToTable("AlienRegisterTable");
 
-                    b.HasDiscriminator().HasValue("Hybrid");
+                    b.HasDiscriminator().HasValue(3);
                 });
 
             modelBuilder.Entity("AlienAdminSystem.Reptilian", b =>
@@ -204,7 +214,7 @@ namespace AlienAdminSystem.Migrations
 
                     b.ToTable("AlienRegisterTable");
 
-                    b.HasDiscriminator().HasValue("Reptilian:");
+                    b.HasDiscriminator().HasValue(0);
                 });
 
             modelBuilder.Entity("AlienAdminSystem.TimeTraveler", b =>
@@ -213,7 +223,7 @@ namespace AlienAdminSystem.Migrations
 
                     b.ToTable("AlienRegisterTable");
 
-                    b.HasDiscriminator().HasValue("TimeTraveler");
+                    b.HasDiscriminator().HasValue(1);
                 });
 
             modelBuilder.Entity("AlienAdminSystem.Embassy", b =>
@@ -342,13 +352,28 @@ namespace AlienAdminSystem.Migrations
 
             modelBuilder.Entity("AlienAdminSystem.Booking", b =>
                 {
-                    b.HasOne("AlienAdminSystem.Alien", "Alien")
+                    b.HasOne("AlienAdminSystem.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("AlienBooking", b =>
+                {
+                    b.HasOne("AlienAdminSystem.Alien", null)
                         .WithMany()
                         .HasForeignKey("AlienID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Alien");
+                    b.HasOne("AlienAdminSystem.Booking", null)
+                        .WithMany()
+                        .HasForeignKey("BookingID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("AlienAdminSystem.Embassy", b =>

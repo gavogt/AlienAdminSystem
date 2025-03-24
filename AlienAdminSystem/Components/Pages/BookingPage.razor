@@ -1,5 +1,6 @@
 ﻿@inject BookingDatabaseService BookingDatabaseService
 @inject AlienDBContext AlienDBContext
+@inject AlienDatabaseService AlienDatabaseService
 @using Microsoft.EntityFrameworkCore;
 
 @page "/booking"
@@ -30,7 +31,22 @@
 				<ValidationMessage For="@(() => BookingRequest.FacilityID)" />
 			</div>
 		</div>
-
+		<div class="row mb-3">
+			@if (AlienViewModel == null || !AlienViewModel.Any())
+			{
+				<p>Loading Aliens....</p>
+			}
+			else
+			{
+				foreach (var alien in AlienViewModel)
+				{
+					<div class="form-check">
+						<input type="checkbox" class="form-check-input" id="@alien.ID" @bind="alien.IsSelected" />
+						<label class="form-check-label" for="@alien.ID">@alien.FirstName @alien.LastName</label>
+					</div>
+				}
+			}
+		</div>
 		<div class="row mb-3">
 			<div class="col-md-6">
 				<div>
@@ -68,6 +84,8 @@
 
 	List<Facility> Facilities { get; set; } = new();
 
+	List<AlienViewModel> AlienViewModel { get; set; } = new();
+
 	public Booking BookingRequest { get; set; } = new Booking();
 
 	public DateTime BookingDate { get; set; } = DateTime.Today;
@@ -80,25 +98,72 @@
 		{
 			throw new Exception("Session state or logged-in user is null");
 		}
-		var alienExists = await AlienDBContext.Users.AnyAsync(a => a.ID == SessionState.LoggedInUser.ID);
-		if (!alienExists)
+
+		// Check if the logged-in user exists in the database
+		var userExists = await AlienDBContext.Users.AnyAsync(a => a.ID == SessionState.LoggedInUser.ID);
+
+		if (!userExists)
 		{
 			throw new Exception("Alien not found");
 		}
+
 		// Fetch the list of facilities from the database
 		Facilities = await AlienDBContext.Facilities.ToListAsync();
+
+		// Fetch the list of Aliens from the database
+		var aliensFromDb = await AlienDBContext.Aliens.ToListAsync();
+
+		// Map the Aliens to the ViewModel
+		AlienViewModel = aliensFromDb.Select(a => new AlienViewModel
+			{
+				ID = a.ID,
+				FirstName = a.FirstName,
+				LastName = a.LastName,
+				IsSelected = false
+			}).ToList();
 	}
 
 	public async Task SubmitBooking()
 	{
 
+		foreach (var vm in AlienViewModel.Where(a => a.IsSelected))
+		{
+			// Find Alien IDs where IsSelected is true
+			var existingAlien = await AlienDBContext.Aliens.FindAsync(vm.ID);
+
+			if (existingAlien != null)
+			{
+				if (AlienDBContext.Entry(existingAlien).State == EntityState.Detached)
+				{
+					// Attach the entity to the context if it's detached
+					AlienDBContext.Attach(existingAlien);
+				}
+
+				BookingRequest?.Aliens?.Add(existingAlien);
+			}
+		}
+
+		// Check if the SessionState and LoggedInUser are not null
 		if (SessionState != null && SessionState.LoggedInUser != null)
 		{
-			BookingRequest.AlienID = SessionState.LoggedInUser.ID;
+			// Check if the BookingRequest.UserID is null
+			if(BookingRequest?.UserID == null)
+				throw new Exception("BookingRequest.User is null");
+
+			// Assign the logged-in user's ID to the BookingRequest
+			BookingRequest.UserID = SessionState.LoggedInUser.ID;
 
 		}
 
+		// Check if the BookingRequest is null
+		if (BookingRequest == null)
+		{
+			throw new Exception("BookingRequest is null");
+		}
+
+		// Insert Booking into the database
 		await BookingDatabaseService.InsertBookingAsync(BookingRequest);
+		
 	}
 
 }

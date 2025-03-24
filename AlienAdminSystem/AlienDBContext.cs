@@ -20,15 +20,33 @@ namespace AlienAdminSystem
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Relationship booking to Alien
-            modelBuilder.Entity<Booking>()
-                .HasOne(b => b.Alien)
-                .WithMany()
-                .HasForeignKey(b => b.AlienID);
 
+            // Create Join Table with AlienID and BookingID foreign keys
             modelBuilder.Entity<Booking>()
-                .Property(b => b.ID)
-                .ValueGeneratedOnAdd();
+                .HasMany(b => b.Aliens)
+                .WithMany(a => a.Bookings)
+                .UsingEntity<Dictionary<string, object>>(
+                    "AlienBooking",
+                    j => j
+                        .HasOne<Alien>()
+                        .WithMany()
+                        .HasForeignKey("AlienID"),
+                    j => j
+                        .HasOne<Booking>()
+                        .WithMany()
+                        .HasForeignKey("BookingID")
+                );
+
+            // Generate new ID value on Add
+            modelBuilder.Entity<Booking>()
+            .Property(b => b.ID)
+            .ValueGeneratedOnAdd();
+
+            // Join Booking User on UserID
+            modelBuilder.Entity<Booking>()
+                .HasOne(b => b.User)
+                .WithMany()
+                .HasForeignKey(b => b.UserID);
 
             // Configure TPT inheritance
             modelBuilder.Entity<Facility>().UseTptMappingStrategy();
@@ -38,11 +56,11 @@ namespace AlienAdminSystem
 
             // Configure TPH inheritance for Alien
             modelBuilder.Entity<Alien>()
-                .HasDiscriminator<string>("AlienType")
-                .HasValue<TimeTraveler>("TimeTraveler")
-                .HasValue<Reptilian>("Reptilian:")
-                .HasValue<Grey>("Grey")
-                .HasValue<Hybrid>("Hybrid");
+                .HasDiscriminator<Species>("Species")
+                .HasValue<TimeTraveler>(Species.TimeTraveler)
+                .HasValue<Reptilian>(Species.Reptilian)
+                .HasValue<Grey>(Species.Grey)
+                .HasValue<Hybrid>(Species.Hybrid);
 
             // Convert Species enum to int for database storage
             modelBuilder.Entity<Alien>()

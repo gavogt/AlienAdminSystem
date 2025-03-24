@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.SqlServer;
 
 namespace AlienAdminSystem
 {
-    internal class User
+    public class User
     {
 
         [Key]

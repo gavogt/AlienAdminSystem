@@ -1,6 +1,7 @@
 ﻿@page "/signup"
 @using System.ComponentModel.DataAnnotations
 @inject UserDatabaseService UserDatabaseService
+@inject NavigationManager Navigation
 
 <EditForm Model="@SignUpModel" OnValidSubmit="HandleSubmit">
 	<DataAnnotationsValidator />
@@ -70,6 +71,8 @@
 			if (isValid){
 				user = new User(SignUpModel.Username, HashedPassword, SignUpModel.Species);
 				await UserDatabaseService.InsertUserAsync(user);
+
+				Navigation.NavigateTo("/login");
 			}	
 
 		}

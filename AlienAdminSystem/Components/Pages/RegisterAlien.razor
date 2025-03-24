@@ -6,6 +6,7 @@
 @using Microsoft.Extensions.Configuration
 @using System.Threading.Tasks
 @inject AlienDatabaseService AlienDatabaseService
+@inject NavigationManager Navigation
 
 
 <EditForm Model="@alienInput" OnValidSubmit="RegisterMyAlien">
@@ -102,6 +103,7 @@
 @code {
 	private AlienInputModel alienInput = new();
 	private List<AlienGroup> alienGroups = AlienGroupsRepository.ListAllGroups();
+	private bool IsValid;
 
 	private async Task RegisterMyAlien()
 	{
@@ -118,6 +120,14 @@
 		alienInput.SpecialRequirements
 		);
 
-		await AlienDatabaseService.InsertAlienAsync(newAlien);
+		try
+		{
+			await AlienDatabaseService.InsertAlienAsync(newAlien);
+			Navigation.NavigateTo("/booking");
+		}
+		catch
+		{
+			throw new Exception("Error inserting alien into the database.");
+		}
 	}
 }

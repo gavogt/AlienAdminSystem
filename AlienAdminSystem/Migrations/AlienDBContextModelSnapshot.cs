@@ -24,11 +24,11 @@ namespace AlienAdminSystem.Migrations
 
             modelBuilder.Entity("AlienAdminSystem.Alien", b =>
                 {
-                    b.Property<int>("AlienID")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AlienID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<int>("Age")
                         .HasColumnType("int");
@@ -72,7 +72,7 @@ namespace AlienAdminSystem.Migrations
                     b.Property<int>("VisitDurationMonths")
                         .HasColumnType("int");
 
-                    b.HasKey("AlienID");
+                    b.HasKey("ID");
 
                     b.ToTable("AlienRegisterTable");
 
@@ -83,11 +83,11 @@ namespace AlienAdminSystem.Migrations
 
             modelBuilder.Entity("AlienAdminSystem.Booking", b =>
                 {
-                    b.Property<int>("BookingID")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookingID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<int>("AlienID")
                         .HasColumnType("int");
@@ -107,7 +107,7 @@ namespace AlienAdminSystem.Migrations
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("BookingID");
+                    b.HasKey("ID");
 
                     b.HasIndex("AlienID");
 

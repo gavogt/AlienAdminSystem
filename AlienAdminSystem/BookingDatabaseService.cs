@@ -19,6 +19,22 @@ namespace AlienAdminSystem
 
         public async Task InsertBookingAsync(Booking booking)
         {
+            booking.ID = 0;
+
+            var facilityExists = await _context.Facilities.AnyAsync(f => f.ID == booking.FacilityID);
+            if (!facilityExists)
+            {
+                throw new InvalidOperationException("Facility does not exist in table.");
+            }
+
+
+            var alienExists = await _context.Aliens.AnyAsync(a => a.ID == booking.AlienID);
+            if (!alienExists)
+            {
+                
+                throw new InvalidOperationException("Alien does not exist in table.");
+            }
+
             _context.Booking.Add(booking);
 
             await _context.SaveChangesAsync();

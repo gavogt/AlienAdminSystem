@@ -20,14 +20,14 @@
 			</div>
 			<div class="col-md-6">
 				<label for="facilities" class="form-label">Select Facility: </label>
-				<InputSelect class="form-select" @bind-Value="BookingRequest.BookingID">
+				<InputSelect class="form-select" @bind-Value="BookingRequest.FacilityID">
 					<option value="0">Select the option</option>
 					@foreach (var facilit in Facilities)
 					{
 						<option value="@facilit.ID">@facilit.Name - Status: @facilit.Status</option>
 					}
 				</InputSelect>
-				<ValidationMessage For="@(() => BookingRequest.BookingID)" />
+				<ValidationMessage For="@(() => BookingRequest.FacilityID)" />
 			</div>
 		</div>
 
@@ -76,6 +76,15 @@
 
 	protected override async Task OnInitializedAsync()
 	{
+		if (SessionState == null || SessionState.LoggedInUser == null)
+		{
+			throw new Exception("Session state or logged-in user is null");
+		}
+		var alienExists = await AlienDBContext.Users.AnyAsync(a => a.ID == SessionState.LoggedInUser.ID);
+		if (!alienExists)
+		{
+			throw new Exception("Alien not found");
+		}
 		// Fetch the list of facilities from the database
 		Facilities = await AlienDBContext.Facilities.ToListAsync();
 	}

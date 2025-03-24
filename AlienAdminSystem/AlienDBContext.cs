@@ -27,7 +27,7 @@ namespace AlienAdminSystem
                 .HasForeignKey(b => b.AlienID);
 
             modelBuilder.Entity<Booking>()
-                .Property(b => b.BookingID)
+                .Property(b => b.ID)
                 .ValueGeneratedOnAdd();
 
             // Configure TPT inheritance

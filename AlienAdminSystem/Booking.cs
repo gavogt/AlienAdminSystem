@@ -12,7 +12,7 @@ namespace AlienAdminSystem
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int BookingID { get; set; }
+        public int ID { get; set; }
         public int FacilityID { get; set; }
         public int AlienID { get; set; }
 

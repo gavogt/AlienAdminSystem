@@ -13,7 +13,7 @@ namespace AlienAdminSystem
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int AlienID { get; set; }
+        public int ID { get; set; }
 
         [Required(ErrorMessage = "First name is required.")]
         public string FirstName { get; set; } = string.Empty;

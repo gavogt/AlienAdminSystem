@@ -3,6 +3,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore.SqlServer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
+using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui;
 
 /*
  * 
@@ -114,10 +118,15 @@ namespace AlienAdminSystem
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                // Initialize the .NET MAUI Community Toolkit by adding the below line of code
+                .UseMauiCommunityToolkit()
+                // After initializing the .NET MAUI Community Toolkit, optionally add additional fonts
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
+
 
             builder.Configuration.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
 
@@ -133,11 +142,15 @@ namespace AlienAdminSystem
             builder.Services.AddScoped<BookingDatabaseService>();
             builder.Services.AddScoped<FacilityDatabaseService>();
 
+
             builder.Services.AddDbContext<AlienDBContext>(options =>
     options.UseSqlServer(configuration.GetConnectionString("AlienConnection")));
 
 
             builder.Services.AddMauiBlazorWebView();
+
+            // Register NotificationManager and related services
+            builder.Services.AddSingleton<NotificationManager>();
 
 #if DEBUG
             builder.Services.AddBlazorWebViewDeveloperTools();
@@ -146,16 +159,17 @@ namespace AlienAdminSystem
 
             var app = builder.Build();
 
-            using(var scope = app.Services.CreateScope())
+            using (var scope = app.Services.CreateScope())
             {
                 // Retrieve Services
                 var dbContext = scope.ServiceProvider.GetRequiredService<AlienDBContext>();
                 var config = scope.ServiceProvider.GetRequiredService<IConfiguration>();
 
                 dbContext.Database.Migrate();
-                
+
                 DbSeeder.SeedAdmin(dbContext, config);
             }
+
 
             return app;
         }

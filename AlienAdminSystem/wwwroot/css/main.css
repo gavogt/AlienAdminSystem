@@ -55,3 +55,7 @@ main {
     color: #000000 !important;
     margin-bottom: 2rem;
 }
+
+.notification-panel {
+    color: #ff0000;
+}

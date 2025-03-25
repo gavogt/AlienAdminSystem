@@ -1,6 +1,9 @@
 ﻿@inject BookingDatabaseService BookingDatabaseService
 @inject AlienDBContext AlienDBContext
-@inject AlienDatabaseService AlienDatabaseService
+@inject AlienDatabaseService AlienDatabaseService 
+@inject NotificationManager NotificationManager
+@using CommunityToolkit.Maui.Alerts;
+@using CommunityToolkit.Maui.Core;
 @using Microsoft.EntityFrameworkCore;
 
 @page "/booking"
@@ -147,7 +150,7 @@
 		if (SessionState != null && SessionState.LoggedInUser != null)
 		{
 			// Check if the BookingRequest.UserID is null
-			if(BookingRequest?.UserID == null)
+			if (BookingRequest?.UserID == null)
 				throw new Exception("BookingRequest.User is null");
 
 			// Assign the logged-in user's ID to the BookingRequest
@@ -160,10 +163,21 @@
 		{
 			throw new Exception("BookingRequest is null");
 		}
+		var message = new NotificationMessage
+			{
+				Title = "Booking Confirmation",
+				Content = $"Booking {BookingRequest.ID} for {BookingRequest.NumberOfVisitors} visitors has been successfully created.",
+			};
+
+		if (message == null || NotificationManager == null)
+		{
+			return;
+		}
+
+		await NotificationManager.NotifyAsync(message);
 
 		// Insert Booking into the database
 		await BookingDatabaseService.InsertBookingAsync(BookingRequest);
-		
-	}
 
+	}
 }

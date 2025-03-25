@@ -1,0 +1,39 @@
+﻿@inject NotificationManager NotificationManager
+
+<div class="notification-panel bg-black alert-light p-3 mt-2">
+	<h4>Notifications</h4>
+	@if (notifications.Count == 0)
+	{
+			<p>No notifications available.</p>
+	}
+	else
+	{
+			<ul class="list-unstyled">
+			@foreach (var notification in notifications)
+			{
+						<li class="notification-item">
+							<strong>@notification.Title</strong>: @notification.Content
+							<small class="text-muted d-block">@notification.Timestamp.ToShortTimeString()</small>
+						</li>
+			}
+			</ul>
+	}
+</div>
+
+
+@code {
+	private List<NotificationMessage> notifications = new();
+
+	// Callback method
+	private void AddNotification(NotificationMessage message)
+	{
+		notifications.Add(message);
+		InvokeAsync(StateHasChanged);
+	}
+
+	protected override void OnInitialized()
+	{
+		// Register an observer that calls the AddNotification method when a notification is received.
+		NotificationManager.RegisterObserver(new InlineNotificationObserver(AddNotification));
+	}
+}

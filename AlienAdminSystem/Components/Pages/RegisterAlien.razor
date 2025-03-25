@@ -7,6 +7,7 @@
 @using System.Threading.Tasks
 @inject AlienDatabaseService AlienDatabaseService
 @inject NavigationManager Navigation
+@inject NotificationManager NotificationManager
 
 
 <EditForm Model="@alienInput" OnValidSubmit="RegisterMyAlien">
@@ -122,6 +123,25 @@
 		try
 		{
 			await AlienDatabaseService.InsertAlienAsync(newAlien);
+
+			// Check if the Alien input is null
+			if (alienInput == null)
+			{
+				throw new Exception("Alien is null");
+			}
+			var message = new NotificationMessage
+				{
+					Title = "Alien Registered",
+					Content = $"Alien named: {alienInput.FirstName}{alienInput.LastName} from planet: {alienInput.Planet} has been successfully registered.",
+				};
+
+			if (message == null || NotificationManager == null)
+			{
+				return;
+			}
+
+			await NotificationManager.NotifyAsync(message);
+
 			Navigation.NavigateTo("/booking");
 		}
 		catch

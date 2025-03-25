@@ -1,7 +1,7 @@
 ﻿@inject NotificationManager NotificationManager
 
 <div class="notification-panel bg-black alert-light p-3 mt-2">
-	<h4>Notifications</h4>
+	<h4>Telepathy Messenger</h4>
 	@if (notifications.Count == 0)
 	{
 			<p>No notifications available.</p>
@@ -34,6 +34,6 @@
 	protected override void OnInitialized()
 	{
 		// Register an observer that calls the AddNotification method when a notification is received.
-		NotificationManager.RegisterObserver(new InlineNotificationObserver(AddNotification));
+		NotificationManager.RegisterObserver(new GalacticTelepathyMessenger(AddNotification));
 	}
 }

@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace AlienAdminSystem
 {
-    internal class InlineNotificationObserver : INotificationObserver
+    internal class GalacticTelepathyMessenger : INotificationObserver
     {
         // Action to be executed when a notification is received
         private readonly Action<NotificationMessage> _onNotification;
 
-        public InlineNotificationObserver(Action<NotificationMessage> onNotification)
+        public GalacticTelepathyMessenger(Action<NotificationMessage> onNotification)
         {
             _onNotification = onNotification;
 

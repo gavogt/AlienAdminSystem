@@ -10,15 +10,15 @@ namespace AlienAdminSystem
     {
         public static List<AlienGroup> ListAllGroups() => new List<AlienGroup>()
         {
-            new AlienGroup { alienGroupID = 1, alienGroupName = "Zorgons" },
-            new AlienGroup { alienGroupID = 2, alienGroupName = "Xenons" },
-            new AlienGroup { alienGroupID = 3, alienGroupName = "Galactic Science Consortium" },
-            new AlienGroup { alienGroupID = 4, alienGroupName = "Cosmic Cultural Ambassadors" },
-            new AlienGroup { alienGroupID = 5, alienGroupName = "Plutonians" },
-            new AlienGroup { alienGroupID = 6, alienGroupName = "Martians" },
-            new AlienGroup { alienGroupID = 7, alienGroupName = "Intergalactic Arts & Traditions Forum" },
-            new AlienGroup { alienGroupID = 8, alienGroupName = "Venusians" },
-            new AlienGroup { alienGroupID = 9, alienGroupName = "Interstellar Research Alliance" }
+            new AlienGroup { ID = 1, Name = "Zorgons" },
+            new AlienGroup { ID = 2, Name = "Xenons" },
+            new AlienGroup { ID = 3, Name = "Galactic Science Consortium" },
+            new AlienGroup { ID = 4, Name = "Cosmic Cultural Ambassadors" },
+            new AlienGroup { ID = 5, Name = "Plutonians" },
+            new AlienGroup { ID = 6, Name = "Martians" },
+            new AlienGroup { ID = 7, Name = "Intergalactic Arts & Traditions Forum" },
+            new AlienGroup { ID = 8, Name = "Venusians" },
+            new AlienGroup { ID = 9, Name = "Interstellar Research Alliance" }
 
         };
 

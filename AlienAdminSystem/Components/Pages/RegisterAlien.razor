@@ -71,7 +71,7 @@
 				<option value="">Select the option</option>
 				@foreach (var group in alienGroups)
 				{
-					<option value="@group.alienGroupID">@group.alienGroupName</option>
+					<option value="@group.ID">@group.Name</option>
 				}
 			</InputSelect>
 			<ValidationMessage For="@(() => alienInput.AlienGroupID)" />

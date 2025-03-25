@@ -13,7 +13,6 @@ namespace AlienAdminSystem
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
-        public int FacilityID { get; set; }
 
         [Range(0, 10, ErrorMessage = "Number of visitors must be between 0 and 10.")]
         public int NumberOfVisitors { get; set; }
@@ -34,6 +33,10 @@ namespace AlienAdminSystem
         // EF Navigation
         public User? User { get; set; }
 
+        // Foreign Key
+        public int FacilityID { get; set; }
+
+        public FacilityType? FacilityType { get; set; }
 
 
     }

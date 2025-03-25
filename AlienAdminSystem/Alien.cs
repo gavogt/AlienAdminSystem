@@ -29,17 +29,23 @@ namespace AlienAdminSystem
         public int Age { get; set; } = 0;
         [Required(ErrorMessage = "Group ID is required.")]
 
-        [Column("AlienGroupID")]
-        public int AlienGroupID { get; set; } = 0;
-        [Range(0, 2, ErrorMessage = "Atmosphere type must be between 0 and 2.")]
-
-        [Column("AtmosphereTypeID")]
-        public int AtmosphereTypeID { get; set; } = 0;
         public string SpecialRequirements { get; set; } = string.Empty;
         [Range(0, 12, ErrorMessage = "Visit duration must be between 0 and 12 months.")]
         public int VisitDurationMonths { get; set; } = 0;
 
+        // Foreign Key
+        [Column("AlienGroupID")]
+        public int AlienGroupID { get; set; } = 0;
+        [Range(0, 2, ErrorMessage = "Atmosphere type must be between 0 and 2.")]
+
+        // Foreign Key
+        [Column("AtmosphereTypeID")]
+        public int AtmosphereTypeID { get; set; } = 0;
+
         public List<Booking> Bookings { get; set; } = new List<Booking>();
+
+        public AlienGroup? AlienGroup { get; set; }
+        public AtmosphereType? AtmosphereType { get; set; }
 
         public Alien()
         {

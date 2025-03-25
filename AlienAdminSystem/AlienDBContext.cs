@@ -72,6 +72,32 @@ namespace AlienAdminSystem
                 .Property(f => f.Status)
                 .HasConversion<string>();
 
+            // Build the Atmosphere Type Table with EF and seed the Database
+            modelBuilder.Entity<AtmosphereType>().HasData(
+                new AtmosphereType { ID = 1, Name = "Oxygen" },
+                new AtmosphereType { ID = 2, Name = "Nitrogen" },
+                new AtmosphereType { ID = 3, Name = "Hydrogen" },
+                new AtmosphereType { ID = 4, Name = "Carbon Dioxide" },
+                new AtmosphereType { ID = 5, Name = "Methane" });
+
+            // Build the Facility Type Table with EF and seed the Database
+            modelBuilder.Entity<FacilityType>().HasData(
+                new FacilityType { ID = 1, Name = "Embassy" },
+                new FacilityType { ID = 2, Name = "Research Lab" },
+                new FacilityType { ID = 3, Name = "Quarantine Zone" });
+
+            // Build the Alien Group Table with EF and seed the Database
+            modelBuilder.Entity<AlienGroup>().HasData(
+             new AlienGroup { ID = 1, Name = "Zorgons" },
+             new AlienGroup { ID = 2, Name = "Xenons" },
+             new AlienGroup { ID = 3, Name = "Galactic Science Consortium" },
+             new AlienGroup { ID = 4, Name = "Cosmic Cultural Ambassadors" },
+             new AlienGroup { ID = 5, Name = "Plutonians" },
+             new AlienGroup { ID = 6, Name = "Martians" },
+             new AlienGroup { ID = 7, Name = "Intergalactic Arts & Traditions Forum" },
+             new AlienGroup { ID = 8, Name = "Venusians" },
+             new AlienGroup { ID = 9, Name = "Interstellar Research Alliance" });
+
             // QuarantineZone (IDs 1 & 2)
             modelBuilder.Entity<QuarantineZone>().HasData(
                 new

@@ -69,11 +69,123 @@ namespace AlienAdminSystem.Migrations
 
                     b.HasKey("ID");
 
+                    b.HasIndex("AlienGroupID");
+
+                    b.HasIndex("AtmosphereTypeID");
+
                     b.ToTable("AlienRegisterTable");
 
                     b.HasDiscriminator<int>("Species");
 
                     b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("AlienAdminSystem.AlienGroup", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("AlienGroup");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            Name = "Zorgons"
+                        },
+                        new
+                        {
+                            ID = 2,
+                            Name = "Xenons"
+                        },
+                        new
+                        {
+                            ID = 3,
+                            Name = "Galactic Science Consortium"
+                        },
+                        new
+                        {
+                            ID = 4,
+                            Name = "Cosmic Cultural Ambassadors"
+                        },
+                        new
+                        {
+                            ID = 5,
+                            Name = "Plutonians"
+                        },
+                        new
+                        {
+                            ID = 6,
+                            Name = "Martians"
+                        },
+                        new
+                        {
+                            ID = 7,
+                            Name = "Intergalactic Arts & Traditions Forum"
+                        },
+                        new
+                        {
+                            ID = 8,
+                            Name = "Venusians"
+                        },
+                        new
+                        {
+                            ID = 9,
+                            Name = "Interstellar Research Alliance"
+                        });
+                });
+
+            modelBuilder.Entity("AlienAdminSystem.AtmosphereType", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("AtmosphereType");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            Name = "Oxygen"
+                        },
+                        new
+                        {
+                            ID = 2,
+                            Name = "Nitrogen"
+                        },
+                        new
+                        {
+                            ID = 3,
+                            Name = "Hydrogen"
+                        },
+                        new
+                        {
+                            ID = 4,
+                            Name = "Carbon Dioxide"
+                        },
+                        new
+                        {
+                            ID = 5,
+                            Name = "Methane"
+                        });
                 });
 
             modelBuilder.Entity("AlienAdminSystem.Booking", b =>
@@ -93,6 +205,9 @@ namespace AlienAdminSystem.Migrations
                     b.Property<int>("FacilityID")
                         .HasColumnType("int");
 
+                    b.Property<int?>("FacilityTypeID")
+                        .HasColumnType("int");
+
                     b.Property<int>("NumberOfVisitors")
                         .HasColumnType("int");
 
@@ -103,6 +218,8 @@ namespace AlienAdminSystem.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("FacilityTypeID");
 
                     b.HasIndex("UserID");
 
@@ -146,6 +263,40 @@ namespace AlienAdminSystem.Migrations
                     b.ToTable("Facilities");
 
                     b.UseTptMappingStrategy();
+                });
+
+            modelBuilder.Entity("AlienAdminSystem.FacilityType", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("FacilityType");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            Name = "Embassy"
+                        },
+                        new
+                        {
+                            ID = 2,
+                            Name = "Research Lab"
+                        },
+                        new
+                        {
+                            ID = 3,
+                            Name = "Quarantine Zone"
+                        });
                 });
 
             modelBuilder.Entity("AlienAdminSystem.User", b =>
@@ -350,13 +501,38 @@ namespace AlienAdminSystem.Migrations
                         });
                 });
 
+            modelBuilder.Entity("AlienAdminSystem.Alien", b =>
+                {
+                    b.HasOne("AlienAdminSystem.AlienGroup", "AlienGroup")
+                        .WithMany()
+                        .HasForeignKey("AlienGroupID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AlienAdminSystem.AtmosphereType", "AtmosphereType")
+                        .WithMany()
+                        .HasForeignKey("AtmosphereTypeID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AlienGroup");
+
+                    b.Navigation("AtmosphereType");
+                });
+
             modelBuilder.Entity("AlienAdminSystem.Booking", b =>
                 {
+                    b.HasOne("AlienAdminSystem.FacilityType", "FacilityType")
+                        .WithMany()
+                        .HasForeignKey("FacilityTypeID");
+
                     b.HasOne("AlienAdminSystem.User", "User")
                         .WithMany()
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("FacilityType");
 
                     b.Navigation("User");
                 });

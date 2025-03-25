@@ -1,7 +1,7 @@
 ﻿@inject NotificationManager NotificationManager
 
 <div class="notification-panel bg-black alert-light p-3 mt-2">
-	<h4>Telepathy Messenger</h4>
+	<h4>Galactic Telepathy Messenger</h4>
 	@if (notifications.Count == 0)
 	{
 			<p>No notifications available.</p>
@@ -28,6 +28,14 @@
 	private void AddNotification(NotificationMessage message)
 	{
 		notifications.Add(message);
+
+		if (notifications.Count > 2)
+		{
+			// Remove the oldest notification
+			notifications.RemoveAt(0);
+		}
+
+		// Update the UI
 		InvokeAsync(StateHasChanged);
 	}
 

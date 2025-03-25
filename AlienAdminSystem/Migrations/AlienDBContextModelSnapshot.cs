@@ -94,7 +94,7 @@ namespace AlienAdminSystem.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("AlienGroup");
+                    b.ToTable("AlienGroups");
 
                     b.HasData(
                         new
@@ -158,7 +158,7 @@ namespace AlienAdminSystem.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("AtmosphereType");
+                    b.ToTable("AtmosphereTypes");
 
                     b.HasData(
                         new
@@ -279,7 +279,7 @@ namespace AlienAdminSystem.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("FacilityType");
+                    b.ToTable("FacilityTypes");
 
                     b.HasData(
                         new

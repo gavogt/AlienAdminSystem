@@ -1,0 +1,72 @@
+﻿@page "/facilitySearch"
+@inject FacilityFilterService FacilityFilterService
+
+<div class="container mt-4 p-4 bg-dark rounded shadow-sm">
+	<div class="row mb-3">
+		<div class="col-md-6 mb-3">
+			<div>
+				<label>Minimum Capacity:</label>
+				<input type="number" @bind="minCapacity" placeholder="Enter minimum Capacity: " />
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div>
+				<label>Required Atmosphere Type ID for Embassies:</label>
+				<input type="number" @bind="requiredAtmosphere" placeholder="Enter Atmosphere Type ID: " />
+			</div>
+		</div>
+	</div>
+	<button @onclick="SearchFacilities">Search</button>
+
+	<div class="search">
+		@if (facilities != null)
+		{
+			if (facilities.Any())
+			{
+				<h4>Results</h4>
+				<ul>
+					@foreach (var facility in facilities)
+					{
+						facilityTypeID = facility.FacilityTypeID;
+						if (facility?.AtmosphereType?.Name != null)
+						{
+							<li>
+								<strong>@facility.Name</strong> - Capacity [@facility.Capacity] - Atmosphere ID[@facility.AtmosphereType.ID] Type [@facility.AtmosphereType.Name]
+							</li>
+						}
+					}
+				</ul>
+			}
+		}
+	</div>
+</div>
+@code {
+	private int minCapacity { get; set; }
+	private int requiredAtmosphere { get; set; }
+	private List<Facility> facilities { get; set; } = new();
+	private int facilityTypeID { get; set; }
+
+	private async Task SearchFacilities()
+	{
+		var strategies = new List<IFacilityFilterStrategy>();
+
+		if (minCapacity > 0)
+		{   // Add a new CapacityFilterStrategy to the strategies list
+			// Query by min capacity
+			strategies.Add(new CapacityFilterStrategy(minCapacity));
+		};
+
+		if (requiredAtmosphere > 0)
+		{
+			// Add a new EmbassyAtmosphereFilterStrategy to the strategies list
+			// Query by required atmosphere
+			strategies.Add(new EmbassyAtmosphereFilterStrategy(requiredAtmosphere));
+
+
+		};
+
+		facilities = await FacilityFilterService.GetFilteredFacilitiesAsync(strategies);
+	}
+}
+
+

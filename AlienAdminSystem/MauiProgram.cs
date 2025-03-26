@@ -141,6 +141,7 @@ namespace AlienAdminSystem
             builder.Services.AddSingleton<SessionState>();
             builder.Services.AddScoped<BookingDatabaseService>();
             builder.Services.AddScoped<FacilityDatabaseService>();
+            builder.Services.AddSingleton<FacilityFilterService>();
 
 
             builder.Services.AddDbContext<AlienDBContext>(options =>

@@ -64,6 +64,16 @@
 				</div>
 		}
 
+		<!-- Display Facility Search if logged in -->
+		@if (SessionState?.LoggedInUser != null)
+		{
+			<div class="nav-item px-3">
+				<NavLink class="nav-link" href="facilitySearch">
+					<span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Search Facilities
+				</NavLink>
+			</div>
+		}
+
 		<!-- Facilities Drop Down -->
 		<div class="nav-item dropdown px-3">
 			<a class="nav-link dropdown-toggle" href="#" id="facilitiesDropdown" role="button"

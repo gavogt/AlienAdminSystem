@@ -59,3 +59,7 @@ main {
 .notification-panel {
     color: #ff0000;
 }
+
+.search{
+    color: #ff0000 !important;
+}

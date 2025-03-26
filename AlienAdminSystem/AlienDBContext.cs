@@ -144,7 +144,7 @@ namespace AlienAdminSystem
                     Capacity = 250,
                     Status = Status.Open,
                     FacilityTypeID = 1, // Embassy
-                    AtmosphereTypeID = 3,
+                    AtmosphereTypeID = 1,
                     Description = "Welcome to the Interplanetary Peace Center, a diplomatic haven where alien delegates " +
                                  "and Earth’s representatives collaborate on universal policies.",
                     // Derived field:

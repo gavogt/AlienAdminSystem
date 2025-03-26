@@ -260,6 +260,10 @@ namespace AlienAdminSystem.Migrations
 
                     b.HasKey("ID");
 
+                    b.HasIndex("AtmosphereTypeID");
+
+                    b.HasIndex("FacilityTypeID");
+
                     b.ToTable("Facilities");
 
                     b.UseTptMappingStrategy();
@@ -390,7 +394,7 @@ namespace AlienAdminSystem.Migrations
                         new
                         {
                             ID = 3,
-                            AtmosphereTypeID = 3,
+                            AtmosphereTypeID = 1,
                             Capacity = 250,
                             Description = "Welcome to the Interplanetary Peace Center, a diplomatic haven where alien delegates and Earth’s representatives collaborate on universal policies.",
                             FacilityTypeID = 1,
@@ -535,6 +539,25 @@ namespace AlienAdminSystem.Migrations
                     b.Navigation("FacilityType");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("AlienAdminSystem.Facility", b =>
+                {
+                    b.HasOne("AlienAdminSystem.AtmosphereType", "AtmosphereType")
+                        .WithMany()
+                        .HasForeignKey("AtmosphereTypeID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AlienAdminSystem.FacilityType", "FacilityType")
+                        .WithMany()
+                        .HasForeignKey("FacilityTypeID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AtmosphereType");
+
+                    b.Navigation("FacilityType");
                 });
 
             modelBuilder.Entity("AlienBooking", b =>

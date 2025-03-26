@@ -29,6 +29,7 @@ namespace AlienAdminSystem
         public FacilityType? FacilityType { get; set; }
         public AtmosphereType? AtmosphereType { get; set; }
 
+
         // Abstract method to be implemented by derived classes (Embassy, Research Lab, etc.)
         public abstract bool ValidateBooking(Booking booking);
 

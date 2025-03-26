@@ -14,8 +14,7 @@ namespace AlienAdminSystem
 
         public ResearchLab()
         {
-            // Randomly assign a number of lab equipment
-            LabEquipmentCount = _random.Next(1, 100); 
+            
         }
 
         public override bool ValidateBooking(Booking booking)

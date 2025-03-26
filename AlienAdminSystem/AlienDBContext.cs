@@ -218,6 +218,68 @@ namespace AlienAdminSystem
                 }
             );
 
+            // Configure Owned Entity Properties with EnvironmentalControls for Facility
+            modelBuilder.Entity<Facility>()
+                .OwnsOne(f => f.EnvironmentalControls, ec =>
+                {
+                    ec.Property(e => e.HasRadiationShielding)
+                      .HasColumnName("HasRadiationShielding");
+                    ec.Property(e => e.HasAntiGravitySystems)
+                      .HasColumnName("HasAntiGravitySystems");
+
+                    ec.HasData(
+                        new
+                        {
+                            FacilityID = 1,
+                            HasRadiationShielding = true,
+                            HasAntiGravitySystems = false
+                        },
+                        new
+                        {
+                            FacilityID = 2,
+                            HasRadiationShielding = false,
+                            HasAntiGravitySystems = true
+                        },
+                        new
+                        {
+                            FacilityID = 3,
+                            HasRadiationShielding = true,
+                            HasAntiGravitySystems = false
+                        },
+                        new
+                        {
+                            FacilityID = 4,
+                            HasRadiationShielding = false,
+                            HasAntiGravitySystems = true
+                        },
+                        new
+                        {
+                            FacilityID = 5,
+                            HasRadiationShielding = true,
+                            HasAntiGravitySystems = false
+                        },
+                        new
+                        {
+                            FacilityID = 6,
+                            HasRadiationShielding = false,
+                            HasAntiGravitySystems = true
+                        },
+                        new
+                        {
+                            FacilityID = 7,
+                            HasRadiationShielding = true,
+                            HasAntiGravitySystems = false
+                        },
+                        new
+                        {
+                            FacilityID = 8,
+                            HasRadiationShielding = false,
+                            HasAntiGravitySystems = true
+                        }
+                    );
+                });
+
+
             base.OnModelCreating(modelBuilder);
 
         }

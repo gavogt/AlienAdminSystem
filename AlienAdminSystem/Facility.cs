@@ -14,10 +14,8 @@ namespace AlienAdminSystem
         public string Name { get; set; } = string.Empty;
 
         // Common Properties
-        public string Description { get; set; } = string.Empty;
-        //public EnvironmentalControlSettings EnvironmentalControls { get; set; } = new EnvironmentalControlSettings();
+        public string Description { get; set; } = string.Empty;    
         public int Capacity { get; set; } = 0;
-        public string? SpecialRequirements { get; set; } = string.Empty;
         public Status Status { get; set; }
 
         // Foreign Key
@@ -29,6 +27,8 @@ namespace AlienAdminSystem
         public FacilityType? FacilityType { get; set; }
         public AtmosphereType? AtmosphereType { get; set; }
 
+        // Owned Entity Properties
+        public EnvironmentalControlSettings EnvironmentalControls { get; set; } = new EnvironmentalControlSettings();
 
         // Abstract method to be implemented by derived classes (Embassy, Research Lab, etc.)
         public abstract ValidationResult ValidateBooking(Booking booking);

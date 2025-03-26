@@ -251,9 +251,6 @@ namespace AlienAdminSystem.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SpecialRequirements")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -555,7 +552,81 @@ namespace AlienAdminSystem.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.OwnsOne("AlienAdminSystem.EnvironmentalControlSettings", "EnvironmentalControls", b1 =>
+                        {
+                            b1.Property<int>("FacilityID")
+                                .HasColumnType("int");
+
+                            b1.Property<bool>("HasAntiGravitySystems")
+                                .HasColumnType("bit")
+                                .HasColumnName("HasAntiGravitySystems");
+
+                            b1.Property<bool>("HasRadiationShielding")
+                                .HasColumnType("bit")
+                                .HasColumnName("HasRadiationShielding");
+
+                            b1.HasKey("FacilityID");
+
+                            b1.ToTable("Facilities");
+
+                            b1.WithOwner()
+                                .HasForeignKey("FacilityID");
+
+                            b1.HasData(
+                                new
+                                {
+                                    FacilityID = 1,
+                                    HasAntiGravitySystems = false,
+                                    HasRadiationShielding = true
+                                },
+                                new
+                                {
+                                    FacilityID = 2,
+                                    HasAntiGravitySystems = true,
+                                    HasRadiationShielding = false
+                                },
+                                new
+                                {
+                                    FacilityID = 3,
+                                    HasAntiGravitySystems = false,
+                                    HasRadiationShielding = true
+                                },
+                                new
+                                {
+                                    FacilityID = 4,
+                                    HasAntiGravitySystems = true,
+                                    HasRadiationShielding = false
+                                },
+                                new
+                                {
+                                    FacilityID = 5,
+                                    HasAntiGravitySystems = false,
+                                    HasRadiationShielding = true
+                                },
+                                new
+                                {
+                                    FacilityID = 6,
+                                    HasAntiGravitySystems = true,
+                                    HasRadiationShielding = false
+                                },
+                                new
+                                {
+                                    FacilityID = 7,
+                                    HasAntiGravitySystems = false,
+                                    HasRadiationShielding = true
+                                },
+                                new
+                                {
+                                    FacilityID = 8,
+                                    HasAntiGravitySystems = true,
+                                    HasRadiationShielding = false
+                                });
+                        });
+
                     b.Navigation("AtmosphereType");
+
+                    b.Navigation("EnvironmentalControls")
+                        .IsRequired();
 
                     b.Navigation("FacilityType");
                 });

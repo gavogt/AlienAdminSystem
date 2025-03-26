@@ -8,7 +8,7 @@ namespace AlienAdminSystem
 {
     internal class EnvironmentalControlSettings
     {
-        //public bool HasRadiationShielding { get; set; } = true;
-        //public bool HasAntiGravitySystems { get; set; } = true;
+        public bool HasRadiationShielding { get; set; } = true;
+        public bool HasAntiGravitySystems { get; set; } = true;
     }
 }

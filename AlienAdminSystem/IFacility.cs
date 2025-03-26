@@ -17,7 +17,6 @@ namespace AlienAdminSystem
         public string Description { get; set; } 
         //public EnvironmentalControlSettings EnvironmentalControls { get; set; } 
         public int Capacity { get; set; }
-        public string? SpecialRequirements { get; set; }
         public Status Status { get; set; }
 
 

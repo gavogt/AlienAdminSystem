@@ -1,7 +1,8 @@
 ﻿@inject BookingDatabaseService BookingDatabaseService
 @inject AlienDBContext AlienDBContext
-@inject AlienDatabaseService AlienDatabaseService 
+@inject AlienDatabaseService AlienDatabaseService
 @inject NotificationManager NotificationManager
+@inject NavigationManager NavigationManager
 @using CommunityToolkit.Maui.Alerts;
 @using CommunityToolkit.Maui.Core;
 @using Microsoft.EntityFrameworkCore;
@@ -95,6 +96,8 @@
 
 	public string ErrorMessage = String.Empty;
 
+	public ValidationResult? ValidationResult { get; set; }
+
 	protected override async Task OnInitializedAsync()
 	{
 		if (SessionState == null || SessionState.LoggedInUser == null)
@@ -158,6 +161,39 @@
 
 		}
 
+		try
+		{
+			if (BookingRequest != null)
+			{
+				var selectedFacility = await AlienDBContext.Facilities.FirstOrDefaultAsync(f => f.ID == BookingRequest.FacilityID);
+
+				if (selectedFacility == null)
+				{
+					throw new Exception("Facility not found");
+				}
+
+				if (selectedFacility.Status == Status.UnderMaintenance)
+				{
+					ErrorMessage = "Facility is not open";
+					return;
+				}
+				ValidationResult = selectedFacility.ValidateBooking(BookingRequest);
+
+				if (ValidationResult?.IsValid == false && !string.IsNullOrEmpty(ValidationResult.Message))
+				{
+					ErrorMessage = ValidationResult.Message;
+					return;
+				}
+
+				ErrorMessage = "Booking is valid";
+			}
+		}
+		catch (Exception ex)
+		{
+			ErrorMessage = ex.Message;
+			return;
+		}
+
 		// Check if the BookingRequest is null
 		if (BookingRequest == null)
 		{
@@ -179,5 +215,6 @@
 		// Insert Booking into the database
 		await BookingDatabaseService.InsertBookingAsync(BookingRequest);
 
+		NavigationManager.NavigateTo("/bookingsuccess");
 	}
 }

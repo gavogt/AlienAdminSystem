@@ -20,8 +20,16 @@ namespace AlienAdminSystem
 
         public async Task<Alien> InsertAlienAsync(Alien alien)
         {
-            _context.Aliens.Add(alien);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _context.Aliens.Add(alien);
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                throw new Exception("Alien could not be inserted into the database.");
+            }
+
             return alien;
 
         }

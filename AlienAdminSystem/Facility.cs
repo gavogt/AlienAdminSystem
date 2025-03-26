@@ -31,7 +31,7 @@ namespace AlienAdminSystem
 
 
         // Abstract method to be implemented by derived classes (Embassy, Research Lab, etc.)
-        public abstract bool ValidateBooking(Booking booking);
+        public abstract ValidationResult ValidateBooking(Booking booking);
 
     }
 }

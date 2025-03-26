@@ -117,7 +117,7 @@ namespace AlienAdminSystem
                                  "the Galactic Infirmary Quarantine Zone is equipped with advanced sterilization chambers, " +
                                  "specialized atmospheric controls, and robust security protocols.",
                     // Derived field:
-                    IsAccessible = true
+                    IsAccessible = false
                 },
                 new
                 {

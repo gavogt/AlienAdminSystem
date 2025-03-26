@@ -70,7 +70,7 @@
 		<div class="col-md-6">
 			<label for="aliengroup" class="form-label">Select Alien Group: </label>
 			<InputSelect class="form-select" @bind-Value="AlienInput.AlienGroupID">
-				<option value="">-- Select an option --</option>
+				<option value="0">-- Select an option --</option>
 				@foreach (var group in AlienGroupList)
 				{
 					<option value="@group.ID">@group.Name</option>
@@ -81,6 +81,7 @@
 		<div class="col-md-6">
 			<label for="atmosphereType" class="form-label">Select Atmosphere: </label>
 			<InputSelect id="atmosphereType" class="form-select" @bind-Value="AlienInput.AtmosphereTypeID">
+				<option value="">-- Select an Atmosphere --</option>
 				@foreach (var atmosphere in AtmosphereTypeList)
 				{
 						<option value="@atmosphere.ID">@atmosphere.Name</option>
@@ -159,7 +160,8 @@
 
 			if (message == null || NotificationManager == null)
 			{
-				return;
+				throw new Exception("Message or Notification Manager is null");
+
 			}
 
 			await NotificationManager.NotifyAsync(message);

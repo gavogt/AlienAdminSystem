@@ -25,7 +25,7 @@ namespace AlienAdminSystem
         [Required(ErrorMessage = "Group ID is required.")]
         public int AlienGroupID { get; set; }
         [Range(0, 2, ErrorMessage = "Atmosphere type must be between 0 and 2.")]
-        public int AtmosphereTypeID { get; set; }
+        public int AtmosphereTypeID { get; set; } = 0;
         public string SpecialRequirements { get; set; } = String.Empty;
         [Range(0, 12, ErrorMessage = "Visit duration must be between 0 and 12 months.")]
         public int VisitDurationMonths { get; set; }

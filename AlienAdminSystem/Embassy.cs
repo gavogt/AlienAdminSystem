@@ -10,14 +10,17 @@ namespace AlienAdminSystem
     {
         public int RequiredAtmosphereTypeID { get; set; } = 1;
 
-        public override bool ValidateBooking(Booking booking)
+        public override ValidationResult ValidateBooking(Booking booking)
         {
-            // If booking Atmosphere Type is Oxygen return true;
-            if(booking.Aliens == null)
+
+            if (booking.Aliens == null || !booking.Aliens.Any())
             {
-                return false; // No aliens to validate
+                return new ValidationResult { IsValid = false, Message = "No aliens in booking" };
             }
-            return booking.Aliens.All(alien => alien.AtmosphereTypeID == RequiredAtmosphereTypeID); 
+
+            bool valid = booking.Aliens.All(alien => alien.AtmosphereTypeID == RequiredAtmosphereTypeID);
+
+            return new ValidationResult { IsValid = valid, Message = valid ? $"Booking {booking.ID} is valid with required atmosphere type {RequiredAtmosphereTypeID}" : $"Booking {booking.ID} is not valid with required atmosphere type {RequiredAtmosphereTypeID}" };
 
         }
     }

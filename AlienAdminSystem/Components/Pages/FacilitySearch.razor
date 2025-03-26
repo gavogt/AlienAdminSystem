@@ -4,7 +4,7 @@
 <div class="container mt-4 p-4 bg-dark rounded shadow-sm">
 	<div class="row">
 		<div class="col-md-6 mb-3">
-			<div class="form-group"
+			<div class="form-group">
 				<label>Minimum Capacity:</label><br />
 				<input type="number" @bind="_minCapacity" placeholder="Enter minimum Capacity: " />
 			</div>
@@ -70,7 +70,7 @@
 		{   // Add a new CapacityFilterStrategy to the strategies list
 			// Query by min capacity
 			strategies.Add(new CapacityFilterStrategy(_minCapacity));
-		};
+		}
 
 		if (_requiredAtmosphere > 0)
 		{
@@ -78,7 +78,7 @@
 			// Query by required atmosphere
 			strategies.Add(new EmbassyAtmosphereFilterStrategy(_requiredAtmosphere));
 
-		};
+		}
 
 		if (_requiredLabEquipmentCount > 0)
 		{

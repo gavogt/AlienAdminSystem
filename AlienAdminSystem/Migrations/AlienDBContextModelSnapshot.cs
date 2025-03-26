@@ -445,7 +445,7 @@ namespace AlienAdminSystem.Migrations
                             FacilityTypeID = 3,
                             Name = "Galactic Infirmary Quarantine Zone",
                             Status = "Open",
-                            IsAccessible = true
+                            IsAccessible = false
                         },
                         new
                         {

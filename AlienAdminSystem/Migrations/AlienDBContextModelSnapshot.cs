@@ -196,6 +196,9 @@ namespace AlienAdminSystem.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
+                    b.Property<int>("ApprovalStatusID")
+                        .HasColumnType("int");
+
                     b.Property<int>("BookingApprovalID")
                         .HasColumnType("int");
 

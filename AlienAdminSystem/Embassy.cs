@@ -12,22 +12,22 @@ namespace AlienAdminSystem
 
         public override ValidationResult ValidateBooking(Booking booking)
         {
-            if (booking.BookingApprovalID == 2)
+            if (booking.ApprovalStatusID == 2)
             {
-                booking.BookingApprovalID = 2;
+                booking.ApprovalStatusID = 2;
                 return new ValidationResult { IsValid = false, Message = $"Booking {booking.ID} is not auto-approved" };
             }
 
             if (booking.Aliens == null || !booking.Aliens.Any())
             {
-                booking.BookingApprovalID = 3;
+                booking.ApprovalStatusID = 3;
                 return new ValidationResult { IsValid = false, Message = $"Booking {booking.ID} has no aliens" };
             }
 
             bool valid = booking.Aliens.All(alien => alien.AtmosphereTypeID == RequiredAtmosphereTypeID);
             if (!valid)
             {
-                booking.BookingApprovalID = 3;
+                booking.ApprovalStatusID= 3;
                 return new ValidationResult { IsValid = false, Message = $"Booking {booking.ID} is not valid with required atmosphere type {RequiredAtmosphereTypeID}" };
             }
 

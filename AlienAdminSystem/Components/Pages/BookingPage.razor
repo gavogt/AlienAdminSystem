@@ -243,7 +243,7 @@
 		{
 			approval = new BookingApproval
 				{
-					ApprovalStatus = BookingStatus.Status.PendingApproval,
+					ApprovalStatus = (BookingStatus.Status)bookingRequest.ApprovalStatusID,
 					TimeStamp = DateTime.Now,
 					IsApproved = false
 				};
@@ -252,7 +252,7 @@
 		{
 			approval = new BookingApproval
 				{
-					ApprovalStatus = BookingStatus.Status.AutoApproved,
+					ApprovalStatus = (BookingStatus.Status)bookingRequest.ApprovalStatusID,
 					TimeStamp = DateTime.Now,
 					IsApproved = true
 				};
@@ -261,7 +261,7 @@
 		{
 			approval = new BookingApproval
 				{
-					ApprovalStatus = BookingStatus.Status.Rejected,
+					ApprovalStatus = (BookingStatus.Status)bookingRequest.ApprovalStatusID,
 					TimeStamp = DateTime.Now,
 					IsApproved = false
 				};
@@ -271,7 +271,7 @@
 			// For unexpected status, treat as Rejected.
 			approval = new BookingApproval
 				{
-					ApprovalStatus = BookingStatus.Status.Rejected,
+					ApprovalStatus = (BookingStatus.Status)bookingRequest.ApprovalStatusID,
 					TimeStamp = DateTime.Now,
 					IsApproved = false
 				};

@@ -23,7 +23,9 @@ namespace AlienAdminSystem
 
         public DateTime EndTime { get; set; }
 
-        public int BookingApprovalID { get; set; } = 1;
+        public int ApprovalStatusID { get; set; } = 1;
+
+        public int BookingApprovalID { get; set; }
 
         public List<Alien> Aliens { get; set; } = new List<Alien>();
 

@@ -13,7 +13,7 @@ namespace AlienAdminSystem
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int BookingApprovalID { get; set; }
+        public int ID { get; set; }
 
         // Common Properties
         public int? AdminID { get; set; }

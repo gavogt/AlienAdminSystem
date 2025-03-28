@@ -35,7 +35,6 @@
 				<ul>
 					@foreach (var facility in _facilities)
 					{
-						_facilityTypeID = facility.FacilityTypeID;
 						if (facility?.AtmosphereType?.Name != null)
 						{
 							<li>

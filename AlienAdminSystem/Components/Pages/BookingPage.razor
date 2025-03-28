@@ -167,10 +167,10 @@
 		{
 			if (BookingRequest != null)
 			{
-				BookingRequest.BookingApprovalID = 1;
 
 				var selectedFacility = await AlienDBContext.Facilities.FirstOrDefaultAsync(f => f.ID == BookingRequest.FacilityID);
 
+				BookingRequest.FacilityTypeID = selectedFacility?.FacilityTypeID ?? 0; // Set the FacilityTypeID based on the selected facility
 				if (selectedFacility == null)
 				{
 					throw new Exception("Facility not found");
@@ -221,25 +221,24 @@
 		// Insert Booking into the database
 		await BookingDatabaseService.InsertBookingAsync(BookingRequest);
 
-		try
-		{
-			await InsertApproval(BookingRequest);
-		}
-		catch (Exception ex)
-		{
-			ErrorMessage = ex.Message;
-			return;
-		}
 
+		var returnedApproval = await InsertApproval(BookingRequest);
+
+		BookingRequest.BookingApprovalID = returnedApproval.ID;
+
+		// Update the booking
+		AlienDBContext.Booking.Update(BookingRequest);
+
+		await AlienDBContext.SaveChangesAsync();
 
 		NavigationManager.NavigateTo("/bookingsuccess");
 	}
 
-	private async Task InsertApproval(Booking bookingRequest)
+	private async Task<BookingApproval> InsertApproval(Booking bookingRequest)
 	{
 		BookingApproval approval;
 
-		if (bookingRequest.BookingApprovalID == 2) // PendingApproval
+		if (bookingRequest.ApprovalStatusID == 2) // PendingApproval
 		{
 			approval = new BookingApproval
 				{
@@ -248,7 +247,7 @@
 					IsApproved = false
 				};
 		}
-		else if (bookingRequest.BookingApprovalID == 1) // AutoApproved
+		else if (bookingRequest.ApprovalStatusID == 1) // AutoApproved
 		{
 			approval = new BookingApproval
 				{
@@ -257,7 +256,7 @@
 					IsApproved = true
 				};
 		}
-		else if (bookingRequest.BookingApprovalID == 3) // Rejected
+		else if (bookingRequest.ApprovalStatusID == 3) // Rejected
 		{
 			approval = new BookingApproval
 				{
@@ -277,8 +276,11 @@
 				};
 		}
 
-		BookingRequest.BookingApproval = approval; // Set the BookingApproval navigation property
-
+		// Insert the approval first so the ID gets generated
 		await BookingApprovalService.InsertBookingApprovalAsync(approval);
+
+		return approval;
+
+
 	}
 }

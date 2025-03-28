@@ -25,7 +25,7 @@ namespace AlienAdminSystem
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-            // Create Join Table with AlienID and BookingApprovalID foreign keys
+            // Create Join Table with AlienID and ID foreign keys
             modelBuilder.Entity<Booking>()
                 .HasMany(b => b.Aliens)
                 .WithMany(a => a.Bookings)
@@ -38,7 +38,7 @@ namespace AlienAdminSystem
                     j => j
                         .HasOne<Booking>()
                         .WithMany()
-                        .HasForeignKey("BookingApprovalID")
+                        .HasForeignKey("ID")
                 );
 
             // Generate new ID value on Add
@@ -52,11 +52,11 @@ namespace AlienAdminSystem
                 .WithMany()
                 .HasForeignKey(b => b.UserID);
 
-            // Join Booking Approval on BookingApprovalID
+            // Join Booking Approval on Approval ID
             modelBuilder.Entity<Booking>()
                 .HasOne(b => b.BookingApproval)
                 .WithOne(ba => ba.Booking)
-                .HasForeignKey<BookingApproval>(ba => ba.BookingApprovalID);
+                .HasForeignKey<Booking>(b => b.BookingApprovalID);
 
             // Configure TPT inheritance
             modelBuilder.Entity<Facility>().UseTptMappingStrategy();

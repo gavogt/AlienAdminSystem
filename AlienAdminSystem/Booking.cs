@@ -25,7 +25,8 @@ namespace AlienAdminSystem
 
         public int ApprovalStatusID { get; set; } = 1;
 
-        public int BookingApprovalID { get; set; }
+        [ForeignKey(nameof(BookingApproval))]
+        public int? BookingApprovalID { get; set; }
 
         public List<Alien> Aliens { get; set; } = new List<Alien>();
 
@@ -34,6 +35,8 @@ namespace AlienAdminSystem
 
         // Foreign Key
         public int FacilityID { get; set; }
+
+        public int FacilityTypeID { get; set; } = 0;
 
         // EF Navigation
         public User? User { get; set; }

@@ -199,7 +199,7 @@ namespace AlienAdminSystem.Migrations
                     b.Property<int>("ApprovalStatusID")
                         .HasColumnType("int");
 
-                    b.Property<int>("BookingApprovalID")
+                    b.Property<int?>("BookingApprovalID")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Date")
@@ -211,7 +211,7 @@ namespace AlienAdminSystem.Migrations
                     b.Property<int>("FacilityID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("FacilityTypeID")
+                    b.Property<int>("FacilityTypeID")
                         .HasColumnType("int");
 
                     b.Property<int>("NumberOfVisitors")
@@ -225,6 +225,10 @@ namespace AlienAdminSystem.Migrations
 
                     b.HasKey("ID");
 
+                    b.HasIndex("BookingApprovalID")
+                        .IsUnique()
+                        .HasFilter("[BookingApprovalID] IS NOT NULL");
+
                     b.HasIndex("FacilityTypeID");
 
                     b.HasIndex("UserID");
@@ -234,9 +238,11 @@ namespace AlienAdminSystem.Migrations
 
             modelBuilder.Entity("AlienAdminSystem.BookingApproval", b =>
                 {
-                    b.Property<int>("BookingApprovalID")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<int?>("AdminID")
                         .HasColumnType("int");
@@ -250,7 +256,7 @@ namespace AlienAdminSystem.Migrations
                     b.Property<DateTime>("TimeStamp")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("BookingApprovalID");
+                    b.HasKey("ID");
 
                     b.ToTable("BookingApproval");
                 });
@@ -358,15 +364,15 @@ namespace AlienAdminSystem.Migrations
 
             modelBuilder.Entity("AlienBooking", b =>
                 {
+                    b.Property<int>("ID")
+                        .HasColumnType("int");
+
                     b.Property<int>("AlienID")
                         .HasColumnType("int");
 
-                    b.Property<int>("BookingApprovalID")
-                        .HasColumnType("int");
+                    b.HasKey("ID");
 
-                    b.HasKey("AlienID", "BookingApprovalID");
-
-                    b.HasIndex("BookingApprovalID");
+                    b.HasIndex("AlienID");
 
                     b.ToTable("AlienBooking");
                 });
@@ -552,9 +558,15 @@ namespace AlienAdminSystem.Migrations
 
             modelBuilder.Entity("AlienAdminSystem.Booking", b =>
                 {
+                    b.HasOne("AlienAdminSystem.BookingApproval", "BookingApproval")
+                        .WithOne("Booking")
+                        .HasForeignKey("AlienAdminSystem.Booking", "BookingApprovalID");
+
                     b.HasOne("AlienAdminSystem.FacilityType", "FacilityType")
                         .WithMany()
-                        .HasForeignKey("FacilityTypeID");
+                        .HasForeignKey("FacilityTypeID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("AlienAdminSystem.User", "User")
                         .WithMany()
@@ -562,20 +574,11 @@ namespace AlienAdminSystem.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("BookingApproval");
+
                     b.Navigation("FacilityType");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("AlienAdminSystem.BookingApproval", b =>
-                {
-                    b.HasOne("AlienAdminSystem.Booking", "Booking")
-                        .WithOne("BookingApproval")
-                        .HasForeignKey("AlienAdminSystem.BookingApproval", "BookingApprovalID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Booking");
                 });
 
             modelBuilder.Entity("AlienAdminSystem.Facility", b =>
@@ -681,7 +684,7 @@ namespace AlienAdminSystem.Migrations
 
                     b.HasOne("AlienAdminSystem.Booking", null)
                         .WithMany()
-                        .HasForeignKey("BookingApprovalID")
+                        .HasForeignKey("ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -713,9 +716,9 @@ namespace AlienAdminSystem.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("AlienAdminSystem.Booking", b =>
+            modelBuilder.Entity("AlienAdminSystem.BookingApproval", b =>
                 {
-                    b.Navigation("BookingApproval");
+                    b.Navigation("Booking");
                 });
 #pragma warning restore 612, 618
         }

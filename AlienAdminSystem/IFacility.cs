@@ -21,9 +21,6 @@ namespace AlienAdminSystem
 
 
         // Foreign Key
-        public int FacilityTypeID { get; set; } 
-
-        // Foreign Key
         public int AtmosphereTypeID { get; set; } 
     }
 }

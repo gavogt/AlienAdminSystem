@@ -21,11 +21,14 @@ namespace AlienAdminSystem
             {
                 _context.BookingApproval.Add(bookingApproval);
                 await _context.SaveChangesAsync();
+
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
             }
         }
+
+
     }
 }

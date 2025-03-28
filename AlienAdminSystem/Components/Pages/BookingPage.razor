@@ -3,6 +3,7 @@
 @inject AlienDatabaseService AlienDatabaseService
 @inject NotificationManager NotificationManager
 @inject NavigationManager NavigationManager
+@inject BookingApprovalService BookingApprovalService
 @using CommunityToolkit.Maui.Alerts;
 @using CommunityToolkit.Maui.Core;
 @using Microsoft.EntityFrameworkCore;
@@ -127,6 +128,7 @@
 				LastName = a.LastName,
 				IsSelected = false
 			}).ToList();
+
 	}
 
 	public async Task SubmitBooking()
@@ -165,6 +167,8 @@
 		{
 			if (BookingRequest != null)
 			{
+				BookingRequest.BookingApprovalID = 1;
+
 				var selectedFacility = await AlienDBContext.Facilities.FirstOrDefaultAsync(f => f.ID == BookingRequest.FacilityID);
 
 				if (selectedFacility == null)
@@ -172,15 +176,17 @@
 					throw new Exception("Facility not found");
 				}
 
-				if (selectedFacility.Status == Status.UnderMaintenance)
+				if (selectedFacility.Status == FacilityStatus.UnderMaintenance)
 				{
 					ErrorMessage = "Facility is not open";
 					return;
 				}
 				ValidationResult = selectedFacility.ValidateBooking(BookingRequest);
 
-				if (ValidationResult?.IsValid == false && !string.IsNullOrEmpty(ValidationResult.Message))
+				if (!ValidationResult.IsValid && ValidationResult.Message != null)
 				{
+
+
 					ErrorMessage = ValidationResult.Message;
 					return;
 				}
@@ -215,6 +221,64 @@
 		// Insert Booking into the database
 		await BookingDatabaseService.InsertBookingAsync(BookingRequest);
 
+		try
+		{
+			await InsertApproval(BookingRequest);
+		}
+		catch (Exception ex)
+		{
+			ErrorMessage = ex.Message;
+			return;
+		}
+
+
 		NavigationManager.NavigateTo("/bookingsuccess");
+	}
+
+	private async Task InsertApproval(Booking bookingRequest)
+	{
+		BookingApproval approval;
+
+		if (bookingRequest.BookingApprovalID == 2) // PendingApproval
+		{
+			approval = new BookingApproval
+				{
+					ApprovalStatus = BookingStatus.Status.PendingApproval,
+					TimeStamp = DateTime.Now,
+					IsApproved = false
+				};
+		}
+		else if (bookingRequest.BookingApprovalID == 1) // AutoApproved
+		{
+			approval = new BookingApproval
+				{
+					ApprovalStatus = BookingStatus.Status.AutoApproved,
+					TimeStamp = DateTime.Now,
+					IsApproved = true
+				};
+		}
+		else if (bookingRequest.BookingApprovalID == 3) // Rejected
+		{
+			approval = new BookingApproval
+				{
+					ApprovalStatus = BookingStatus.Status.Rejected,
+					TimeStamp = DateTime.Now,
+					IsApproved = false
+				};
+		}
+		else
+		{
+			// For unexpected status, treat as Rejected.
+			approval = new BookingApproval
+				{
+					ApprovalStatus = BookingStatus.Status.Rejected,
+					TimeStamp = DateTime.Now,
+					IsApproved = false
+				};
+		}
+
+		BookingRequest.BookingApproval = approval; // Set the BookingApproval navigation property
+
+		await BookingApprovalService.InsertBookingApprovalAsync(approval);
 	}
 }

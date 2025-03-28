@@ -23,18 +23,20 @@ namespace AlienAdminSystem
 
         public DateTime EndTime { get; set; }
 
-        //public Alien? Alien { get; set; }
+        public int BookingApprovalID { get; set; } = 1;
 
         public List<Alien> Aliens { get; set; } = new List<Alien>();
 
         // Foreign Key
         public int UserID { get; set; }
 
+        // Foreign Key
+        public int FacilityID { get; set; }
+
         // EF Navigation
         public User? User { get; set; }
 
-        // Foreign Key
-        public int FacilityID { get; set; }
+        public BookingApproval? BookingApproval { get; set; }
 
         public FacilityType? FacilityType { get; set; }
 

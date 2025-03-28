@@ -53,7 +53,7 @@ Alien Groups/Delegations: Group multiple individuals under a single travel or vi
 Verification Procedures: Confirm eligibility for Earth’s atmosphere and other required checks.
 2. Facility Listing & Availability
 Facility Management: Embassies, research labs, and quarantine zones each have specific features (e.g., capacity, environmental controls).
-Status Tracking: Mark facilities as “available,” “under maintenance,” or other relevant statuses.
+FacilityStatus Tracking: Mark facilities as “available,” “under maintenance,” or other relevant statuses.
 3. Visitation Scheduling & Booking
 Request Handling: Aliens or delegation leaders can request time slots in specific facilities.
 Approval Workflow: Some requests may need manual approval by Earth Administrators, while others may be auto-approved if certain conditions (like capacity) are met.
@@ -142,6 +142,7 @@ namespace AlienAdminSystem
             builder.Services.AddScoped<BookingDatabaseService>();
             builder.Services.AddScoped<FacilityDatabaseService>();
             builder.Services.AddSingleton<FacilityFilterService>();
+            builder.Services.AddScoped<BookingApprovalService>();
 
 
             builder.Services.AddDbContext<AlienDBContext>(options =>

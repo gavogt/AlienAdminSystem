@@ -11,12 +11,12 @@ namespace AlienAdminSystem
     {
         [Key]
         public int ID { get; set; }
-        public string Name { get; set; } = string.Empty;
 
         // Common Properties
+        public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;    
         public int Capacity { get; set; } = 0;
-        public Status Status { get; set; }
+        public FacilityStatus Status { get; set; }
 
         // Foreign Key
         public int FacilityTypeID { get; set; } = 0;

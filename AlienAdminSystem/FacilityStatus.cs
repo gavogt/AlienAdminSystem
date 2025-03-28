@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AlienAdminSystem
 {
-    public enum Status
+    public enum FacilityStatus
     {
         Open,
         [Display(Name = "Under Maintenance")]

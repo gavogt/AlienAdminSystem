@@ -21,7 +21,7 @@ namespace AlienAdminSystem
             return await _dbContext.Facilities.ToListAsync();
         }
 
-        public async Task UpdateFacilityStatusAsync(int ID, Status newStatus)
+        public async Task UpdateFacilityStatusAsync(int ID, FacilityStatus newStatus)
         {
             var facility = await _dbContext.Facilities.FindAsync(ID);
             if (facility != null)

@@ -13,10 +13,10 @@ namespace AlienAdminSystem
         public DbSet<ResearchLab> ResearchLab { get; set; }
         public DbSet<QuarantineZone> QuarantineZone { get; set; }
         public DbSet<Facility> Facilities { get; set; }
-
         public DbSet<FacilityType> FacilityTypes { get; set; }
         public DbSet<AtmosphereType> AtmosphereTypes { get; set; }
         public DbSet<AlienGroup> AlienGroups { get; set; }
+        public DbSet<BookingApproval> BookingApproval { get; set; }
 
         public AlienDBContext(DbContextOptions<AlienDBContext> options) : base(options)
         {
@@ -25,7 +25,7 @@ namespace AlienAdminSystem
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-            // Create Join Table with AlienID and BookingID foreign keys
+            // Create Join Table with AlienID and BookingApprovalID foreign keys
             modelBuilder.Entity<Booking>()
                 .HasMany(b => b.Aliens)
                 .WithMany(a => a.Bookings)
@@ -38,7 +38,7 @@ namespace AlienAdminSystem
                     j => j
                         .HasOne<Booking>()
                         .WithMany()
-                        .HasForeignKey("BookingID")
+                        .HasForeignKey("BookingApprovalID")
                 );
 
             // Generate new ID value on Add
@@ -51,6 +51,12 @@ namespace AlienAdminSystem
                 .HasOne(b => b.User)
                 .WithMany()
                 .HasForeignKey(b => b.UserID);
+
+            // Join Booking Approval on BookingApprovalID
+            modelBuilder.Entity<Booking>()
+                .HasOne(b => b.BookingApproval)
+                .WithOne(ba => ba.Booking)
+                .HasForeignKey<BookingApproval>(ba => ba.BookingApprovalID);
 
             // Configure TPT inheritance
             modelBuilder.Entity<Facility>().UseTptMappingStrategy();
@@ -71,7 +77,7 @@ namespace AlienAdminSystem
                 .Property(a => a.Species)
                 .HasConversion<int>();
 
-            // Convert Status to string for database storage
+            // Convert FacilityStatus to string for database storage
             modelBuilder.Entity<Facility>()
                 .Property(f => f.Status)
                 .HasConversion<string>();
@@ -110,7 +116,7 @@ namespace AlienAdminSystem
                     // Base Facility fields:
                     Name = "Galactic Infirmary Quarantine Zone",
                     Capacity = 200,
-                    Status = Status.Open,
+                    Status = FacilityStatus.Open,
                     FacilityTypeID = 3, // Quarantine Zone
                     AtmosphereTypeID = 1, // Oxygen
                     Description = "Designed to safely contain and treat extraterrestrial visitors, " +
@@ -124,7 +130,7 @@ namespace AlienAdminSystem
                     ID = 2,
                     Name = "Celestial Containment Facility",
                     Capacity = 150,
-                    Status = Status.UnderMaintenance,
+                    Status = FacilityStatus.UnderMaintenance,
                     FacilityTypeID = 3, // Quarantine Zone
                     AtmosphereTypeID = 2,
                     Description = "The Celestial Containment Facility offers cutting-edge solutions for alien quarantine " +
@@ -142,7 +148,7 @@ namespace AlienAdminSystem
                     // Base Facility fields:
                     Name = "Interplanetary Peace Center",
                     Capacity = 250,
-                    Status = Status.Open,
+                    Status = FacilityStatus.Open,
                     FacilityTypeID = 1, // Embassy
                     AtmosphereTypeID = 1,
                     Description = "Welcome to the Interplanetary Peace Center, a diplomatic haven where alien delegates " +
@@ -155,7 +161,7 @@ namespace AlienAdminSystem
                     ID = 4,
                     Name = "Stellar Harmony Embassy",
                     Capacity = 180,
-                    Status = Status.Open,
+                    Status = FacilityStatus.Open,
                     FacilityTypeID = 1, // Embassy
                     AtmosphereTypeID = 2,
                     Description = "The Stellar Harmony Embassy stands as a beacon of intergalactic cooperation. " +
@@ -167,7 +173,7 @@ namespace AlienAdminSystem
                     ID = 5,
                     Name = "Cosmic Unity Consulate",
                     Capacity = 160,
-                    Status = Status.Open,
+                    Status = FacilityStatus.Open,
                     FacilityTypeID = 1, // Embassy
                     AtmosphereTypeID = 3,
                     Description = "The Cosmic Unity Consulate fosters unity and cooperation across intergalactic borders. " +
@@ -184,7 +190,7 @@ namespace AlienAdminSystem
                     // Base Facility fields:
                     Name = "Galactic Sciences Division – Earth Sector",
                     Capacity = 300,
-                    Status = Status.UnderMaintenance,
+                    Status = FacilityStatus.UnderMaintenance,
                     FacilityTypeID = 2, // Research Lab
                     AtmosphereTypeID = 1,
                     Description = "Welcome to the Advanced Xenobiology Research Lab, where cutting-edge discoveries " +
@@ -197,7 +203,7 @@ namespace AlienAdminSystem
                     ID = 7,
                     Name = "Quantum Tech & Energy Research Facility",
                     Capacity = 220,
-                    Status = Status.Open,
+                    Status = FacilityStatus.Open,
                     FacilityTypeID = 2, // Research Lab
                     AtmosphereTypeID = 1,
                     Description = "Unlock the potential of quantum mechanics and sustainable cosmic energy " +
@@ -209,7 +215,7 @@ namespace AlienAdminSystem
                     ID = 8,
                     Name = "Cosmic Terraforming & Environmental Adaptation Center",
                     Capacity = 280,
-                    Status = Status.Open,
+                    Status = FacilityStatus.Open,
                     FacilityTypeID = 2, // Research Lab
                     AtmosphereTypeID = 1,
                     Description = "At the Cosmic Terraforming & Environmental Adaptation Center, pioneering techniques " +

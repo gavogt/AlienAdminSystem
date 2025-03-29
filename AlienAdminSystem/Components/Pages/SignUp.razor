@@ -6,49 +6,50 @@
 <EditForm Model="@SignUpModel" OnValidSubmit="HandleSubmit">
 	<DataAnnotationsValidator />
 	<ValidationSummary />
-	<div class="container mt-5">
+	<div class="container mt-5"  style="max-width: 400px;">
 		<div class="row justify-content-center">
-			<div class="col-md-6">
-				<h3>Alien Sign Up Page</h3>
-				<div class="mb-3">
-					<label for="username" class="form-label">Enter username: </label>
-					<InputText id="username" type="text" class="form-control" @bind-Value="SignUpModel.Username" />
-					<ValidationMessage For="@(() => SignUpModel.Username)" />
-				</div>
-
-				<div class="mb-3">
-					<label for="password" class="form-label">Enter password: </label>
-					<InputText id="password" type="password" class="form-control" @bind-Value="SignUpModel.Password" />
-					<ValidationMessage For="@(() => SignUpModel.Password)" />
-				</div>
-
-				<div class="mb-3">
-					<label for="confirmPassword" class="form-label">Confirm password: </label>
-					<InputText id="confirmPassword" type="password" class="form-control" @bind-Value="SignUpModel.ConfirmPassword" />
-					<ValidationMessage For="@(() => SignUpModel.ConfirmPassword)" />
-				</div>
-
-				<div class="col-md-6">
-					<div>
-						<label class="form-label">Enter species: </label>
-						<InputSelect class="form-select" @bind-Value="SignUpModel.Species">
-							@foreach (var species in Enum.GetValues(typeof(Species)))
-							{
-								<option value="@species">@species</option>
-							}
-						</InputSelect>
-
-						<ValidationMessage For="@(() => SignUpModel.Species)" />
+			<div class="col-md-12">
+				<div class="card shadow">
+					<div class="card-header text-center bg-primary text-white">
+						<h3 class="mb-0">Sign Up</h3>
 					</div>
-				</div>
-				<button type="submit" class="btn btn-primary">Sign Up</button>
-				@if (SignUpModel.ConfirmPassword == SignUpModel.Password && !string.IsNullOrEmpty(SignUpModel.Password))
-				{
-					<p>
-						Password matches!
-					</p>
-				}
+					<div class="card-body">
+							<div class="mb-3">
+								<label for="username" class="form-label">Enter username: </label>
+								<InputText id="username" type="text" class="form-control" @bind-Value="SignUpModel.Username" />
+								<ValidationMessage For="@(() => SignUpModel.Username)" />
+							</div>
 
+							<div class="mb-3">
+								<label for="password" class="form-label">Enter password: </label>
+								<InputText id="password" type="password" class="form-control" @bind-Value="SignUpModel.Password" />
+								<ValidationMessage For="@(() => SignUpModel.Password)" />
+							</div>
+
+							<div class="mb-3">
+								<label for="confirmPassword" class="form-label">Confirm password: </label>
+								<InputText id="confirmPassword" type="password" class="form-control" @bind-Value="SignUpModel.ConfirmPassword" />
+								<ValidationMessage For="@(() => SignUpModel.ConfirmPassword)" />
+							</div>
+							<div class="mb-3">
+							<label class="form-label">Enter species: </label>
+							<InputSelect class="form-select" @bind-Value="SignUpModel.Species">
+								@foreach (var species in Enum.GetValues(typeof(Species)))
+								{
+									<option value="@species">@species</option>
+								}
+							</InputSelect>
+							<ValidationMessage For="@(() => SignUpModel.Species)" />
+							</div>
+						<button type="submit" class="btn btn-primary w-100">Sign Up</button>
+					</div>
+					@if (SignUpModel.ConfirmPassword == SignUpModel.Password && !string.IsNullOrEmpty(SignUpModel.Password))
+					{
+						<div class="card-footer text-center text-success">
+							<small>Passwords match!</small>
+						</div>
+					}
+				</div>
 			</div>
 		</div>
 	</div>
@@ -68,12 +69,13 @@
 		{
 			HashedPassword = PasswordHelper.HashPassword(SignUpModel.Password);
 			isValid = PasswordHelper.VerifyPassword(SignUpModel.Password, HashedPassword);
-			if (isValid){
+			if (isValid)
+			{
 				user = new User(SignUpModel.Username, HashedPassword, SignUpModel.Species);
 				await UserDatabaseService.InsertUserAsync(user);
 
 				Navigation.NavigateTo("/login");
-			}	
+			}
 
 		}
 	}

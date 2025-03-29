@@ -90,3 +90,9 @@ h1:focus {
 .navbar a {
     color: #ffffff !important;
 }
+
+.card-body label,
+.card-body h1,
+.card-body p {
+    color: #000000 !important;
+}

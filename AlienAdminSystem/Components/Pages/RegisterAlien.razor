@@ -15,93 +15,113 @@
 <EditForm Model="@AlienInput" OnValidSubmit="RegisterMyAlien">
 	<DataAnnotationsValidator />
 	<ValidationSummary />
-	<div class="row mb-3">
-		<h1>Alien Registration Page</h1>
-		<div class="col-md-6">
-			<div>
-				<label class="form-label">Enter first name: </label>
-				<InputText type="text" class="form-control" @bind-Value="AlienInput.FirstName" />
-				<ValidationMessage For="@(() => AlienInput.FirstName)" />
-			</div>
-		</div>
-		<div class="col-md-6">
-			<div>
-				<label class="form-label">Enter last name: </label>
-				<InputText type="text" class="form-control" @bind-Value="AlienInput.LastName" />
-				<ValidationMessage For="@(() => AlienInput.LastName)" />
-			</div>
-		</div>
-	</div>
-	<div class="row mb-3">
-		<div class="col-md-6">
-			<label class="form-label">Enter age: </label>
-			<InputNumber type="number" class="form-control" @bind-Value="AlienInput.Age" />
-			<ValidationMessage For="@(() => AlienInput.Age)" />
-		</div>
-		<div class="col-md-6">
-			<label for="visitMonths" class="form-label">Additional months: </label>
-			<InputNumber id="visitMonths" class="form-control" @bind-Value="AlienInput.VisitDurationMonths" Min="0" Max="12"></InputNumber>
-			<ValidationMessage For="@(() => AlienInput.VisitDurationMonths)" />
-		</div>
-	</div>
-	<div class="row mb-3">
-		<div class="col-md-6">
-			<div>
-				<label class="form-label">Enter species: </label>
-				<InputSelect class="form-select" @bind-Value="AlienInput.Species">
-					@foreach (var species in Enum.GetValues(typeof(Species)))
-					{
-						<option value="@species">@species</option>
-					}
-				</InputSelect>
+	<div class="container" style="max-width: 700px; margin: auto;">
+		<div class="card shadow">
+			<div class="card-body">
+				<!-- Row 1: Title, First Name, Last Name -->
+				<div class="row mb-3">
+					<h1>Alien Registration Page</h1>
+					<p>Please fill out the details below to register your alien with the Galactic Administration.</p>
+					<div class="col-md-6">
+						<div>
+							<label class="form-label">Enter first name: </label>
+							<InputText type="text" class="form-control" @bind-Value="AlienInput.FirstName" />
+							<ValidationMessage For="@(() => AlienInput.FirstName)" />
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div>
+							<label class="form-label">Enter last name: </label>
+							<InputText type="text" class="form-control" @bind-Value="AlienInput.LastName" />
+							<ValidationMessage For="@(() => AlienInput.LastName)" />
+						</div>
+					</div>
+				</div>
 
-				<ValidationMessage For="@(() => AlienInput.Species)" />
-			</div>
-		</div>
-		<div class="col-md-6">
-			<div>
-				<label class="form-label">Enter planet: </label>
-				<InputText type="text" class="form-control" @bind-Value="AlienInput.Planet" />
-				<ValidationMessage For="@(() => AlienInput.Planet)" />
-			</div>
-		</div>
-	</div>
-	<div class="row mb-3">
-		<div class="col-md-6">
-			<label for="aliengroup" class="form-label">Select Alien Group: </label>
-			<InputSelect class="form-select" @bind-Value="AlienInput.AlienGroupID">
-				<option value="0">-- Select an option --</option>
-				@foreach (var group in AlienGroupList)
-				{
-					<option value="@group.ID">@group.Name</option>
-				}
-			</InputSelect>
-			<ValidationMessage For="@(() => AlienInput.AlienGroupID)" />
-		</div>
-		<div class="col-md-6">
-			<label for="atmosphereType" class="form-label">Select Atmosphere: </label>
-			<InputSelect id="atmosphereType" class="form-select" @bind-Value="AlienInput.AtmosphereTypeID">
-				<option value="">-- Select an Atmosphere --</option>
-				@foreach (var atmosphere in AtmosphereTypeList)
-				{
-						<option value="@atmosphere.ID">@atmosphere.Name</option>
-				}
-			</InputSelect>
-			<ValidationMessage For="@(() => AlienInput.AtmosphereTypeID)" />
-		</div>
-		<div class="mb-3">
-			<label for="specialRequirements" class="form-label">Special Requirements: </label>
-			<textarea id="specialRequirements" class="form-control" rows="4" @bind="AlienInput.SpecialRequirements"></textarea>
-			<ValidationMessage For="@(() => AlienInput.SpecialRequirements)" />
-		</div>
-		<div>
-			<label class="form-label">Enter email: </label>
-			<InputText type="email" class="form-control" @bind-Value="AlienInput.Email" />
-			<ValidationMessage For="@(() => AlienInput.Email)" />
-		</div>
-	</div>
+				<!-- Row 2: Age and Additional Months -->
+				<div class="row mb-3">
+					<div class="col-md-6">
+						<label class="form-label">Enter age: </label>
+						<InputNumber type="number" class="form-control" @bind-Value="AlienInput.Age" />
+						<ValidationMessage For="@(() => AlienInput.Age)" />
+					</div>
+					<div class="col-md-6">
+						<label for="visitMonths" class="form-label">Additional months: </label>
+						<InputNumber id="visitMonths" class="form-control" @bind-Value="AlienInput.VisitDurationMonths" Min="0" Max="12" />
+						<ValidationMessage For="@(() => AlienInput.VisitDurationMonths)" />
+					</div>
+				</div>
 
-	<button type="submit" class="btn btn-primary mt-3">Register Alien</button>
+				<!-- Row 3: Species and Planet -->
+				<div class="row mb-3">
+					<div class="col-md-6">
+						<div>
+							<label class="form-label">Enter species: </label>
+							<InputSelect class="form-select" @bind-Value="AlienInput.Species">
+								@foreach (var species in Enum.GetValues(typeof(Species)))
+								{
+									<option value="@species">@species</option>
+								}
+							</InputSelect>
+							<ValidationMessage For="@(() => AlienInput.Species)" />
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div>
+							<label class="form-label">Enter planet: </label>
+							<InputText type="text" class="form-control" @bind-Value="AlienInput.Planet" />
+							<ValidationMessage For="@(() => AlienInput.Planet)" />
+						</div>
+					</div>
+				</div>
+
+				<!-- Row 4: Alien Group and Atmosphere -->
+				<div class="row mb-3">
+					<div class="col-md-6">
+						<label for="aliengroup" class="form-label">Select Alien Group: </label>
+						<InputSelect class="form-select" @bind-Value="AlienInput.AlienGroupID">
+							<option value="0">-- Select an option --</option>
+							@foreach (var group in AlienGroupList)
+							{
+								<option value="@group.ID">@group.Name</option>
+							}
+						</InputSelect>
+						<ValidationMessage For="@(() => AlienInput.AlienGroupID)" />
+					</div>
+					<div class="col-md-6">
+						<label for="atmosphereType" class="form-label">Select Atmosphere: </label>
+						<InputSelect id="atmosphereType" class="form-select" @bind-Value="AlienInput.AtmosphereTypeID">
+							<option value="">-- Select an Atmosphere --</option>
+							@foreach (var atmosphere in AtmosphereTypeList)
+							{
+								<option value="@atmosphere.ID">@atmosphere.Name</option>
+							}
+						</InputSelect>
+						<ValidationMessage For="@(() => AlienInput.AtmosphereTypeID)" />
+					</div>
+				</div>
+
+				<!-- Row 5: Special Requirements -->
+				<div class="row mb-3">
+					<div class="col-12">
+						<label for="specialRequirements" class="form-label">Special Requirements: </label>
+						<textarea id="specialRequirements" class="form-control" rows="4" @bind="AlienInput.SpecialRequirements"></textarea>
+						<ValidationMessage For="@(() => AlienInput.SpecialRequirements)" />
+					</div>
+				</div>
+
+				<!-- Row 6: Email -->
+				<div class="row mb-3">
+					<div class="col-12">
+						<label class="form-label">Enter email: </label>
+						<InputText type="email" class="form-control" @bind-Value="AlienInput.Email" />
+						<ValidationMessage For="@(() => AlienInput.Email)" />
+					</div>
+				</div>
+				<button type="submit" class="btn btn-primary mt-3">Register Alien</button>
+			</div>
+		</div>
+	</div>
 </EditForm>
 
 @code {

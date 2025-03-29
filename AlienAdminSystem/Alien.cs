@@ -16,31 +16,37 @@ namespace AlienAdminSystem
         public int ID { get; set; }
 
         [Required(ErrorMessage = "First name is required.")]
-        public string FirstName { get; set; } = string.Empty;
+        public string FirstName { get; set; }
         [Required(ErrorMessage = "Last name is required.")]
-        public string LastName { get; set; } = string.Empty;
+        public string LastName { get; set; } 
         [Required(ErrorMessage = "Planet is required.")]
-        public string Planet { get; set; } = string.Empty;
+        public string Planet { get; set; } 
         [Required(ErrorMessage = "Species is required.")]
         public Species Species { get; set; }
         [Required(ErrorMessage = "Email is required.")]
-        public string Email { get; set; } = string.Empty;
-        [Range(0, 1000, ErrorMessage = "Age must be between 0 and 1000.")]
-        public int Age { get; set; } = 0;
-        [Required(ErrorMessage = "Group ID is required.")]
+        [EmailAddress(ErrorMessage = "Invalid email address.")]
+        public string Email { get; set; } 
+        [Range(1, 1000, ErrorMessage = "Age must be between 1 and 1000.")]
+        [Required(ErrorMessage = "Age is required.")]
+        public int? Age { get; set; }
 
-        public string SpecialRequirements { get; set; } = string.Empty;
-        [Range(0, 12, ErrorMessage = "Visit duration must be between 0 and 12 months.")]
-        public int VisitDurationMonths { get; set; } = 0;
+        public string SpecialRequirements { get; set; } 
+        [Range(1, 12, ErrorMessage = "Visit duration must be between 1 and 12 months.")]
+        [Required(ErrorMessage = "Visit duration is required.")]
+        public int? VisitDurationMonths { get; set; } 
 
         // Foreign Key
+        [Required(ErrorMessage = "Alien group is required.")]
+        [Range(1, int.MaxValue, ErrorMessage = "Alien group is required")]
         [Column("AlienGroupID")]
-        public int AlienGroupID { get; set; } = 0;
-        [Range(0, 2, ErrorMessage = "Atmosphere type must be between 0 and 2.")]
+        public int? AlienGroupID { get; set; }
+
 
         // Foreign Key
+        [Required(ErrorMessage = "Atmosphere type is required.")]
+        [Range(1, int.MaxValue, ErrorMessage = "Atmosphere type is required.")]
         [Column("AtmosphereTypeID")]
-        public int AtmosphereTypeID { get; set; } = 0;
+        public int? AtmosphereTypeID { get; set; }
 
         public List<Booking> Bookings { get; set; } = new List<Booking>();
 

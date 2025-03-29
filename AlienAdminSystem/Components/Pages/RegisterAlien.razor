@@ -21,11 +21,11 @@
 					<img src="images/alien1.jpg" alt="Alien Registration" class="card-img-top img-fluid" />
 					<div class="card-body">
 						<p class="card-text">
-							After registering on our platform, Alien Zorath embarked on a distinguished visit to the Stellar Harmony Embassy. 
-							Within its grand halls and modern architecture, Zorath experienced a welcoming, high-tech environment. 
+							After registering on our platform, Alien Zorath embarked on a distinguished visit to the Stellar Harmony Embassy.
+							Within its grand halls and modern architecture, Zorath experienced a welcoming, high-tech environment.
 							The embassy’s VIP suites, holographic briefing rooms, and secure data vaults provided exceptional comfort
 							and enabled meaningful interstellar dialogue—highlighting its vital role in fostering mutual understanding
-							and shared prosperity across the cosmos. 
+							and shared prosperity across the cosmos.
 						</p>
 					</div>
 				</div>
@@ -79,8 +79,9 @@
 						<div class="row mb-3">
 							<div class="col-md-6">
 								<div>
-									<label class="form-label">Enter species: </label>
+									<label for="species" class="form-label">Select a Species: </label>
 									<InputSelect class="form-select" @bind-Value="AlienInput.Species">
+										<option value="">--Select the Species--</option>
 										@foreach (var species in Enum.GetValues(typeof(Species)))
 										{
 											<option value="@species">@species</option>
@@ -176,16 +177,26 @@
 
 	private async Task RegisterMyAlien()
 	{
+
+		if (!AlienInput.Age.HasValue ||
+			!AlienInput.VisitDurationMonths.HasValue ||
+			!AlienInput.AlienGroupID.HasValue ||
+			!AlienInput.AtmosphereTypeID.HasValue || !AlienInput.Species.HasValue) 
+
+		{
+			throw new Exception("Please fill in all required numeric fields.");
+		}
+
 		var newAlien = AlienFactory.CreateAlien(
 		AlienInput.FirstName,
 		AlienInput.LastName,
 		AlienInput.Planet,
-		AlienInput.Species,
+		AlienInput.Species.Value,
 		AlienInput.Email,
-		AlienInput.Age,
-		AlienInput.AlienGroupID,
-		AlienInput.AtmosphereTypeID,
-		AlienInput.VisitDurationMonths,
+		AlienInput.Age.Value,
+		AlienInput.AlienGroupID.Value,
+		AlienInput.AtmosphereTypeID.Value,
+		AlienInput.VisitDurationMonths.Value,
 		AlienInput.SpecialRequirements
 		);
 

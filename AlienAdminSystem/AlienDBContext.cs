@@ -38,7 +38,7 @@ namespace AlienAdminSystem
                     j => j
                         .HasOne<Booking>()
                         .WithMany()
-                        .HasForeignKey("ID")
+                        .HasForeignKey("BookingID")
                 );
 
             // Generate new ID value on Add

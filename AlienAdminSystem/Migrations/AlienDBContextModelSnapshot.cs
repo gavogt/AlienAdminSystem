@@ -364,15 +364,15 @@ namespace AlienAdminSystem.Migrations
 
             modelBuilder.Entity("AlienBooking", b =>
                 {
-                    b.Property<int>("ID")
-                        .HasColumnType("int");
-
                     b.Property<int>("AlienID")
                         .HasColumnType("int");
 
-                    b.HasKey("ID");
+                    b.Property<int>("BookingID")
+                        .HasColumnType("int");
 
-                    b.HasIndex("AlienID");
+                    b.HasKey("AlienID", "BookingID");
+
+                    b.HasIndex("BookingID");
 
                     b.ToTable("AlienBooking");
                 });
@@ -684,7 +684,7 @@ namespace AlienAdminSystem.Migrations
 
                     b.HasOne("AlienAdminSystem.Booking", null)
                         .WithMany()
-                        .HasForeignKey("ID")
+                        .HasForeignKey("BookingID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -12,5 +12,10 @@ namespace AlienAdminSystem
         {
         }
 
+        public Reptilian()
+        {
+            
+        }
+
     }
 }

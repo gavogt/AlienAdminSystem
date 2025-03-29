@@ -8,8 +8,13 @@ namespace AlienAdminSystem
 {
     internal class Grey : Alien
     {
-        public Grey(string firstName, string lastName, string planet, Species species, string email, int age, int alienGroupID, int atmosphereTypeID, int visitDurationMonths, string specialRequirements) : base(firstName, lastName, planet, species, email, age, alienGroupID, atmosphereTypeID, visitDurationMonths, specialRequirements)
+        public Grey(string firstName, string lastName, string planet, Species species, string email, int age, int selectedGroupID, int atmosphereType, int visitDurationMonths, string specialRequirements) : base(firstName, lastName, planet, species, email, age, selectedGroupID, atmosphereType, visitDurationMonths, specialRequirements)
         {
+        }
+
+        public Grey()
+        {
+            
         }
     }
 }

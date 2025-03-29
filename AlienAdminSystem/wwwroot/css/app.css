@@ -93,6 +93,7 @@ h1:focus {
 
 .card-body label,
 .card-body h1,
-.card-body p {
+.card-body p
+.card-body h3 {
     color: #000000 !important;
 }

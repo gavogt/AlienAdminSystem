@@ -52,6 +52,18 @@
 			{
 				bookingApproval.AdminID = LoggedInUser?.LoggedInUser?.ID;
 				bookingApproval.ApprovalStatus = (BookingStatus.Status)SelectBookingStatusID;
+				if (bookingApproval.ApprovalStatus == BookingStatus.Status.Approved)
+				{
+					bookingApproval.IsApproved = true;
+				}
+				else if (bookingApproval.ApprovalStatus == BookingStatus.Status.Rejected)
+				{
+					bookingApproval.IsApproved = false;
+				}
+				else if (bookingApproval.ApprovalStatus == BookingStatus.Status.PendingApproval)
+				{
+					bookingApproval.IsApproved = false;
+				}
 
 				await BookingApprovalService.UpdateBookingApprovalAsync(bookingApproval);
 

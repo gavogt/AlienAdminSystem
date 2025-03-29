@@ -14,6 +14,7 @@ namespace AlienAdminSystem
             AutoApproved,
             Rejected,
             PendingApproval,
+            Approved,
 
         }
     }

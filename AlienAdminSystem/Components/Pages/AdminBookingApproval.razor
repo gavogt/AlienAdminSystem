@@ -1,0 +1,67 @@
+﻿@page "/bookingApprovals"
+@inject BookingApprovalService BookingApprovalService
+@inject SessionState LoggedInUser
+
+<div class="container mt-3">
+	<h3>AdminApproval</h3>
+	<div class="row mb-3">
+		<div class="col-md-6">
+			<label for="bookingApprovalList">Select a Booking Approval:</label>
+			<InputSelect TValue="int" id="bookingApprovalList" class="form-select" @bind-Value="SelectedApprovalID">
+				<option value="0">Select an option:</option>
+				@foreach (var bookingApproval in bookingApprovals)
+				{
+					<option value="@bookingApproval.ID">Booking ID {@bookingApproval.ID} has status {@bookingApproval.ApprovalStatus} with admin ID {@bookingApproval.AdminID}</option>
+				}
+			</InputSelect>
+		</div>
+	</div>
+	<div class="row mb-3">
+		<div class="col-md-6">
+			<label for="bookingStatusList">Select a Booking Status:</label>
+			<InputSelect TValue="int" id="bookingStatusList" class="form-select" @bind-Value="SelectBookingStatusID">
+				<option value="@((int)BookingStatus.Status.PendingApproval)">Select an option:</option>
+				<option value="@((int)BookingStatus.Status.PendingApproval)">Pending Approval</option>
+				<option value="@((int)BookingStatus.Status.Approved)">Approved</option>
+				<option value="@((int)BookingStatus.Status.Rejected)">Rejected</option>
+			</InputSelect>
+		</div>
+	</div>
+	<div class="row mb-3">
+		<div class="col-md-6">
+			<button class="btn btn-primary" @onclick="UpdateBooking">Update</button>
+		</div>
+	</div>
+</div>
+@code {
+	List<BookingApproval> bookingApprovals { get; set; } = new();
+	private int SelectedApprovalID { get; set; } = 0;
+	private int SelectBookingStatusID { get; set; } = (int)BookingStatus.Status.PendingApproval;
+
+	protected override async Task OnInitializedAsync()
+	{
+		bookingApprovals = await BookingApprovalService.GetBookingApprovalAsync();
+	}
+
+	protected async Task UpdateBooking()
+	{
+		if (SelectedApprovalID != 0)
+		{
+			var bookingApproval = bookingApprovals.FirstOrDefault(b => b.ID == SelectedApprovalID);
+			if (bookingApproval != null)
+			{
+				bookingApproval.AdminID = LoggedInUser?.LoggedInUser?.ID;
+				bookingApproval.ApprovalStatus = (BookingStatus.Status)SelectBookingStatusID;
+
+				await BookingApprovalService.UpdateBookingApprovalAsync(bookingApproval);
+
+				bookingApprovals = await BookingApprovalService.GetBookingApprovalAsync();
+			}
+		}
+	}
+}
+
+
+
+
+

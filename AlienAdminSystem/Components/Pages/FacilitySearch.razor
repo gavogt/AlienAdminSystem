@@ -1,57 +1,60 @@
 ﻿@page "/facilitySearch"
 @inject FacilityFilterService FacilityFilterService
 
-<div class="container mt-4 p-4 bg-dark rounded shadow-sm">
-	<div class="row">
-		<div class="col-md-6 mb-3">
-			<div class="form-group">
-				<label>Minimum Capacity:</label><br />
-				<input type="number" @bind="_minCapacity" placeholder="Enter minimum Capacity: " />
+<div class="container mt-4" style="max-width: 700px;">
+	<div class="card shadow-sm">
+		<div class="card-header bg-primary text-white">
+			<h4 class="mb-0">Search Facilities</h4>
+		</div>
+		<div class="card-body">
+			<div class="row">
+				<div class="col-md-6 mb-3">
+					<label>Minimum Capacity:</label><br />
+					<input type="number" @bind="_minCapacity" placeholder="Enter minimum Capacity: " />
+				</div>
+				<div class="col-md-6 mb-3">
+					<label>Required Atmosphere Type ID for Embassies:</label><br />
+					<input type="number" @bind="_requiredAtmosphere" placeholder="Enter Atmosphere Type ID: " />
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="col-md-6 mb-3">
+					<label>Required Lab Equipment Count:</label><br />
+					<input type="number" @bind="_requiredLabEquipmentCount" placeholder="Enter Lab Equipment Count: " />
+				</div>
+				<div class="col-md-6 d-flex align-items-end justify-content-end">
+					<button class="btn btn-primary" @onclick="SearchFacilities">Search</button>
+				</div>
 			</div>
 		</div>
-		<div class="col-md-6 mb-3">
-			<div class="form-group">
-				<label>Required Atmosphere Type ID for Embassies:</label><br />
-				<input type="number" @bind="_requiredAtmosphere" placeholder="Enter Atmosphere Type ID: " />
-			</div>
-		</div>
-	</div>
-	<div class="row mb-3">
-		<div class="col-md-6 mb-3">
-			<div class="form-group">
-				<label>Required Lab Equipment Count:</label><br />
-				<input type="number" @bind="_requiredLabEquipmentCount" placeholder="Enter Lab Equipment Count: " />
-			</div>
-		</div>
-	</div>
-	<button @onclick="SearchFacilities">Search</button>
 
-	<div class="search">
-		@if (_facilities != null)
-		{
-			if (_facilities.Any())
+		<div class="search">
+			@if (_facilities != null)
 			{
-				<h4>Results</h4>
-				<ul>
-					@foreach (var facility in _facilities)
-					{
-						if (facility?.AtmosphereType?.Name != null)
+				if (_facilities.Any())
+				{
+					<h4>Results</h4>
+					<ul>
+						@foreach (var facility in _facilities)
 						{
-							<li>
-								<strong>@facility.Name</strong> - Capacity: [@facility.Capacity] - Atmosphere ID: [@facility.AtmosphereType.ID] Type: [@facility.AtmosphereType.Name]
-							</li>
+							if (facility?.AtmosphereType?.Name != null)
+							{
+								<li>
+									<strong>@facility.Name</strong> - Capacity: [@facility.Capacity] - Atmosphere ID: [@facility.AtmosphereType.ID] Type: [@facility.AtmosphereType.Name]
+								</li>
 
-						}
+							}
 
-						var lab = facility as AlienAdminSystem.ResearchLab;
-						if (lab != null)
-						{
-							<li>Lab Equipment Count: @lab.LabEquipmentCount</li>
+							var lab = facility as AlienAdminSystem.ResearchLab;
+							if (lab != null)
+							{
+								<li>Lab Equipment Count: @lab.LabEquipmentCount</li>
+							}
 						}
-					}
-				</ul>
+					</ul>
+				}
 			}
-		}
+		</div>
 	</div>
 </div>
 @code {

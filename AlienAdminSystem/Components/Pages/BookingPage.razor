@@ -10,73 +10,83 @@
 
 @page "/booking"
 
-
 <EditForm Model="@BookingRequest" OnValidSubmit="SubmitBooking">
 	<DataAnnotationsValidator />
 	<ValidationSummary />
-	<div class="container">
-		<div class="top-row mb-3">
-			<h3>Booking</h3>
-			<div class="col-md-6">
+	<div class="container mt-4">
+		<div class="card shadow-sm">
+			<div class="card-header bg-primary text-white">
+				<h3 class="mb-0">Booking</h3>
+			</div>
+			<div class="card-body">
+				<div class="top-row mb-3">
+					<div class="col-md-6">
+						<label class="form-label">Enter Visitors: </label>
+						<InputNumber type="number" class="form-control" @bind-Value="BookingRequest.NumberOfVisitors" />
+						<ValidationMessage For="@(() => BookingRequest.NumberOfVisitors)" />
+					</div>
+				</div>
 				<div class="col-md-6">
-					<label class="form-label">Enter Visitors: </label>
-					<InputNumber type="number" class="form-control" @bind-Value="BookingRequest.NumberOfVisitors" />
-					<ValidationMessage For="@(() => BookingRequest.NumberOfVisitors)" />
+					<label for="facilities" class="form-label">Select Facility: </label>
+					<InputSelect class="form-select" @bind-Value="BookingRequest.FacilityID">
+						<option value="0">Select the option</option>
+						@foreach (var facilit in Facilities)
+						{
+							<option value="@facilit.ID">@facilit.Name - Status: @facilit.Status</option>
+						}
+					</InputSelect>
+					<ValidationMessage For="@(() => BookingRequest.FacilityID)" />
 				</div>
-			</div>
-			<div class="col-md-6">
-				<label for="facilities" class="form-label">Select Facility: </label>
-				<InputSelect class="form-select" @bind-Value="BookingRequest.FacilityID">
-					<option value="0">Select the option</option>
-					@foreach (var facilit in Facilities)
-					{
-						<option value="@facilit.ID">@facilit.Name - Status: @facilit.Status</option>
-					}
-				</InputSelect>
-				<ValidationMessage For="@(() => BookingRequest.FacilityID)" />
-			</div>
-		</div>
-		<div class="row mb-3">
-			@if (AlienViewModel == null || !AlienViewModel.Any())
-			{
-				<p>Loading Aliens....</p>
-			}
-			else
-			{
-				foreach (var alien in AlienViewModel)
-				{
-					<div class="form-check">
-						<input type="checkbox" class="form-check-input" id="@alien.ID" @bind="alien.IsSelected" />
-						<label class="form-check-label" for="@alien.ID">@alien.FirstName @alien.LastName</label>
+				<div class="row mb-3">
+					<div class="col-12">
+						@if (AlienViewModel == null || !AlienViewModel.Any())
+						{
+							<p>Loading Aliens....</p>
+						}
+						else
+						{
+							foreach (var alien in AlienViewModel)
+							{
+								<div class="form-check">
+									<input type="checkbox" class="form-check-input" id="@alien.ID" @bind="alien.IsSelected" />
+									<label class="form-check-label" for="@alien.ID">@alien.FirstName @alien.LastName</label>
+								</div>
+							}
+						}
 					</div>
-				}
-			}
-		</div>
-		<div class="row mb-3">
-			<div class="col-md-6">
-				<div>
-					<label class="form-label" for="startTime">Start Time: </label>
-					<input type="time" class="form-control" @bind="BookingRequest.StartTime" />
 				</div>
-			</div>
-			<div class="col-md-6">
-				<div>
-					<label class="form-label" for="endTime">End Time: </label>
-					<input type="time" class="form-control" @bind="BookingRequest.EndTime" />
-				</div>
-			</div>
-		</div>
-
-		<button type="submit" class="btn btn-primary mt-3">Register Alien</button>
-		<div class="row">
-			<p>
-				@if (!string.IsNullOrEmpty(ErrorMessage))
-				{
-					<div class="alert alert-danger mt-3">
-						@ErrorMessage
+				<div class="row mb-3">
+					<div class="col-md-6">
+						<div>
+							<label class="form-label" for="startTime">Start Time: </label>
+							<input type="time" class="form-control" @bind="BookingRequest.StartTime" />
+						</div>
 					</div>
-				}
-			</p>
+					<div class="col-md-6">
+						<div>
+							<label class="form-label" for="endTime">End Time: </label>
+							<input type="time" class="form-control" @bind="BookingRequest.EndTime" />
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12">
+						<button type="submit" class="btn btn-primary mt-3">Register Alien</button>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12">
+						<p>
+							@if (!string.IsNullOrEmpty(ErrorMessage))
+							{
+								<div class="alert alert-danger mt-3">
+									@ErrorMessage
+								</div>
+							}
+						</p>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </EditForm>

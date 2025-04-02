@@ -2,34 +2,36 @@
 @inject BookingApprovalService BookingApprovalService
 @inject SessionState LoggedInUser
 
-<div class="container mt-3">
-	<h3>AdminApproval</h3>
-	<div class="row mb-3">
-		<div class="col-md-6">
-			<label for="bookingApprovalList">Select a Booking Approval:</label>
-			<InputSelect TValue="int" id="bookingApprovalList" class="form-select" @bind-Value="SelectedApprovalID">
-				<option value="0">Select an option:</option>
-				@foreach (var bookingApproval in bookingApprovals)
-				{
-					<option value="@bookingApproval.ID">Booking ID {@bookingApproval.ID} has status {@bookingApproval.ApprovalStatus} with admin ID {@bookingApproval.AdminID}</option>
-				}
-			</InputSelect>
-		</div>
-	</div>
-	<div class="row mb-3">
-		<div class="col-md-6">
-			<label for="bookingStatusList">Select a Booking Status:</label>
-			<InputSelect TValue="int" id="bookingStatusList" class="form-select" @bind-Value="SelectBookingStatusID">
-				<option value="@((int)BookingStatus.Status.PendingApproval)">Select an option:</option>
-				<option value="@((int)BookingStatus.Status.PendingApproval)">Pending Approval</option>
-				<option value="@((int)BookingStatus.Status.Approved)">Approved</option>
-				<option value="@((int)BookingStatus.Status.Rejected)">Rejected</option>
-			</InputSelect>
-		</div>
-	</div>
-	<div class="row mb-3">
-		<div class="col-md-6">
-			<button class="btn btn-primary" @onclick="UpdateBooking">Update</button>
+<div class="container my-5">
+	<div class="row justify-content-center">
+		<div class="col-md-8">
+			<div class="card shadow-sm">
+				<div class="card-header bg-primary text-white">
+					<h4 class="mb-0">Booking Approval</h4>
+				</div>
+				<div class="card-body">
+					<div class="mb-3">
+						<label for="bookingApprovalList">Select a Booking Approval:</label>
+						<InputSelect TValue="int" id="bookingApprovalList" class="form-select" @bind-Value="SelectedApprovalID">
+							<option value="0">Select an option:</option>
+							@foreach (var bookingApproval in bookingApprovals)
+							{
+								<option value="@bookingApproval.ID">Booking ID {@bookingApproval.ID} has status {@bookingApproval.ApprovalStatus} with admin ID {@bookingApproval.AdminID}</option>
+							}
+						</InputSelect>
+					</div>
+					<div class="mb-3">
+						<label for="bookingStatusList">Select a Booking Status:</label>
+						<InputSelect TValue="int" id="bookingStatusList" class="form-select" @bind-Value="SelectBookingStatusID">
+							<option value="@((int)BookingStatus.Status.PendingApproval)">Select an option:</option>
+							<option value="@((int)BookingStatus.Status.PendingApproval)">Pending Approval</option>
+							<option value="@((int)BookingStatus.Status.Approved)">Approved</option>
+							<option value="@((int)BookingStatus.Status.Rejected)">Rejected</option>
+						</InputSelect>
+					</div>
+					<button class="btn btn-primary" @onclick="UpdateBooking">Update</button>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

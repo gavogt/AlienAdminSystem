@@ -8,42 +8,52 @@
 <EditForm model="SelectedFacility" OnSubmit="SubmitFacilityChange">
 	<DataAnnotationsValidator />
 	<ValidationSummary />
-	<div class="container mt-4">
-		<h3>Facility Status Management</h3>
-		<div class="row mb-3">
-			<div class="col-md-6">
-				<label for="facilities" class="form-label">Select Facility: </label>
-				<InputSelect class="form-select" @bind-Value="SelectedFacilityID">
-					<option value="0">Select the option</option>
-					@foreach (var facility in Facilities)
-					{
-						<option value="@facility.ID">@facility.Name - Status: @facility.Status</option>
-					}
-				</InputSelect>
-				<ValidationMessage For="@(() => SelectedFacilityID)" />
-			</div>
-			<div class="col-md-6">
-				<label for="status" class="form-label">Change Status: </label>
-				@if (SelectedFacility != null)
-				{
-					<InputSelect class="form-select" @bind-Value="SelectedFacility.Status">
-						<option value="0">Select the option</option>
-						@foreach (var status in Enum.GetValues(typeof(FacilityStatus)))
+
+	<div class="container my-5">
+		<div class="row justify-content-center">
+			<div class="col-md-8 offset-md-2">
+				<div class="card shadow-sm">
+					<div class="card-header">
+						<h4 class="mb-0">Facility Status Management</h4>
+					</div>
+					<div class="card-body">
+
+						<div class="mb-3">
+							<label for="facilities" class="form-label">Select Facility: </label>
+							<InputSelect class="form-select" @bind-Value="SelectedFacilityID">
+								<option value="0">Select the option</option>
+								@foreach (var facility in Facilities)
+								{
+									<option value="@facility.ID">@facility.Name - Status: @facility.Status</option>
+								}
+							</InputSelect>
+							<ValidationMessage For="@(() => SelectedFacilityID)" />
+						</div>
+						<div class="mb-3">
+							<label for="status" class="form-label">Change Status: </label>
+							@if (SelectedFacility != null)
+							{
+								<InputSelect class="form-select" @bind-Value="SelectedFacility.Status">
+									<option value="0">Select the option</option>
+									@foreach (var status in Enum.GetValues(typeof(FacilityStatus)))
+									{
+										<option value="@status">@status</option>
+									}
+								</InputSelect>
+								<ValidationMessage For="@(() => SelectedFacility.Status)" />
+							}
+						</div>
+						@if (ErrorMessage != String.Empty)
 						{
-							<option value="@status">@status</option>
+							<div class="alert alert-danger mt-3">
+								@ErrorMessage
+							</div>
 						}
-					</InputSelect>
-					<ValidationMessage For="@(() => SelectedFacility.Status)" />
-				}
-			</div>
-			@if (ErrorMessage != String.Empty)
-			{
-				<div class="alert alert-danger mt-3">
-					@ErrorMessage
+					</div>
+					<button type="submit" class="btn btn-primary w-auto">Update Status</button>
 				</div>
-			}
+			</div>
 		</div>
-		<button type="submit" class="btn btn-primary">Update Status</button>
 	</div>
 </EditForm>
 
@@ -78,7 +88,7 @@
 
 	private async Task SubmitFacilityChange()
 	{
-		if(SelectedFacility == null)
+		if (SelectedFacility == null)
 		{
 			return;
 		}
